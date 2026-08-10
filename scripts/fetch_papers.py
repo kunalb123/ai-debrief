@@ -170,6 +170,209 @@ def clean_text(value: Any) -> str:
     return WHITESPACE_RE.sub(" ", str(value)).strip()
 
 
+# ---------------------------------------------------------------------------
+# LaTeX → plain text
+# ---------------------------------------------------------------------------
+# arXiv abstracts are LaTeX source, so they arrive full of "$R_{15}$" and
+# "\textit{...}". Rather than ship a maths renderer to every visitor, we flatten
+# it to Unicode once at build time: subscripts and superscripts become real
+# characters, known macros become their symbol, and anything unrecognised loses
+# its markup instead of leaking backslashes onto the card.
+SUBSCRIPTS = {
+    "0": "₀", "1": "₁", "2": "₂", "3": "₃", "4": "₄", "5": "₅", "6": "₆",
+    "7": "₇", "8": "₈", "9": "₉", "+": "₊", "-": "₋", "=": "₌", "(": "₍",
+    ")": "₎", "a": "ₐ", "e": "ₑ", "h": "ₕ", "i": "ᵢ", "j": "ⱼ", "k": "ₖ",
+    "l": "ₗ", "m": "ₘ", "n": "ₙ", "o": "ₒ", "p": "ₚ", "r": "ᵣ", "s": "ₛ",
+    "t": "ₜ", "u": "ᵤ", "v": "ᵥ", "x": "ₓ",
+}
+SUPERSCRIPTS = {
+    "0": "⁰", "1": "¹", "2": "²", "3": "³", "4": "⁴", "5": "⁵", "6": "⁶",
+    "7": "⁷", "8": "⁸", "9": "⁹", "+": "⁺", "-": "⁻", "=": "⁼", "(": "⁽",
+    ")": "⁾", "a": "ᵃ", "b": "ᵇ", "c": "ᶜ", "d": "ᵈ", "e": "ᵉ", "f": "ᶠ",
+    "g": "ᵍ", "h": "ʰ", "i": "ⁱ", "j": "ʲ", "k": "ᵏ", "l": "ˡ", "m": "ᵐ",
+    "n": "ⁿ", "o": "ᵒ", "p": "ᵖ", "r": "ʳ", "s": "ˢ", "t": "ᵗ", "u": "ᵘ",
+    "v": "ᵛ", "w": "ʷ", "x": "ˣ", "y": "ʸ", "z": "ᶻ",
+}
+
+LATEX_SYMBOLS = {
+    # Greek
+    "alpha": "α", "beta": "β", "gamma": "γ", "delta": "δ", "epsilon": "ε",
+    "varepsilon": "ε", "zeta": "ζ", "eta": "η", "theta": "θ", "vartheta": "ϑ",
+    "iota": "ι", "kappa": "κ", "lambda": "λ", "mu": "μ", "nu": "ν", "xi": "ξ",
+    "pi": "π", "rho": "ρ", "sigma": "σ", "tau": "τ", "upsilon": "υ", "phi": "φ",
+    "varphi": "φ", "chi": "χ", "psi": "ψ", "omega": "ω",
+    "Gamma": "Γ", "Delta": "Δ", "Theta": "Θ", "Lambda": "Λ", "Xi": "Ξ",
+    "Pi": "Π", "Sigma": "Σ", "Upsilon": "Υ", "Phi": "Φ", "Psi": "Ψ", "Omega": "Ω",
+    # Relations and operators
+    "times": "×", "cdot": "·", "div": "÷", "pm": "±", "mp": "∓",
+    "leq": "≤", "le": "≤", "geq": "≥", "ge": "≥", "neq": "≠", "ne": "≠",
+    "approx": "≈", "sim": "∼", "simeq": "≃", "equiv": "≡", "propto": "∝",
+    "ll": "≪", "gg": "≫", "subset": "⊂", "subseteq": "⊆", "supset": "⊃",
+    "in": "∈", "notin": "∉", "cup": "∪", "cap": "∩", "emptyset": "∅",
+    "forall": "∀", "exists": "∃", "neg": "¬", "land": "∧", "lor": "∨",
+    "sum": "∑", "prod": "∏", "int": "∫", "sqrt": "√", "partial": "∂",
+    "nabla": "∇", "infty": "∞", "circ": "∘", "star": "⋆", "bullet": "•",
+    "oplus": "⊕", "otimes": "⊗", "perp": "⊥", "angle": "∠", "degree": "°",
+    # Arrows
+    "to": "→", "rightarrow": "→", "leftarrow": "←", "leftrightarrow": "↔",
+    "Rightarrow": "⇒", "Leftarrow": "⇐", "Leftrightarrow": "⇔",
+    "mapsto": "↦", "uparrow": "↑", "downarrow": "↓",
+    # Spacing and punctuation
+    "dots": "…", "ldots": "…", "cdots": "⋯", "quad": " ", "qquad": " ",
+    "textasciitilde": "~", "textbackslash": "\\",
+    # Sizing and grouping hints carry no meaning once the maths is flattened.
+    "left": "", "right": "", "big": "", "Big": "", "bigg": "", "Bigg": "",
+    "displaystyle": "", "textstyle": "", "nonumber": "", "limits": "",
+}
+
+# Macros whose only job is styling or accenting — keep the argument, drop the
+# wrapper. Accents (\hat, \bar, …) belong here so they never survive as "hatx".
+TRANSPARENT_MACROS = (
+    "text|textbf|textit|textrm|texttt|textsc|textsl|emph|mathrm|mathbf|mathit"
+    "|mathsf|mathtt|mathcal|mathscr|mathfrak|boldsymbol|bm|operatorname|mbox|hbox"
+    "|hat|widehat|bar|overline|underline|tilde|widetilde|vec|dot|ddot|check"
+    "|breve|acute|grave"
+)
+# Cross-reference macros carry nothing a reader wants — drop them with their arg.
+DROP_MACRO_RE = re.compile(r"\\(?:label|ref|eqref|cite[a-z]*|footnote)\s*\{[^{}]*\}")
+BLACKBOARD = {
+    "R": "ℝ", "N": "ℕ", "Z": "ℤ", "Q": "ℚ", "C": "ℂ", "E": "𝔼", "P": "ℙ",
+}
+
+MATH_DELIM_RE = re.compile(r"\$\$(.+?)\$\$|\$(.+?)\$|\\\((.+?)\\\)|\\\[(.+?)\\\]", re.S)
+FRAC_RE = re.compile(r"\\d?frac\s*\{([^{}]*)\}\s*\{([^{}]*)\}")
+BLACKBOARD_RE = re.compile(r"\\mathbb\s*\{\s*([A-Z])\s*\}")
+TRANSPARENT_RE = re.compile(r"\\(?:" + TRANSPARENT_MACROS + r")\s*\{([^{}]*)\}")
+SCRIPT_BRACED_RE = re.compile(r"([_^])\{([^{}]*)\}")
+SCRIPT_BARE_RE = re.compile(r"([_^])([A-Za-z0-9])")
+# Outside $...$ an underscore is far more often snake_case than a subscript, so
+# the prose pass matches the base token too and only converts when the pair
+# really looks like maths (see _is_script_base).
+PROSE_SCRIPT_RE = re.compile(r"([A-Za-z0-9]+)([_^])(?:\{([^{}]*)\}|([A-Za-z0-9]))")
+# Stops before a closing brace or trailing sentence punctuation, so a link at the
+# end of an abstract doesn't swallow the delimiter that follows it.
+URL_RE = re.compile(r"(?:https?://|www\.)[^\s{}$\\]*[^\s{}$\\.,;:)\]]")
+# A brace pair used purely for grouping shouldn't fuse the words either side.
+UNBRACE_RE = re.compile(r"([A-Za-z0-9])?\{([^{}]*)\}")
+SYMBOL_RE = re.compile(r"\\([A-Za-z]+)")
+# Non-alphabetic macros: `\|` is a norm bar, the rest are spacing commands.
+NORM_RE = re.compile(r"\\\|")
+SPACING_RE = re.compile(r"\\[,;:!>]")
+ESCAPED_CHAR_RE = re.compile(r"\\([%&#_${}])")
+LEFTOVER_MACRO_ARG_RE = re.compile(r"\\[A-Za-z]+\s*\{([^{}]*)\}")
+
+
+def _to_script(body: str, table: dict[str, str]) -> str | None:
+    """Render `body` in Unicode sub/superscript, or None if any char has no glyph."""
+    if not body:
+        return None
+    out = []
+    for char in body:
+        glyph = table.get(char)
+        if glyph is None:
+            return None
+        out.append(glyph)
+    return "".join(out)
+
+
+def _is_script_base(base: str, body: str) -> bool:
+    """Does `base_body` outside a maths span read as a variable, not an identifier?
+
+    A one-character base is the classic form (`R_1`, `x_i`). A longer base only
+    qualifies when it is all letters and the script is all digits (`CO_2`), which
+    still rules out `m09c_surgery`, `vjepa2_1` and the rest of snake_case.
+    """
+    if len(base) == 1:
+        return True
+    return base.isalpha() and body.isdigit()
+
+
+def _flatten_math(expr: str, prose: bool = False) -> str:
+    """Turn the inside of a maths span into readable plain text.
+
+    With `prose=True` the same treatment is applied to text that was never
+    delimited, where the markup has to be recognised far more cautiously.
+    """
+    expr = BLACKBOARD_RE.sub(lambda m: BLACKBOARD.get(m.group(1), m.group(1)), expr)
+    expr = FRAC_RE.sub(r"\1/\2", expr)
+    # Before SYMBOL_RE, which only matches alphabetic macro names.
+    expr = NORM_RE.sub("‖", expr)
+    expr = SPACING_RE.sub(" ", expr)
+
+    # Styling wrappers can nest, so keep unwrapping until nothing changes.
+    for _ in range(4):
+        unwrapped = TRANSPARENT_RE.sub(r"\1", expr)
+        if unwrapped == expr:
+            break
+        expr = unwrapped
+
+    def braced_script(match: re.Match[str]) -> str:
+        kind, body = match.group(1), match.group(2)
+        table = SUBSCRIPTS if kind == "_" else SUPERSCRIPTS
+        return _to_script(body, table) or f"{kind}{body}"
+
+    def bare_script(match: re.Match[str]) -> str:
+        kind, body = match.group(1), match.group(2)
+        table = SUBSCRIPTS if kind == "_" else SUPERSCRIPTS
+        return _to_script(body, table) or f"{kind}{body}"
+
+    def prose_script(match: re.Match[str]) -> str:
+        base, kind = match.group(1), match.group(2)
+        body = match.group(3) if match.group(3) is not None else match.group(4)
+        if not _is_script_base(base, body):
+            return match.group(0)
+        table = SUBSCRIPTS if kind == "_" else SUPERSCRIPTS
+        script = _to_script(body, table)
+        return base + script if script else f"{base}{kind}{body}"
+
+    if prose:
+        expr = PROSE_SCRIPT_RE.sub(prose_script, expr)
+    else:
+        expr = SCRIPT_BRACED_RE.sub(braced_script, expr)
+        expr = SCRIPT_BARE_RE.sub(bare_script, expr)
+    expr = SYMBOL_RE.sub(lambda m: LATEX_SYMBOLS.get(m.group(1), m.group(1)), expr)
+    return expr
+
+
+def unlatex(text: str) -> str:
+    """Flatten LaTeX markup in an abstract or title to plain Unicode text."""
+    if not text or not any(ch in text for ch in "\\$_^{}"):
+        return text
+
+    # Project links are full of underscores and carets that mean nothing here, and
+    # a mangled URL is worse than raw markup — so hold them out of the whole pass.
+    urls: list[str] = []
+
+    def stash(match: re.Match[str]) -> str:
+        urls.append(match.group(0))
+        return f"\x00{len(urls) - 1}\x00"
+
+    text = URL_RE.sub(stash, text)
+
+    text = DROP_MACRO_RE.sub("", text)
+    # Maths spans first, so `$R_{15}$` is handled as maths rather than prose.
+    text = MATH_DELIM_RE.sub(
+        lambda m: _flatten_math(next(g for g in m.groups() if g is not None)), text
+    )
+    # Then the same treatment for markup outside any $...$, which is common in
+    # abstracts written half in prose — but read far more conservatively.
+    text = _flatten_math(text, prose=True)
+
+    text = ESCAPED_CHAR_RE.sub(r"\1", text)
+    text = LEFTOVER_MACRO_ARG_RE.sub(r"\1", text)
+    text = text.replace("\\\\", " ").replace("~", " ")
+    # A truncated abstract can leave an unpaired delimiter behind.
+    text = text.replace("$", "")
+    def unbrace(match: re.Match[str]) -> str:
+        before, body = match.group(1) or "", match.group(2)
+        joins_words = bool(before) and (body[:1].isalnum() or body[:1] == "\x00")
+        return before + (" " if joins_words else "") + body
+
+    text = UNBRACE_RE.sub(unbrace, text)
+    text = WHITESPACE_RE.sub(" ", text).strip()
+    return re.sub(r"\x00(\d+)\x00", lambda m: urls[int(m.group(1))], text)
+
+
 def split_sentences(text: str) -> list[str]:
     if not text:
         return []
@@ -315,11 +518,11 @@ def fetch_window(
 def normalize(entry: dict[str, Any], rank: int) -> dict[str, Any] | None:
     paper = entry.get("paper") or {}
     paper_id = clean_text(paper.get("id") or entry.get("id"))
-    title = clean_text(paper.get("title") or entry.get("title"))
+    title = unlatex(clean_text(paper.get("title") or entry.get("title")))
     if not paper_id or not title:
         return None
 
-    summary = clean_text(paper.get("summary") or entry.get("summary"))
+    summary = unlatex(clean_text(paper.get("summary") or entry.get("summary")))
     names = author_names(paper) or author_names(entry)
     published = parse_date(paper.get("publishedAt") or entry.get("publishedAt"))
     submitted = parse_date(paper.get("submittedOnDailyAt") or entry.get("submittedOnDailyAt"))

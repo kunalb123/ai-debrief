@@ -36,9 +36,9 @@ ASSETS = ("style.css", "app.js")
 FAVICON_SVG = (
     "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'>"
     "<defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'>"
-    "<stop offset='0' stop-color='%235b84ff'/><stop offset='1' stop-color='%23a3bcff'/>"
+    "<stop offset='0' stop-color='%23ffffff'/><stop offset='1' stop-color='%239a9ba0'/>"
     "</linearGradient></defs>"
-    "<rect width='64' height='64' rx='16' fill='%230c0d10'/>"
+    "<rect width='64' height='64' rx='16' fill='%230c0d0e'/>"
     "<rect x='14' y='12' width='30' height='40' rx='7' fill='none' stroke='url(%23g)' stroke-width='3.5' "
     "transform='rotate(-10 29 32)'/>"
     "<rect x='24' y='14' width='30' height='40' rx='7' fill='url(%23g)' opacity='.9' "
@@ -77,8 +77,11 @@ def asset_version(paths: list[Path], data_path: Path) -> str:
     return digest.hexdigest()[:10]
 
 
-def build(data_path: Path, out_dir: Path) -> Path:
+def build(data_path: Path, out_dir: Path, link_target: str = "pdf") -> Path:
     data = load_data(data_path)
+    # Lives on `data` rather than beside it, so the embedded JSON carries it too
+    # and app.js renders deck cards with the same destination as the template.
+    data["link_target"] = link_target
 
     env = Environment(
         loader=FileSystemLoader(str(TEMPLATE_DIR)),
@@ -144,9 +147,15 @@ def main() -> int:
     parser.add_argument("--out", default=str(DEFAULT_OUT), help="Output directory")
     parser.add_argument("--serve", action="store_true", help="Serve the output after building")
     parser.add_argument("--port", type=int, default=8000, help="Port for --serve")
+    parser.add_argument(
+        "--link-target",
+        choices=("pdf", "abstract"),
+        default="pdf",
+        help="Where the card's Read button points (default: the arXiv PDF)",
+    )
     args = parser.parse_args()
 
-    out_dir = build(Path(args.data), Path(args.out))
+    out_dir = build(Path(args.data), Path(args.out), args.link_target)
     if args.serve:
         serve(out_dir, args.port)
     return 0

@@ -7,7 +7,8 @@ A TikTok-style ML paper discovery feed — swipeable cards, one headline, two se
 **Desktop:** a filterable grid of frosted-glass cards, ranked by upvotes across the week.
 **Mobile:** one card at a time — swipe left to skip, swipe right to save.
 
-Neutral graphite ground, one blue accent, and a full light palette that follows
+Monochrome graphite: the accent is the far end of the value scale rather than a
+hue, so emphasis comes from contrast. A full light palette follows
 `prefers-color-scheme`.
 
 No backend. No database. No API keys. No external AI calls.
@@ -69,6 +70,7 @@ Useful flags:
 | | `--lookback 10` | Extra days to try when the whole window is empty |
 | | `--no-fallback` | Fail instead of walking back past the window |
 | `generate_site.py` | `--out public` | Output directory (default `dist/`) |
+| | `--link-target abstract` | Point Read at the arXiv abstract page instead of the PDF |
 | | `--serve --port 8080` | Serve the build after generating |
 
 The API is per-day, so the fetcher requests each day in the window and pools the
@@ -89,9 +91,15 @@ it leaner.
   the card border on hover.
 - **Light and dark** — one token set per theme in `site/style.css`, switched by
   `prefers-color-scheme`. Nothing outside those two `:root` blocks names a colour.
+- **Read straight to the PDF** — the card's primary button opens
+  `arxiv.org/pdf/<id>`. Build with `--link-target abstract` for the landing page.
 - **Topic filtering** — 16 topics (Interpretability, Alignment & Safety, RL,
   Reasoning, Agents, Efficiency, …) inferred from title/abstract keywords.
 - **Full HF summary** — the card shows two sentences; expand for the whole abstract.
+- **Readable maths** — abstracts arrive with raw LaTeX in them, so `unlatex()` in
+  the fetcher flattens it to Unicode at build time: `$R_{15}$` → `R₁₅`,
+  `\mathbb{R}^n` → `ℝⁿ`, `\alpha` → `α`. No maths renderer ships to the browser.
+  URLs and `snake_case` identifiers are held out, so a subscript rule can't eat them.
 - **Saves** — swipe right or hit Save; kept in `localStorage`, viewable under
   the Saved tab, and synced across tabs. Nothing leaves your device.
 - **Resume where you left off** — the deck remembers what you've seen until the
@@ -154,6 +162,7 @@ paperswipe/
       "daily_label": "Aug 7",
       "published_label": "Aug 2026",
       "arxiv_url": "https://arxiv.org/abs/2608.01492",
+      "pdf_url": "https://arxiv.org/pdf/2608.01492",
       "hf_url": "https://huggingface.co/papers/2608.01492"
     }
   ]

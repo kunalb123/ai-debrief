@@ -39,6 +39,10 @@
     payload = {};
   }
   var papers = payload.papers || [];
+  // Where "Read" goes: the arXiv PDF or its abstract page. Set at build time by
+  // generate_site.py --link-target, and mirrored here so the JS-rendered deck
+  // cards match the server-rendered ones exactly.
+  var linkToPdf = payload.link_target !== "abstract";
   var byId = {};
   papers.forEach(function (paper) {
     byId[paper.id] = paper;
@@ -192,8 +196,12 @@
     card.appendChild(bodyEl);
 
     var actions = el("div", "card__actions");
-    var read = el("a", "btn btn--primary", "Read paper");
-    read.href = paper.arxiv_url || paper.hf_url || "#";
+    var read = el("a", "btn btn--primary", linkToPdf ? "Read PDF" : "Read paper");
+    read.href =
+      (linkToPdf ? paper.pdf_url : paper.arxiv_url) ||
+      paper.arxiv_url ||
+      paper.hf_url ||
+      "#";
     read.target = "_blank";
     read.rel = "noopener";
     actions.appendChild(read);

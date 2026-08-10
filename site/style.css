@@ -1,9 +1,13 @@
 /* ==========================================================================
-   paperswipe — "Graphite"
-   Neutral ground, frosted glass, one accent. The atmosphere stays; the light
-   show goes. Every colour below is a token, and the whole palette is redefined
-   once for light mode — nothing outside these two blocks names a colour, so
-   the themes can never drift apart.
+   paperswipe — "Graphite", monochrome
+   Neutral ground, frosted glass, no hue. The accent is simply the far end of
+   the value scale: near-white on dark, near-black on light — so emphasis comes
+   from contrast rather than colour. The only surviving chroma is a whisper on
+   save/skip, where the swipe outcome genuinely needs to read at a glance.
+
+   Every colour below is a token, and the whole palette is redefined once for
+   light mode; nothing outside these two blocks names a colour, so the themes
+   can never drift apart.
    ========================================================================== */
 
 @property --ring-angle {
@@ -17,13 +21,14 @@
   color-scheme: dark;
 
   /* Ground */
-  --ink: #0c0d10;
-  --ink-2: #16181c;
+  --ink: #0c0d0e;
+  --ink-2: #17181a;
   --bloom-base:
-    radial-gradient(120% 80% at 50% -10%, #191b21 0%, transparent 60%),
-    linear-gradient(180deg, #101116 0%, #0c0d10 45%, #08090b 100%);
-  --wash-accent: radial-gradient(circle, rgba(91, 132, 255, 0.3), transparent 65%);
-  --wash-neutral: radial-gradient(circle, rgba(150, 165, 190, 0.14), transparent 65%);
+    radial-gradient(120% 80% at 50% -10%, #1b1c1f 0%, transparent 60%),
+    linear-gradient(180deg, #121314 0%, #0c0d0e 45%, #08090a 100%);
+  /* Light, not colour: the washes are pale grey lifting the ground. */
+  --wash-accent: radial-gradient(circle, rgba(226, 229, 233, 0.12), transparent 65%);
+  --wash-neutral: radial-gradient(circle, rgba(160, 164, 170, 0.1), transparent 65%);
   --grain-opacity: 0.035;
   --grain-blend: overlay;
 
@@ -42,36 +47,37 @@
     90deg, transparent, rgba(255, 255, 255, 0.14) 12%, rgba(255, 255, 255, 0.14) 88%, transparent);
 
   /* Veils — the translucent bars that sit over scrolling content */
-  --veil-strong: rgba(12, 13, 16, 0.86);
-  --veil-soft: rgba(12, 13, 16, 0.6);
-  --veil-deck: rgba(12, 13, 16, 0.82);
-  --surface-solid: rgba(24, 26, 31, 0.86);
-  --solid-panel: rgba(24, 26, 31, 0.94);
-  --solid-bar: rgba(12, 13, 16, 0.96);
+  --veil-strong: rgba(12, 13, 14, 0.86);
+  --veil-soft: rgba(12, 13, 14, 0.6);
+  --veil-deck: rgba(12, 13, 14, 0.82);
+  --surface-solid: rgba(25, 26, 28, 0.86);
+  --solid-panel: rgba(25, 26, 28, 0.94);
+  --solid-bar: rgba(12, 13, 14, 0.96);
 
   /* Type */
-  --title: #f5f6f8;
-  --text: rgba(244, 245, 247, 0.94);
-  --text-2: rgba(244, 245, 247, 0.64);
-  --text-3: rgba(244, 245, 247, 0.4);
+  --title: #f6f7f8;
+  --text: rgba(245, 246, 247, 0.94);
+  --text-2: rgba(245, 246, 247, 0.64);
+  --text-3: rgba(245, 246, 247, 0.4);
 
-  /* The one accent. Everything chromatic on the page comes from these. */
-  --accent: #5b84ff;
-  --accent-hi: #a3bcff;
-  --accent-soft: rgba(91, 132, 255, 0.16);
-  --accent-edge: rgba(91, 132, 255, 0.5);
-  --accent-glow: rgba(91, 132, 255, 0.85);
-  --on-accent: #fff;
+  /* "Accent" = the bright end of the value scale, not a hue. */
+  --accent: #ececee;
+  --accent-hi: #ffffff;
+  --accent-soft: rgba(236, 236, 238, 0.14);
+  --accent-edge: rgba(236, 236, 238, 0.45);
+  --accent-glow: rgba(0, 0, 0, 0.7);
+  --on-accent: #0c0d0e;
 
-  /* Semantic — swipe outcomes only, kept muted so they read as signal */
-  --save: #52d6a0;
-  --save-edge: rgba(82, 214, 160, 0.55);
-  --save-soft: rgba(82, 214, 160, 0.14);
-  --save-glow: rgba(82, 214, 160, 0.75);
-  --skip: #f2788f;
-  --skip-edge: rgba(242, 120, 143, 0.55);
-  --skip-soft: rgba(242, 120, 143, 0.14);
-  --skip-glow: rgba(242, 120, 143, 0.75);
+  /* Semantic — swipe outcomes only. Barely saturated: the ✕/★ glyphs and the
+     drag direction carry the meaning, these just keep them apart at a glance. */
+  --save: #b1c3bb;
+  --save-edge: rgba(177, 195, 187, 0.5);
+  --save-soft: rgba(177, 195, 187, 0.12);
+  --save-glow: rgba(177, 195, 187, 0.55);
+  --skip: #c3b1b6;
+  --skip-edge: rgba(195, 177, 182, 0.5);
+  --skip-soft: rgba(195, 177, 182, 0.12);
+  --skip-glow: rgba(195, 177, 182, 0.55);
 
   --pill-bg: rgba(255, 255, 255, 0.06);
   --pill-edge: rgba(255, 255, 255, 0.13);
@@ -81,7 +87,7 @@
   --btn-bg-hover: rgba(255, 255, 255, 0.09);
 
   --shadow: 0 24px 60px -20px rgba(0, 0, 0, 0.8), 0 2px 10px rgba(0, 0, 0, 0.45);
-  --shadow-lift: 0 40px 90px -28px rgba(0, 0, 0, 0.9), 0 0 50px -24px rgba(91, 132, 255, 0.5);
+  --shadow-lift: 0 40px 90px -28px rgba(0, 0, 0, 0.9), 0 0 50px -26px rgba(255, 255, 255, 0.35);
 
   --radius: 24px;
   --radius-sm: 14px;
@@ -103,66 +109,67 @@
   :root {
     color-scheme: light;
 
-    --ink: #f4f5f7;
+    --ink: #f5f5f6;
     --ink-2: #ffffff;
     --bloom-base:
       radial-gradient(120% 80% at 50% -10%, #ffffff 0%, transparent 60%),
-      linear-gradient(180deg, #fafbfc 0%, #f4f5f7 45%, #eceef2 100%);
-    --wash-accent: radial-gradient(circle, rgba(48, 89, 214, 0.18), transparent 65%);
-    --wash-neutral: radial-gradient(circle, rgba(110, 130, 168, 0.16), transparent 65%);
+      linear-gradient(180deg, #fbfbfc 0%, #f5f5f6 45%, #ededef 100%);
+    /* Shade rather than colour — the mirror of the dark theme's washes. */
+    --wash-accent: radial-gradient(circle, rgba(140, 143, 150, 0.16), transparent 65%);
+    --wash-neutral: radial-gradient(circle, rgba(120, 123, 130, 0.13), transparent 65%);
     --grain-opacity: 0.02;
     --grain-blend: multiply;
 
     --glass: rgba(255, 255, 255, 0.7);
     --glass-strong: rgba(255, 255, 255, 0.86);
-    --edge: rgba(16, 20, 28, 0.1);
-    --edge-bright: rgba(16, 20, 28, 0.2);
+    --edge: rgba(18, 19, 21, 0.1);
+    --edge-bright: rgba(18, 19, 21, 0.2);
     --card-bg: linear-gradient(
       160deg, rgba(255, 255, 255, 0.92) 0%, rgba(255, 255, 255, 0.72) 42%, rgba(255, 255, 255, 0.85) 100%);
     --card-sheen: linear-gradient(
       160deg, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.2) 40%, transparent 70%);
-    --card-solid: rgba(252, 253, 254, 0.9);
+    --card-solid: rgba(253, 253, 254, 0.9);
     --rule: linear-gradient(
-      90deg, transparent, rgba(16, 20, 28, 0.12) 12%, rgba(16, 20, 28, 0.12) 88%, transparent);
+      90deg, transparent, rgba(18, 19, 21, 0.12) 12%, rgba(18, 19, 21, 0.12) 88%, transparent);
 
-    --veil-strong: rgba(244, 245, 247, 0.88);
-    --veil-soft: rgba(244, 245, 247, 0.58);
-    --veil-deck: rgba(244, 245, 247, 0.85);
+    --veil-strong: rgba(245, 245, 246, 0.88);
+    --veil-soft: rgba(245, 245, 246, 0.58);
+    --veil-deck: rgba(245, 245, 246, 0.85);
     --surface-solid: rgba(255, 255, 255, 0.9);
     --solid-panel: rgba(255, 255, 255, 0.96);
-    --solid-bar: rgba(244, 245, 247, 0.97);
+    --solid-bar: rgba(245, 245, 246, 0.97);
 
-    --title: #101319;
-    --text: rgba(16, 19, 25, 0.92);
-    --text-2: rgba(16, 19, 25, 0.66);
-    --text-3: rgba(16, 19, 25, 0.45);
+    --title: #111214;
+    --text: rgba(17, 18, 20, 0.92);
+    --text-2: rgba(17, 18, 20, 0.66);
+    --text-3: rgba(17, 18, 20, 0.45);
 
-    /* Deepened so it still clears contrast on white. */
-    --accent: #3059d6;
-    --accent-hi: #6f92ff;
-    --accent-soft: rgba(48, 89, 214, 0.1);
-    --accent-edge: rgba(48, 89, 214, 0.4);
-    --accent-glow: rgba(48, 89, 214, 0.5);
-    --on-accent: #fff;
+    /* Mirrored: on a light ground the emphatic end of the scale is near-black. */
+    --accent: #1d1e21;
+    --accent-hi: #000000;
+    --accent-soft: rgba(29, 30, 33, 0.09);
+    --accent-edge: rgba(29, 30, 33, 0.4);
+    --accent-glow: rgba(29, 30, 33, 0.45);
+    --on-accent: #ffffff;
 
-    --save: #0e8f60;
-    --save-edge: rgba(14, 143, 96, 0.5);
-    --save-soft: rgba(14, 143, 96, 0.1);
-    --save-glow: rgba(14, 143, 96, 0.5);
-    --skip: #cf3d59;
-    --skip-edge: rgba(207, 61, 89, 0.5);
-    --skip-soft: rgba(207, 61, 89, 0.1);
-    --skip-glow: rgba(207, 61, 89, 0.5);
+    --save: #4d5f58;
+    --save-edge: rgba(77, 95, 88, 0.5);
+    --save-soft: rgba(77, 95, 88, 0.1);
+    --save-glow: rgba(77, 95, 88, 0.45);
+    --skip: #5f4d52;
+    --skip-edge: rgba(95, 77, 82, 0.5);
+    --skip-soft: rgba(95, 77, 82, 0.1);
+    --skip-glow: rgba(95, 77, 82, 0.45);
 
-    --pill-bg: rgba(16, 20, 28, 0.05);
-    --pill-edge: rgba(16, 20, 28, 0.1);
-    --pill-text: rgba(16, 19, 25, 0.72);
-    --count-bg: rgba(16, 20, 28, 0.1);
-    --btn-bg: rgba(16, 20, 28, 0.035);
-    --btn-bg-hover: rgba(16, 20, 28, 0.07);
+    --pill-bg: rgba(18, 19, 21, 0.05);
+    --pill-edge: rgba(18, 19, 21, 0.1);
+    --pill-text: rgba(17, 18, 20, 0.72);
+    --count-bg: rgba(18, 19, 21, 0.1);
+    --btn-bg: rgba(18, 19, 21, 0.035);
+    --btn-bg-hover: rgba(18, 19, 21, 0.07);
 
-    --shadow: 0 18px 44px -22px rgba(20, 26, 40, 0.35), 0 1px 3px rgba(20, 26, 40, 0.08);
-    --shadow-lift: 0 34px 70px -30px rgba(20, 26, 40, 0.42), 0 0 44px -24px rgba(48, 89, 214, 0.35);
+    --shadow: 0 18px 44px -22px rgba(22, 23, 26, 0.35), 0 1px 3px rgba(22, 23, 26, 0.08);
+    --shadow-lift: 0 34px 70px -30px rgba(22, 23, 26, 0.42), 0 0 44px -26px rgba(22, 23, 26, 0.3);
   }
 }
 
@@ -640,7 +647,7 @@ a {
 
 .pill__glyph {
   font-size: 8px;
-  color: var(--accent);
+  color: var(--text-3);
   transform: translateY(-0.5px);
 }
 
@@ -801,8 +808,7 @@ a {
 
 .btn--primary:hover {
   border-color: transparent;
-  background: var(--accent);
-  filter: brightness(1.12);
+  background: var(--accent-hi);
   box-shadow: 0 16px 40px -14px var(--accent-glow);
 }
 
