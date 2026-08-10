@@ -1,0 +1,177 @@
+{#-
+  PaperSwipe — Jinja2 template rendered by scripts/generate_site.py.
+
+  Cards are rendered server-side so the feed works with JavaScript disabled
+  (it degrades to a plain responsive grid). app.js upgrades the same nodes into
+  the swipeable deck on touch/narrow screens.
+-#}
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>PaperSwipe — {{ data.date_label }}</title>
+<meta name="description" content="{{ data.count }} ML papers from HuggingFace Daily Papers for {{ data.date_label }} — swipe, scan, save.">
+<meta name="theme-color" content="#0a0a0f">
+<meta name="color-scheme" content="dark">
+<meta property="og:type" content="website">
+<meta property="og:title" content="PaperSwipe — {{ data.date_label }}">
+<meta property="og:description" content="{{ data.count }} ML papers, one swipe at a time.">
+<link rel="icon" href="data:image/svg+xml,{{ favicon }}">
+<link rel="preconnect" href="https://huggingface.co">
+<link rel="stylesheet" href="style.css?v={{ asset_version }}">
+<script>document.documentElement.className = 'js';</script>
+</head>
+<body>
+
+<div class="bloom" aria-hidden="true">
+  <span class="bloom__orb bloom__orb--violet"></span>
+  <span class="bloom__orb bloom__orb--blue"></span>
+  <span class="bloom__orb bloom__orb--pink"></span>
+  <span class="bloom__orb bloom__orb--cyan"></span>
+  <span class="bloom__grain"></span>
+</div>
+
+<a class="skip-link" href="#feed">Skip to papers</a>
+
+<header class="masthead">
+  <div class="masthead__row">
+    <div class="masthead__brand">
+      <h1 class="wordmark">Paper<span class="wordmark__accent">Swipe</span></h1>
+      <p class="masthead__sub">
+        <span class="masthead__date masthead__date--long">{{ data.date_label }}</span>
+        <span class="masthead__date masthead__date--short">{{ data.date_short }}</span>
+        <span class="dot" aria-hidden="true">·</span>
+        <span>{{ data.count }} paper{{ '' if data.count == 1 else 's' }}</span>
+        <span class="dot masthead__source" aria-hidden="true">·</span>
+        <a class="masthead__source" href="{{ data.source_url }}" target="_blank" rel="noopener">HF Daily</a>
+      </p>
+    </div>
+
+    <nav class="views" aria-label="Views">
+      <button class="views__tab is-active" data-view="today" aria-pressed="true">Today</button>
+      <button class="views__tab" data-view="saved" aria-pressed="false">
+        Saved <span class="views__count" data-saved-count>0</span>
+      </button>
+    </nav>
+  </div>
+
+  <div class="filters" role="group" aria-label="Filter by topic">
+    <button class="chip is-active" data-tag="__all__" aria-pressed="true">
+      All <span class="chip__count">{{ data.count }}</span>
+    </button>
+    {%- for tag in data.tags %}
+    <button class="chip" data-tag="{{ tag.name }}" aria-pressed="false">
+      {{ tag.name }} <span class="chip__count">{{ tag.count }}</span>
+    </button>
+    {%- endfor %}
+  </div>
+</header>
+
+<main>
+  <section id="feed" class="feed" aria-label="Paper feed">
+    {%- for paper in data.papers %}
+    <article class="card"
+             data-id="{{ paper.id }}"
+             data-rank="{{ paper.rank }}"
+             data-upvotes="{{ paper.upvotes }}"
+             data-tags="{{ paper.tags | join('|') }}"
+             tabindex="0"
+             aria-labelledby="title-{{ paper.id }}">
+      <span class="card__ring" aria-hidden="true"></span>
+      <span class="card__stamp card__stamp--save" aria-hidden="true">Save</span>
+      <span class="card__stamp card__stamp--skip" aria-hidden="true">Skip</span>
+
+      <div class="card__body">
+        <div class="card__head">
+          <div class="card__tags">
+            {%- for tag in paper.tags %}
+            <span class="pill"><span class="pill__glyph" aria-hidden="true">◆</span>{{ tag }}</span>
+            {%- endfor %}
+          </div>
+          <span class="card__rank" aria-hidden="true">#{{ paper.rank }}</span>
+        </div>
+
+        <h2 class="card__title" id="title-{{ paper.id }}">{{ paper.title }}</h2>
+
+        <hr class="card__rule">
+
+        <div class="card__summary">
+          <p class="card__teaser">{{ paper.teaser }}</p>
+          {%- if paper.teaser_rest %}
+          <p class="card__rest">{{ paper.teaser_rest }}</p>
+          {%- endif %}
+        </div>
+
+        {%- if paper.teaser_rest %}
+        <button class="card__expand" type="button" aria-expanded="false">
+          <span class="card__expand-label">Full summary</span>
+          <span class="card__expand-icon" aria-hidden="true">↓</span>
+        </button>
+        {%- endif %}
+
+        <hr class="card__rule">
+
+        <div class="card__meta">
+          <span class="card__votes" title="{{ paper.upvotes }} upvotes on HuggingFace">
+            <span aria-hidden="true">↑</span> {{ paper.upvotes }}
+          </span>
+          <span class="dot" aria-hidden="true">·</span>
+          <span title="{{ paper.authors[:8] | join(', ') }}{% if paper.author_count > 8 %} and {{ paper.author_count - 8 }} more{% endif %}">
+            {{ paper.author_count }} author{{ '' if paper.author_count == 1 else 's' }}
+          </span>
+          {%- if paper.published_label %}
+          <span class="dot" aria-hidden="true">·</span>
+          <span>{{ paper.published_label }}</span>
+          {%- endif %}
+        </div>
+      </div>
+
+      <div class="card__actions">
+        <a class="btn btn--primary" href="{{ paper.arxiv_url }}" target="_blank" rel="noopener">Read paper</a>
+        <button class="btn btn--save" type="button" data-save aria-pressed="false">
+          <span class="btn__label">Save</span>
+        </button>
+      </div>
+    </article>
+    {%- endfor %}
+  </section>
+
+  <div class="empty" data-empty hidden>
+    <div class="empty__glass">
+      <p class="empty__title" data-empty-title>You're all caught up</p>
+      <p class="empty__sub" data-empty-sub>That's every paper for today.</p>
+      <button class="btn btn--primary" type="button" data-restart>Start over</button>
+    </div>
+  </div>
+</main>
+
+<div class="deckbar" data-deckbar hidden>
+  <button class="deckbar__btn deckbar__btn--skip" type="button" data-action="skip" aria-label="Skip this paper">
+    <span aria-hidden="true">✕</span>
+  </button>
+  <button class="deckbar__btn deckbar__btn--undo" type="button" data-action="undo" aria-label="Undo last swipe" disabled>
+    <span aria-hidden="true">↺</span>
+  </button>
+  <button class="deckbar__btn deckbar__btn--save" type="button" data-action="save" aria-label="Save this paper">
+    <span aria-hidden="true">★</span>
+  </button>
+  <p class="deckbar__progress"><span data-progress-current>1</span> / <span data-progress-total>{{ data.count }}</span></p>
+</div>
+
+<footer class="colophon">
+  <p>
+    Rebuilt {{ data.generated_at[:10] }} from
+    <a href="https://huggingface.co/papers" target="_blank" rel="noopener">HuggingFace Daily Papers</a>.
+    Saves live in your browser only.
+  </p>
+</footer>
+
+<div class="toast" data-toast role="status" aria-live="polite"></div>
+
+{# `| safe` is required: script content is raw text, so HTML entities would not
+   decode. generate_site.py escapes < > & as \uXXXX to keep this inert. #}
+<script type="application/json" id="paper-data">{{ data_json | safe }}</script>
+<script src="app.js?v={{ asset_version }}"></script>
+</body>
+</html>

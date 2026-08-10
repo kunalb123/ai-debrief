@@ -1,0 +1,7 @@
+# Build output — regenerated on every run
+dist/
+
+# Python
+.venv/
+__pycache__/
+*.pyc

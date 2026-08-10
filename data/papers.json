@@ -1,0 +1,121 @@
+{
+  "date": "2026-08-10",
+  "date_label": "Monday, August 10, 2026",
+  "date_short": "Mon, Aug 10",
+  "generated_at": "2026-08-10T02:20:50+00:00",
+  "count": 3,
+  "total_upvotes": 0,
+  "tags": [
+    {
+      "name": "Data & Evals",
+      "count": 2
+    },
+    {
+      "name": "Efficiency",
+      "count": 1
+    }
+  ],
+  "source": "HuggingFace Daily Papers",
+  "source_url": "https://huggingface.co/papers/date/2026-08-10",
+  "papers": [
+    {
+      "id": "2608.07110",
+      "rank": 1,
+      "title": "Modular TTT: Rethinking Test-Time Training as Composable Modules",
+      "summary": "Test-time training (TTT) views sequence modeling as an online learning problem in which fast weights are updated by an internal learning rule. Despite the growing number of TTT variants, existing approaches typically hard-code each variant separately, which makes it difficult to design new TTT methods and to isolate the role of each component. To address this, we propose Modular TTT, a framework that represents the inner learner as a directed acyclic graph and exposes the fast-weight network, loss function, learning rate, weight decay, and normalization as explicit design dimensions. Modular TTT automatically composes primitive-level train-view forward, train-view backward, and causal query-view rules into the full graph-level TTT computation, including the fast-weight state transition. Using Modular TTT, we systematically ablate the components of TTT and find that small learning-rate initialization, weight decay, and a single-layer nonlinearity improve performance, while MSE and inner-product losses perform similarly. Deeper fast-weight networks and normalization tend to hurt performance because they induce excessively large activations, while residual connections and gating provide little measurable benefit. Guided by these findings, we train the best resulting variant as 410M- and 1.45B-parameter models on 100B tokens, and observe training loss and benchmark performance comparable to Gated DeltaNet.",
+      "teaser": "Test-time training (TTT) views sequence modeling as an online learning problem in which fast weights are updated by an internal learning rule. Despite the growing number of TTT variants, existing approaches typically hard-code each variant separately, which makes it difficult to design new TTT methods and to isolate the role of each component.",
+      "teaser_rest": "To address this, we propose Modular TTT, a framework that represents the inner learner as a directed acyclic graph and exposes the fast-weight network, loss function, learning rate, weight decay, and normalization as explicit design dimensions. Modular TTT automatically composes primitive-level train-view forward, train-view backward, and causal query-view rules into the full graph-level TTT computation, including the fast-weight state transition. Using Modular TTT, we systematically ablate the components of TTT and find that small learning-rate initialization, weight decay, and a single-layer nonlinearity improve performance, while MSE and inner-product losses perform similarly. Deeper fast-weight networks and normalization tend to hurt performance because they induce excessively large activations, while residual connections and gating provide little measurable benefit. Guided by these findings, we train the best resulting variant as 410M- and 1.45B-parameter models on 100B tokens, and observe training loss and benchmark performance comparable to Gated DeltaNet.",
+      "sentence_count": 7,
+      "tags": [
+        "Data & Evals"
+      ],
+      "upvotes": 0,
+      "comments": 0,
+      "authors": [
+        "Bohao Tang",
+        "Zhen Qin",
+        "Yuqi Pan",
+        "Zheng Li",
+        "Pengfei Liu",
+        "Ya Zhang"
+      ],
+      "author_count": 6,
+      "byline": "Tang et al.",
+      "published": "2026-08-07",
+      "published_label": "Aug 2026",
+      "submitted": "2026-08-10",
+      "arxiv_url": "https://arxiv.org/abs/2608.07110",
+      "pdf_url": "https://arxiv.org/pdf/2608.07110",
+      "hf_url": "https://huggingface.co/papers/2608.07110",
+      "thumbnail": "https://cdn-thumbnails.huggingface.co/social-thumbnails/papers/2608.07110.png",
+      "project_page": "",
+      "github_repo": ""
+    },
+    {
+      "id": "2608.07222",
+      "rank": 2,
+      "title": "Skaling: Chinchilla's Exponents Meet Kaplan's Coupling",
+      "summary": "Neural scaling laws are foundational for language model development, yet standard formulations systematically under- and overestimate loss at data-scarce and overtraining extremes. This failure originates in the underlying assumption that model size and training data impact the loss independently. To address this, we introduce the Skaling law, a generalized functional form that couples model capacity and data through a single interaction exponent. This simple extension reduces the Mean Absolute Percentage Error (MAPE) by 1.5-3x across both interpolation and extrapolation regimes. When paired with a sparse grid strategy restricted to low-compute regimes, the Skaling law achieves accurate full-grid extrapolation using approximately 10x less compute than uniform sweeps. By enabling reliable performance prediction from small-scale experiments, the Skaling law provides a more robust and resource-efficient framework for allocating compute budgets in next-generation model training.",
+      "teaser": "Neural scaling laws are foundational for language model development, yet standard formulations systematically under- and overestimate loss at data-scarce and overtraining extremes. This failure originates in the underlying assumption that model size and training data impact the loss independently.",
+      "teaser_rest": "To address this, we introduce the Skaling law, a generalized functional form that couples model capacity and data through a single interaction exponent. This simple extension reduces the Mean Absolute Percentage Error (MAPE) by 1.5-3x across both interpolation and extrapolation regimes. When paired with a sparse grid strategy restricted to low-compute regimes, the Skaling law achieves accurate full-grid extrapolation using approximately 10x less compute than uniform sweeps. By enabling reliable performance prediction from small-scale experiments, the Skaling law provides a more robust and resource-efficient framework for allocating compute budgets in next-generation model training.",
+      "sentence_count": 6,
+      "tags": [
+        "Efficiency"
+      ],
+      "upvotes": 0,
+      "comments": 0,
+      "authors": [
+        "Mathurin Videau",
+        "Badr Youbi-Idrissi",
+        "David Lopez-Paz",
+        "Kartik Ahuja"
+      ],
+      "author_count": 4,
+      "byline": "Videau et al.",
+      "published": "2026-08-07",
+      "published_label": "Aug 2026",
+      "submitted": "2026-08-10",
+      "arxiv_url": "https://arxiv.org/abs/2608.07222",
+      "pdf_url": "https://arxiv.org/pdf/2608.07222",
+      "hf_url": "https://huggingface.co/papers/2608.07222",
+      "thumbnail": "https://cdn-thumbnails.huggingface.co/social-thumbnails/papers/2608.07222.png",
+      "project_page": "",
+      "github_repo": ""
+    },
+    {
+      "id": "2608.07408",
+      "rank": 3,
+      "title": "Addressable Memory for Video World Models",
+      "summary": "We study visual persistence in interactive video world models. These models rely on a Key-Value (KV) cache as a growing visual memory to carry forward previously generated frames. However, we find that models can no longer reliably address stored content once rollouts extend beyond the training horizon, because temporal Rotary Positional Embeddings (RoPE) offsets then fall outside the range seen during training and the model struggles to retrieve the relevant visual information through attention. Moreover, naively compressing the cache in the RoPE-rotated space corrupts memory by averaging together incompatible positional phases. To address this, we propose WorldTrace, a training-free memory framework for long-horizon visual persistence. WorldTrace keeps compressed memory addressable by assigning each summary slot a distinct, in-distribution virtual position. Within this addressable cache, we study two memory compression approaches: WorldTrace-Field compresses history for temporal coherence, while WorldTrace-Landmark stores verbatim scene traces at detected transitions for episodic recall. We further introduce LoopBench, a benchmark evaluating whether a compressed cache can reconstruct a previously visited scene after a long detour. WorldTrace-Field improves temporal consistency by +15.5%, and WorldTrace-Landmark improves episodic recall by +19.5% on LoopBench, extending visually persistent generation without retraining.",
+      "teaser": "We study visual persistence in interactive video world models. These models rely on a Key-Value (KV) cache as a growing visual memory to carry forward previously generated frames.",
+      "teaser_rest": "However, we find that models can no longer reliably address stored content once rollouts extend beyond the training horizon, because temporal Rotary Positional Embeddings (RoPE) offsets then fall outside the range seen during training and the model struggles to retrieve the relevant visual information through attention. Moreover, naively compressing the cache in the RoPE-rotated space corrupts memory by averaging together incompatible positional phases. To address this, we propose WorldTrace, a training-free memory framework for long-horizon visual persistence. WorldTrace keeps compressed memory addressable by assigning each summary slot a distinct, in-distribution virtual position. Within this addressable cache, we study two memory compression approaches: WorldTrace-Field compresses history for temporal coherence, while WorldTrace-Landmark stores verbatim scene traces at detected transitions for episodic recall. We further introduce LoopBench, a benchmark evaluating whether a compressed cache can reconstruct a previously visited scene after a long detour. WorldTrace-Field improves temporal consistency by +15.5%, and WorldTrace-Landmark improves episodic recall by +19.5% on LoopBench, extending visually persistent generation without retraining.",
+      "sentence_count": 9,
+      "tags": [
+        "Data & Evals"
+      ],
+      "upvotes": 0,
+      "comments": 0,
+      "authors": [
+        "Xindi Wu",
+        "Sven Elflein",
+        "James Lucas",
+        "Olga Russakovsky",
+        "Laura Leal-Taixé",
+        "Despoina Paschalidou",
+        "Jonathan Lorraine",
+        "Aljoša Ošep"
+      ],
+      "author_count": 8,
+      "byline": "Wu et al.",
+      "published": "2026-08-07",
+      "published_label": "Aug 2026",
+      "submitted": "2026-08-10",
+      "arxiv_url": "https://arxiv.org/abs/2608.07408",
+      "pdf_url": "https://arxiv.org/pdf/2608.07408",
+      "hf_url": "https://huggingface.co/papers/2608.07408",
+      "thumbnail": "https://cdn-thumbnails.huggingface.co/social-thumbnails/papers/2608.07408.png",
+      "project_page": "https://research.nvidia.com/labs/sil/projects/WorldTrace/",
+      "github_repo": ""
+    }
+  ]
+}
