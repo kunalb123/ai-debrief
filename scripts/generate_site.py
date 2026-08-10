@@ -36,9 +36,9 @@ ASSETS = ("style.css", "app.js")
 FAVICON_SVG = (
     "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'>"
     "<defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'>"
-    "<stop offset='0' stop-color='%238b5cf6'/><stop offset='.5' stop-color='%232f8bff'/>"
-    "<stop offset='1' stop-color='%2322d3ee'/></linearGradient></defs>"
-    "<rect width='64' height='64' rx='16' fill='%230a0a0f'/>"
+    "<stop offset='0' stop-color='%235b84ff'/><stop offset='1' stop-color='%23a3bcff'/>"
+    "</linearGradient></defs>"
+    "<rect width='64' height='64' rx='16' fill='%230c0d10'/>"
     "<rect x='14' y='12' width='30' height='40' rx='7' fill='none' stroke='url(%23g)' stroke-width='3.5' "
     "transform='rotate(-10 29 32)'/>"
     "<rect x='24' y='14' width='30' height='40' rx='7' fill='url(%23g)' opacity='.9' "
@@ -58,8 +58,11 @@ def load_data(path: Path) -> dict[str, Any]:
     data.setdefault("tags", [])
     data.setdefault("count", len(data["papers"]))
     data.setdefault("date", "")
+    data.setdefault("date_start", data["date"])
+    data.setdefault("date_end", data["date"])
     data.setdefault("date_label", data["date"])
     data.setdefault("date_short", data["date"])
+    data.setdefault("days", 1)
     data.setdefault("generated_at", "")
     data.setdefault("source_url", "https://huggingface.co/papers")
     return data
@@ -136,7 +139,7 @@ def serve(directory: Path, port: int) -> None:
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description="Generate the PaperSwipe static site")
+    parser = argparse.ArgumentParser(description="Generate the paperswipe static site")
     parser.add_argument("--data", default=str(DEFAULT_DATA), help="Path to papers.json")
     parser.add_argument("--out", default=str(DEFAULT_OUT), help="Output directory")
     parser.add_argument("--serve", action="store_true", help="Serve the output after building")

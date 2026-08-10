@@ -1,11 +1,14 @@
 #!/usr/bin/env python3
-"""Fetch the day's papers from the HuggingFace Daily Papers API into data/papers.json.
+"""Fetch the last week of papers from the HuggingFace Daily Papers API into data/papers.json.
 
-No API key required. If the requested day has no papers (weekends and holidays are
-usually empty), we walk backwards day by day until we find one that does.
+No API key required. The API is per-day, so we request each day in the window and
+pool the results, ranked by upvotes across the whole week. Weekends and holidays
+come back empty, which is normal — only if the entire window is empty do we keep
+walking backwards looking for a day that isn't.
 
-    python scripts/fetch_papers.py                 # today (UTC), with fallback
-    python scripts/fetch_papers.py --date 2026-08-05
+    python scripts/fetch_papers.py                 # the 7 days ending today (UTC)
+    python scripts/fetch_papers.py --days 1        # just today
+    python scripts/fetch_papers.py --date 2026-08-05 --days 14
     python scripts/fetch_papers.py --out data/papers.json
 """
 
@@ -27,10 +30,15 @@ USER_AGENT = "paperswipe/1.0 (+https://github.com/topics/paperswipe)"
 REPO_ROOT = Path(__file__).resolve().parent.parent
 DEFAULT_OUT = REPO_ROOT / "data" / "papers.json"
 
-# How many days back to look before giving up on finding a populated day.
+# Size of the window the feed covers, counting back from the target day.
+DEFAULT_DAYS = 7
+# Extra days to keep searching if that whole window came back empty.
 MAX_LOOKBACK_DAYS = 10
 REQUEST_TIMEOUT = 30
 REQUEST_RETRIES = 3
+
+# %-d (no zero padding) is glibc/BSD only; fall back on Windows.
+NO_PAD = "%#d" if sys.platform == "win32" else "%-d"
 
 
 # ---------------------------------------------------------------------------
@@ -252,20 +260,53 @@ def fetch_day(day: date, limit: int) -> list[dict[str, Any]]:
     return api_get({"date": day.isoformat(), "limit": limit})
 
 
-def fetch_with_fallback(start: date, limit: int, lookback: int) -> tuple[date, list[dict[str, Any]]]:
-    """Find the most recent day at or before `start` that actually has papers."""
-    for offset in range(lookback + 1):
-        day = start - timedelta(days=offset)
+def fetch_window(
+    end: date, days: int, limit: int, lookback: int, allow_latest: bool = True
+) -> tuple[list[date], list[tuple[date, dict[str, Any]]]]:
+    """Pool every daily list in the `days`-day window ending at `end`.
+
+    Returns the days that actually had papers alongside every entry tagged with
+    the day it was featured, newest day first. An empty day inside the window is
+    expected (HuggingFace doesn't publish at weekends) and simply contributes
+    nothing; only a completely empty window triggers the backwards walk.
+    """
+    covered: list[date] = []
+    collected: list[tuple[date, dict[str, Any]]] = []
+
+    for offset in range(days):
+        day = end - timedelta(days=offset)
         print(f"Fetching daily papers for {day.isoformat()} ...")
         items = fetch_day(day, limit)
         if items:
             print(f"  found {len(items)} papers")
-            return day, items
+            covered.append(day)
+            collected.extend((day, item) for item in items)
+        else:
+            print("  no papers listed for that day")
+
+    if collected:
+        return covered, collected
+
+    if lookback:
+        print(f"Nothing in the {days}-day window; walking back for a populated day ...")
+    for offset in range(days, days + lookback):
+        day = end - timedelta(days=offset)
+        print(f"Fetching daily papers for {day.isoformat()} ...")
+        items = fetch_day(day, limit)
+        if items:
+            print(f"  found {len(items)} papers")
+            return [day], [(day, item) for item in items]
         print("  no papers listed for that day")
-    print(f"No papers in the last {lookback} days; falling back to the latest feed.", file=sys.stderr)
+
+    if not allow_latest:
+        return [], []
+
+    print(f"No papers in the last {days + lookback} days; falling back to the latest feed.", file=sys.stderr)
     items = api_get({"limit": limit})
-    latest = parse_date(items[0].get("publishedAt")) if items else None
-    return latest or start, items
+    if not items:
+        return [], []
+    latest = parse_date(items[0].get("publishedAt")) or end
+    return [latest], [(latest, item) for item in items]
 
 
 # ---------------------------------------------------------------------------
@@ -330,10 +371,44 @@ def dedupe(papers: Iterable[dict[str, Any]]) -> list[dict[str, Any]]:
     return unique
 
 
-def build_payload(day: date, entries: list[dict[str, Any]]) -> dict[str, Any]:
-    papers = [p for p in (normalize(e, i) for i, e in enumerate(entries)) if p]
+def range_labels(start: date, end: date) -> tuple[str, str]:
+    """Human labels for the window, in a long and a mobile-width short form."""
+    if start == end:
+        return end.strftime(f"%A, %B {NO_PAD}, %Y"), end.strftime(f"%a, %b {NO_PAD}")
+    if (start.year, start.month) == (end.year, end.month):
+        return (
+            f"{start.strftime(f'%B {NO_PAD}')}–{end.strftime(NO_PAD)}, {end.year}",
+            f"{start.strftime(f'%b {NO_PAD}')}–{end.strftime(NO_PAD)}",
+        )
+    if start.year == end.year:
+        return (
+            f"{start.strftime(f'%B {NO_PAD}')} – {end.strftime(f'%B {NO_PAD}')}, {end.year}",
+            f"{start.strftime(f'%b {NO_PAD}')} – {end.strftime(f'%b {NO_PAD}')}",
+        )
+    return (
+        f"{start.strftime(f'%B {NO_PAD}, %Y')} – {end.strftime(f'%B {NO_PAD}, %Y')}",
+        f"{start.strftime(f'%b {NO_PAD} %y')} – {end.strftime(f'%b {NO_PAD} %y')}",
+    )
+
+
+def build_payload(
+    days_covered: list[date], entries: list[tuple[date, dict[str, Any]]]
+) -> dict[str, Any]:
+    papers: list[dict[str, Any]] = []
+    for index, (day, entry) in enumerate(entries):
+        paper = normalize(entry, index)
+        if paper is None:
+            continue
+        # Which day HuggingFace featured it — with a week in the feed this is
+        # more useful on the card than the arXiv publication month.
+        paper["daily_date"] = day.isoformat()
+        paper["daily_label"] = day.strftime(f"%b {NO_PAD}")
+        papers.append(paper)
+
+    # Entries arrive newest day first, so the survivor of a paper featured on
+    # several days is the most recent listing.
     papers = dedupe(papers)
-    papers.sort(key=lambda p: (-p["upvotes"], p["rank"]))
+    papers.sort(key=lambda p: (-p["upvotes"], p["daily_date"], p["rank"]))
     for position, paper in enumerate(papers, start=1):
         paper["rank"] = position
 
@@ -346,36 +421,48 @@ def build_payload(day: date, entries: list[dict[str, Any]]) -> dict[str, Any]:
         for name, count in sorted(tag_counts.items(), key=lambda kv: (-kv[1], kv[0]))
     ]
 
-    # %-d (no zero padding) is glibc/BSD only; fall back on Windows.
-    no_pad = "%#d" if sys.platform == "win32" else "%-d"
+    start, end = min(days_covered), max(days_covered)
+    date_label, date_short = range_labels(start, end)
 
     return {
-        "date": day.isoformat(),
-        "date_label": day.strftime(f"%A, %B {no_pad}, %Y"),
-        "date_short": day.strftime(f"%a, %b {no_pad}"),
+        "date": end.isoformat(),
+        "date_start": start.isoformat(),
+        "date_end": end.isoformat(),
+        "date_label": date_label,
+        "date_short": date_short,
+        "days": len(days_covered),
         "generated_at": datetime.now(timezone.utc).replace(microsecond=0).isoformat(),
         "count": len(papers),
         "total_upvotes": sum(p["upvotes"] for p in papers),
         "tags": tags,
         "source": "HuggingFace Daily Papers",
-        "source_url": f"https://huggingface.co/papers/date/{day.isoformat()}",
+        "source_url": f"https://huggingface.co/papers/date/{end.isoformat()}",
         "papers": papers,
     }
 
 
 def main() -> int:
     parser = argparse.ArgumentParser(description="Fetch HuggingFace Daily Papers into papers.json")
-    parser.add_argument("--date", help="Day to fetch (YYYY-MM-DD). Defaults to today in UTC.")
+    parser.add_argument("--date", help="Last day of the window (YYYY-MM-DD). Defaults to today in UTC.")
+    parser.add_argument(
+        "--days",
+        type=int,
+        default=DEFAULT_DAYS,
+        help=f"How many days the feed covers, counting back from --date (default {DEFAULT_DAYS}).",
+    )
     parser.add_argument("--out", default=str(DEFAULT_OUT), help="Output JSON path.")
-    parser.add_argument("--limit", type=int, default=100, help="Max papers to request.")
+    parser.add_argument("--limit", type=int, default=100, help="Max papers to request per day.")
     parser.add_argument(
         "--lookback",
         type=int,
         default=MAX_LOOKBACK_DAYS,
-        help="How many earlier days to try when the target day is empty.",
+        help="Extra days to try when the whole window is empty.",
     )
-    parser.add_argument("--no-fallback", action="store_true", help="Fail instead of walking back to an earlier day.")
+    parser.add_argument("--no-fallback", action="store_true", help="Fail instead of walking back past the window.")
     args = parser.parse_args()
+
+    if args.days < 1:
+        parser.error("--days must be at least 1")
 
     if args.date:
         target = parse_date(args.date)
@@ -384,21 +471,24 @@ def main() -> int:
     else:
         target = datetime.now(timezone.utc).date()
 
-    if args.no_fallback:
-        day, entries = target, fetch_day(target, args.limit)
-    else:
-        day, entries = fetch_with_fallback(target, args.limit, args.lookback)
+    days_covered, entries = fetch_window(
+        target,
+        args.days,
+        args.limit,
+        lookback=0 if args.no_fallback else args.lookback,
+        allow_latest=not args.no_fallback,
+    )
 
     if not entries:
         print("No papers found. Leaving any existing papers.json untouched.", file=sys.stderr)
         return 1
 
-    payload = build_payload(day, entries)
+    payload = build_payload(days_covered, entries)
     out_path = Path(args.out)
     out_path.parent.mkdir(parents=True, exist_ok=True)
     out_path.write_text(json.dumps(payload, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
 
-    print(f"Wrote {payload['count']} papers for {payload['date']} to {out_path}")
+    print(f"Wrote {payload['count']} papers across {payload['days']} day(s) — {payload['date_label']} — to {out_path}")
     print("Topics: " + ", ".join(f"{t['name']} ({t['count']})" for t in payload["tags"][:8]))
     return 0
 

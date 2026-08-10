@@ -1,6 +1,9 @@
 /* ==========================================================================
-   PaperSwipe — Apple Intelligence / Siri aesthetic
-   Deep dark ground, drifting colour bloom, frosted glass panels, luminous ring.
+   paperswipe — "Graphite"
+   Neutral ground, frosted glass, one accent. The atmosphere stays; the light
+   show goes. Every colour below is a token, and the whole palette is redefined
+   once for light mode — nothing outside these two blocks names a colour, so
+   the themes can never drift apart.
    ========================================================================== */
 
 @property --ring-angle {
@@ -9,36 +12,80 @@
   inherits: false;
 }
 
+/* ---------- Dark (default) ------------------------------------------------ */
 :root {
-  /* Ground */
-  --ink: #0a0a0f;
-  --ink-2: #10101a;
+  color-scheme: dark;
 
-  /* Siri spectrum */
-  --violet: #8b5cf6;
-  --indigo: #5b6cff;
-  --blue: #2f8bff;
-  --cyan: #22d3ee;
-  --pink: #ff4d9d;
-  --amber: #ffb457;
+  /* Ground */
+  --ink: #0c0d10;
+  --ink-2: #16181c;
+  --bloom-base:
+    radial-gradient(120% 80% at 50% -10%, #191b21 0%, transparent 60%),
+    linear-gradient(180deg, #101116 0%, #0c0d10 45%, #08090b 100%);
+  --wash-accent: radial-gradient(circle, rgba(91, 132, 255, 0.3), transparent 65%);
+  --wash-neutral: radial-gradient(circle, rgba(150, 165, 190, 0.14), transparent 65%);
+  --grain-opacity: 0.035;
+  --grain-blend: overlay;
 
   /* Glass */
-  --glass: rgba(255, 255, 255, 0.05);
-  --glass-strong: rgba(255, 255, 255, 0.08);
-  --edge: rgba(255, 255, 255, 0.1);
-  --edge-bright: rgba(255, 255, 255, 0.18);
+  --glass: rgba(255, 255, 255, 0.045);
+  --glass-strong: rgba(255, 255, 255, 0.085);
+  --edge: rgba(255, 255, 255, 0.11);
+  --edge-bright: rgba(255, 255, 255, 0.2);
+  --card-bg: linear-gradient(
+    160deg, rgba(255, 255, 255, 0.07) 0%, rgba(255, 255, 255, 0.025) 42%, rgba(255, 255, 255, 0.045) 100%);
+  --card-sheen: linear-gradient(
+    160deg, rgba(255, 255, 255, 0.32), rgba(255, 255, 255, 0.02) 40%, transparent 70%);
+  /* Opaque enough that the card below in the deck reads as depth, not text. */
+  --card-solid: rgba(14, 15, 19, 0.66);
+  --rule: linear-gradient(
+    90deg, transparent, rgba(255, 255, 255, 0.14) 12%, rgba(255, 255, 255, 0.14) 88%, transparent);
+
+  /* Veils — the translucent bars that sit over scrolling content */
+  --veil-strong: rgba(12, 13, 16, 0.86);
+  --veil-soft: rgba(12, 13, 16, 0.6);
+  --veil-deck: rgba(12, 13, 16, 0.82);
+  --surface-solid: rgba(24, 26, 31, 0.86);
+  --solid-panel: rgba(24, 26, 31, 0.94);
+  --solid-bar: rgba(12, 13, 16, 0.96);
 
   /* Type */
-  --text: rgba(255, 255, 255, 0.94);
-  --text-2: rgba(255, 255, 255, 0.66);
-  --text-3: rgba(255, 255, 255, 0.42);
+  --title: #f5f6f8;
+  --text: rgba(244, 245, 247, 0.94);
+  --text-2: rgba(244, 245, 247, 0.64);
+  --text-3: rgba(244, 245, 247, 0.4);
+
+  /* The one accent. Everything chromatic on the page comes from these. */
+  --accent: #5b84ff;
+  --accent-hi: #a3bcff;
+  --accent-soft: rgba(91, 132, 255, 0.16);
+  --accent-edge: rgba(91, 132, 255, 0.5);
+  --accent-glow: rgba(91, 132, 255, 0.85);
+  --on-accent: #fff;
+
+  /* Semantic — swipe outcomes only, kept muted so they read as signal */
+  --save: #52d6a0;
+  --save-edge: rgba(82, 214, 160, 0.55);
+  --save-soft: rgba(82, 214, 160, 0.14);
+  --save-glow: rgba(82, 214, 160, 0.75);
+  --skip: #f2788f;
+  --skip-edge: rgba(242, 120, 143, 0.55);
+  --skip-soft: rgba(242, 120, 143, 0.14);
+  --skip-glow: rgba(242, 120, 143, 0.75);
+
+  --pill-bg: rgba(255, 255, 255, 0.06);
+  --pill-edge: rgba(255, 255, 255, 0.13);
+  --pill-text: rgba(244, 245, 247, 0.8);
+  --count-bg: rgba(255, 255, 255, 0.16);
+  --btn-bg: rgba(255, 255, 255, 0.05);
+  --btn-bg-hover: rgba(255, 255, 255, 0.09);
+
+  --shadow: 0 24px 60px -20px rgba(0, 0, 0, 0.8), 0 2px 10px rgba(0, 0, 0, 0.45);
+  --shadow-lift: 0 40px 90px -28px rgba(0, 0, 0, 0.9), 0 0 50px -24px rgba(91, 132, 255, 0.5);
 
   --radius: 24px;
   --radius-sm: 14px;
   --radius-pill: 999px;
-
-  --shadow: 0 24px 60px -20px rgba(0, 0, 0, 0.75), 0 2px 10px rgba(0, 0, 0, 0.4);
-  --shadow-lift: 0 40px 90px -28px rgba(0, 0, 0, 0.85), 0 0 60px -20px rgba(139, 92, 246, 0.55);
 
   /* Apple-ish spring easing */
   --spring: cubic-bezier(0.34, 1.56, 0.64, 1);
@@ -51,6 +98,74 @@
   --deckbar-h: 0px;
 }
 
+/* ---------- Light --------------------------------------------------------- */
+@media (prefers-color-scheme: light) {
+  :root {
+    color-scheme: light;
+
+    --ink: #f4f5f7;
+    --ink-2: #ffffff;
+    --bloom-base:
+      radial-gradient(120% 80% at 50% -10%, #ffffff 0%, transparent 60%),
+      linear-gradient(180deg, #fafbfc 0%, #f4f5f7 45%, #eceef2 100%);
+    --wash-accent: radial-gradient(circle, rgba(48, 89, 214, 0.18), transparent 65%);
+    --wash-neutral: radial-gradient(circle, rgba(110, 130, 168, 0.16), transparent 65%);
+    --grain-opacity: 0.02;
+    --grain-blend: multiply;
+
+    --glass: rgba(255, 255, 255, 0.7);
+    --glass-strong: rgba(255, 255, 255, 0.86);
+    --edge: rgba(16, 20, 28, 0.1);
+    --edge-bright: rgba(16, 20, 28, 0.2);
+    --card-bg: linear-gradient(
+      160deg, rgba(255, 255, 255, 0.92) 0%, rgba(255, 255, 255, 0.72) 42%, rgba(255, 255, 255, 0.85) 100%);
+    --card-sheen: linear-gradient(
+      160deg, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.2) 40%, transparent 70%);
+    --card-solid: rgba(252, 253, 254, 0.9);
+    --rule: linear-gradient(
+      90deg, transparent, rgba(16, 20, 28, 0.12) 12%, rgba(16, 20, 28, 0.12) 88%, transparent);
+
+    --veil-strong: rgba(244, 245, 247, 0.88);
+    --veil-soft: rgba(244, 245, 247, 0.58);
+    --veil-deck: rgba(244, 245, 247, 0.85);
+    --surface-solid: rgba(255, 255, 255, 0.9);
+    --solid-panel: rgba(255, 255, 255, 0.96);
+    --solid-bar: rgba(244, 245, 247, 0.97);
+
+    --title: #101319;
+    --text: rgba(16, 19, 25, 0.92);
+    --text-2: rgba(16, 19, 25, 0.66);
+    --text-3: rgba(16, 19, 25, 0.45);
+
+    /* Deepened so it still clears contrast on white. */
+    --accent: #3059d6;
+    --accent-hi: #6f92ff;
+    --accent-soft: rgba(48, 89, 214, 0.1);
+    --accent-edge: rgba(48, 89, 214, 0.4);
+    --accent-glow: rgba(48, 89, 214, 0.5);
+    --on-accent: #fff;
+
+    --save: #0e8f60;
+    --save-edge: rgba(14, 143, 96, 0.5);
+    --save-soft: rgba(14, 143, 96, 0.1);
+    --save-glow: rgba(14, 143, 96, 0.5);
+    --skip: #cf3d59;
+    --skip-edge: rgba(207, 61, 89, 0.5);
+    --skip-soft: rgba(207, 61, 89, 0.1);
+    --skip-glow: rgba(207, 61, 89, 0.5);
+
+    --pill-bg: rgba(16, 20, 28, 0.05);
+    --pill-edge: rgba(16, 20, 28, 0.1);
+    --pill-text: rgba(16, 19, 25, 0.72);
+    --count-bg: rgba(16, 20, 28, 0.1);
+    --btn-bg: rgba(16, 20, 28, 0.035);
+    --btn-bg-hover: rgba(16, 20, 28, 0.07);
+
+    --shadow: 0 18px 44px -22px rgba(20, 26, 40, 0.35), 0 1px 3px rgba(20, 26, 40, 0.08);
+    --shadow-lift: 0 34px 70px -30px rgba(20, 26, 40, 0.42), 0 0 44px -24px rgba(48, 89, 214, 0.35);
+  }
+}
+
 *,
 *::before,
 *::after {
@@ -59,6 +174,11 @@
 
 html {
   -webkit-text-size-adjust: 100%;
+  /* Belt-and-braces against the swipe: `overflow-x: hidden` on <body> alone is
+     not honoured by mobile Safari, which pans the viewport instead of clipping
+     a card dragged past the right edge. */
+  overflow-x: hidden;
+  overscroll-behavior-x: none;
 }
 
 /* `.card` and `.feed` set display, which outranks the UA's `[hidden]` rule —
@@ -86,11 +206,11 @@ a {
 }
 
 ::selection {
-  background: rgba(139, 92, 246, 0.4);
+  background: var(--accent-soft);
 }
 
 :focus-visible {
-  outline: 2px solid rgba(139, 92, 246, 0.9);
+  outline: 2px solid var(--accent);
   outline-offset: 3px;
   border-radius: 6px;
 }
@@ -125,9 +245,7 @@ a {
   inset: 0;
   z-index: -1;
   overflow: hidden;
-  background:
-    radial-gradient(120% 80% at 50% -10%, #16121f 0%, transparent 60%),
-    linear-gradient(180deg, #0b0b12 0%, var(--ink) 45%, #08080d 100%);
+  background: var(--bloom-base);
 }
 
 .bloom__orb {
@@ -138,49 +256,33 @@ a {
   will-change: transform;
 }
 
-.bloom__orb--violet {
+/* Two washes rather than four orbs: enough atmosphere to feel alive, not
+   enough to become the page's identity. */
+.bloom__orb--accent {
   width: 60vmax;
   height: 60vmax;
   top: -22vmax;
   left: -10vmax;
-  background: radial-gradient(circle, rgba(139, 92, 246, 0.75), transparent 65%);
+  background: var(--wash-accent);
   animation: drift-a 34s var(--ease) infinite alternate;
 }
 
-.bloom__orb--blue {
-  width: 55vmax;
-  height: 55vmax;
-  top: -8vmax;
-  right: -14vmax;
-  background: radial-gradient(circle, rgba(47, 139, 255, 0.6), transparent 65%);
-  animation: drift-b 42s var(--ease) infinite alternate;
-}
-
-.bloom__orb--pink {
-  width: 45vmax;
-  height: 45vmax;
+.bloom__orb--neutral {
+  width: 52vmax;
+  height: 52vmax;
   bottom: -18vmax;
-  left: 12vw;
-  background: radial-gradient(circle, rgba(255, 77, 157, 0.45), transparent 65%);
-  animation: drift-c 38s var(--ease) infinite alternate;
-}
-
-.bloom__orb--cyan {
-  width: 38vmax;
-  height: 38vmax;
-  bottom: -12vmax;
-  right: -6vmax;
-  background: radial-gradient(circle, rgba(34, 211, 238, 0.4), transparent 65%);
-  animation: drift-d 46s var(--ease) infinite alternate;
+  right: -10vmax;
+  background: var(--wash-neutral);
+  animation: drift-b 42s var(--ease) infinite alternate;
 }
 
 /* Fine noise so the big gradients don't band on wide gamut displays. */
 .bloom__grain {
   position: absolute;
   inset: -50%;
-  opacity: 0.035;
+  opacity: var(--grain-opacity);
   background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/></filter><rect width='140' height='140' filter='url(%23n)'/></svg>");
-  mix-blend-mode: overlay;
+  mix-blend-mode: var(--grain-blend);
   pointer-events: none;
 }
 
@@ -189,12 +291,6 @@ a {
 }
 @keyframes drift-b {
   to { transform: translate3d(-12vw, 16vh, 0) scale(1.12); }
-}
-@keyframes drift-c {
-  to { transform: translate3d(18vw, -12vh, 0) scale(1.22); }
-}
-@keyframes drift-d {
-  to { transform: translate3d(-14vw, -14vh, 0) scale(1.15); }
 }
 
 /* --------------------------------------------------------------------------
@@ -206,7 +302,7 @@ a {
   z-index: 30;
   padding: 22px clamp(16px, 4vw, 40px) 14px;
   padding-top: max(22px, env(safe-area-inset-top));
-  background: linear-gradient(180deg, rgba(10, 10, 15, 0.86) 0%, rgba(10, 10, 15, 0.62) 60%, transparent 100%);
+  background: linear-gradient(180deg, var(--veil-strong) 0%, var(--veil-soft) 60%, transparent 100%);
   backdrop-filter: blur(18px) saturate(160%);
   -webkit-backdrop-filter: blur(18px) saturate(160%);
 }
@@ -235,7 +331,7 @@ a {
 }
 
 .wordmark__accent {
-  background: linear-gradient(100deg, var(--violet) 0%, var(--indigo) 30%, var(--cyan) 62%, var(--pink) 100%);
+  background: linear-gradient(100deg, var(--accent) 0%, var(--accent-hi) 34%, var(--accent) 68%, var(--accent-hi) 100%);
   background-size: 220% 100%;
   -webkit-background-clip: text;
   background-clip: text;
@@ -257,7 +353,7 @@ a {
 
 .masthead__sub a {
   color: var(--text-2);
-  text-decoration-color: rgba(255, 255, 255, 0.25);
+  text-decoration-color: var(--edge-bright);
   text-underline-offset: 3px;
 }
 
@@ -279,7 +375,7 @@ a {
   gap: 4px;
   padding: 4px;
   border-radius: var(--radius-pill);
-  background: rgba(255, 255, 255, 0.04);
+  background: var(--glass);
   border: 1px solid var(--edge);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
@@ -305,9 +401,9 @@ a {
 }
 
 .views__tab.is-active {
-  color: #fff;
-  background: linear-gradient(135deg, rgba(139, 92, 246, 0.9), rgba(47, 139, 255, 0.85));
-  box-shadow: 0 6px 20px -8px rgba(139, 92, 246, 0.9);
+  color: var(--on-accent);
+  background: var(--accent);
+  box-shadow: 0 6px 20px -8px var(--accent-glow);
 }
 
 .views__count {
@@ -316,11 +412,16 @@ a {
   padding: 0 5px;
   margin-left: 3px;
   border-radius: var(--radius-pill);
-  background: rgba(255, 255, 255, 0.14);
+  background: var(--count-bg);
   font-size: 11.5px;
   font-variant-numeric: tabular-nums;
   line-height: 19px;
   text-align: center;
+}
+
+/* The active tab is always accent with white text, in either theme. */
+.views__tab.is-active .views__count {
+  background: rgba(255, 255, 255, 0.24);
 }
 
 /* Topic filter chips */
@@ -350,7 +451,7 @@ a {
   padding: 7px 14px;
   border-radius: var(--radius-pill);
   border: 1px solid var(--edge);
-  background: rgba(255, 255, 255, 0.035);
+  background: var(--glass);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   cursor: pointer;
@@ -366,10 +467,10 @@ a {
 }
 
 .chip.is-active {
-  color: #fff;
-  border-color: rgba(139, 92, 246, 0.6);
-  background: rgba(139, 92, 246, 0.18);
-  box-shadow: 0 0 0 1px rgba(139, 92, 246, 0.25), 0 8px 24px -12px rgba(139, 92, 246, 0.9);
+  color: var(--on-accent);
+  border-color: transparent;
+  background: var(--accent);
+  box-shadow: 0 8px 24px -12px var(--accent-glow);
 }
 
 .chip__count {
@@ -379,7 +480,7 @@ a {
 }
 
 .chip.is-active .chip__count {
-  color: rgba(255, 255, 255, 0.7);
+  color: rgba(255, 255, 255, 0.72);
 }
 
 /* --------------------------------------------------------------------------
@@ -412,8 +513,7 @@ a {
   padding: 26px;
   border-radius: var(--radius);
   border: 1px solid var(--edge);
-  background:
-    linear-gradient(160deg, rgba(255, 255, 255, 0.07) 0%, rgba(255, 255, 255, 0.025) 42%, rgba(255, 255, 255, 0.045) 100%);
+  background: var(--card-bg);
   backdrop-filter: blur(20px) saturate(150%);
   -webkit-backdrop-filter: blur(20px) saturate(150%);
   box-shadow: var(--shadow);
@@ -437,7 +537,7 @@ a {
   inset: 0;
   border-radius: inherit;
   padding: 1px;
-  background: linear-gradient(160deg, rgba(255, 255, 255, 0.35), rgba(255, 255, 255, 0.02) 40%, transparent 70%);
+  background: var(--card-sheen);
   -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
   -webkit-mask-composite: xor;
   mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
@@ -446,7 +546,8 @@ a {
   z-index: 2;
 }
 
-/* Siri activation ring — a rotating conic gradient revealed on hover/focus. */
+/* Siri activation ring, rebuilt in one hue: a comet of accent light travelling
+   the border rather than a rainbow spinning around it. */
 .card__ring {
   position: absolute;
   inset: -1px;
@@ -454,7 +555,14 @@ a {
   padding: 1.5px;
   background: conic-gradient(
     from var(--ring-angle),
-    var(--violet), var(--pink), var(--amber), var(--cyan), var(--blue), var(--violet)
+    transparent 0deg,
+    var(--accent-edge) 55deg,
+    var(--accent) 110deg,
+    var(--accent-hi) 150deg,
+    var(--accent) 190deg,
+    var(--accent-edge) 245deg,
+    transparent 300deg,
+    transparent 360deg
   );
   -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
   -webkit-mask-composite: xor;
@@ -471,6 +579,13 @@ a {
 .card.is-top .card__ring {
   opacity: 0.85;
   animation: ring-spin 4.5s linear infinite;
+}
+
+/* The deck card fills the screen, so the same ring reads as a hard stripe down
+   one edge rather than a highlight. Dim it and slow it to ambient. */
+.feed.is-deck .card.is-top .card__ring {
+  opacity: 0.45;
+  animation-duration: 9s;
 }
 
 @keyframes ring-spin {
@@ -516,16 +631,16 @@ a {
   font-weight: 600;
   letter-spacing: 0.02em;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.82);
+  color: var(--pill-text);
   padding: 5px 11px;
   border-radius: var(--radius-pill);
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  background: linear-gradient(135deg, rgba(139, 92, 246, 0.22), rgba(47, 139, 255, 0.16));
+  border: 1px solid var(--pill-edge);
+  background: var(--pill-bg);
 }
 
 .pill__glyph {
   font-size: 8px;
-  color: var(--cyan);
+  color: var(--accent);
   transform: translateY(-0.5px);
 }
 
@@ -545,14 +660,14 @@ a {
   line-height: 1.22;
   letter-spacing: -0.028em;
   text-wrap: balance;
-  color: #fff;
+  color: var(--title);
 }
 
 .card__rule {
   border: 0;
   height: 1px;
   margin: 18px 0;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.14) 12%, rgba(255, 255, 255, 0.14) 88%, transparent);
+  background: var(--rule);
 }
 
 .card__summary {
@@ -612,7 +727,7 @@ a {
 }
 
 .card__expand:hover {
-  color: var(--cyan);
+  color: var(--accent);
 }
 
 .card__expand-icon {
@@ -655,7 +770,7 @@ a {
   padding: 11px 18px;
   border-radius: var(--radius-pill);
   border: 1px solid var(--edge);
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--btn-bg);
   color: var(--text);
   text-decoration: none;
   text-align: center;
@@ -669,7 +784,7 @@ a {
 .btn:hover {
   transform: translateY(-1px);
   border-color: var(--edge-bright);
-  background: rgba(255, 255, 255, 0.09);
+  background: var(--btn-bg-hover);
 }
 
 .btn:active {
@@ -679,26 +794,27 @@ a {
 .btn--primary {
   flex: 1;
   border-color: transparent;
-  color: #fff;
-  background: linear-gradient(135deg, var(--violet) 0%, var(--indigo) 55%, var(--blue) 100%);
-  box-shadow: 0 10px 30px -14px rgba(91, 108, 255, 0.95);
+  color: var(--on-accent);
+  background: var(--accent);
+  box-shadow: 0 10px 30px -14px var(--accent-glow);
 }
 
 .btn--primary:hover {
-  box-shadow: 0 16px 40px -14px rgba(139, 92, 246, 1);
-  background: linear-gradient(135deg, #9d72ff 0%, #6b7cff 55%, #4a9bff 100%);
+  border-color: transparent;
+  background: var(--accent);
+  filter: brightness(1.12);
+  box-shadow: 0 16px 40px -14px var(--accent-glow);
 }
 
 .btn--save[aria-pressed="true"] {
-  color: #fff;
-  border-color: rgba(255, 180, 87, 0.55);
-  background: rgba(255, 180, 87, 0.16);
-  box-shadow: 0 0 0 1px rgba(255, 180, 87, 0.2), 0 10px 26px -16px rgba(255, 180, 87, 0.9);
+  color: var(--save);
+  border-color: var(--save-edge);
+  background: var(--save-soft);
+  box-shadow: 0 10px 26px -16px var(--save-glow);
 }
 
 .btn--save[aria-pressed="true"] .btn__label::before {
   content: "★ ";
-  color: var(--amber);
 }
 
 /* --------------------------------------------------------------------------
@@ -727,8 +843,9 @@ a {
   animation: none;
   /* Slightly more opaque than the grid card so the card underneath in the stack
      reads as depth rather than as legible text bleeding through. */
-  background-color: rgba(12, 12, 20, 0.62);
+  background-color: var(--card-solid);
   transform-origin: 50% 50%;
+  touch-action: pan-y;
   will-change: transform, opacity;
   transition: transform 0.55s var(--spring), opacity 0.4s var(--ease);
   -webkit-user-select: none;
@@ -757,6 +874,11 @@ a {
 .feed.is-deck .card__body {
   flex: 1;
   overflow-y: auto;
+  /* This element scrolls, so the browser treats it as the one implementing
+     default touch behaviour and never consults the `pan-y` on `.card.is-top`
+     above it — a touch starting on the abstract would pan the page sideways
+     instead of handing the horizontal delta to the swipe handler. */
+  touch-action: pan-y;
   overscroll-behavior: contain;
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
@@ -806,20 +928,20 @@ a {
 
 .card__stamp--save {
   left: 24px;
-  color: #7dffc4;
-  border: 2.5px solid rgba(125, 255, 196, 0.85);
-  background: rgba(45, 212, 154, 0.15);
+  color: var(--save);
+  border: 2.5px solid var(--save-edge);
+  background: var(--save-soft);
   transform: rotate(-14deg);
-  box-shadow: 0 0 32px -6px rgba(125, 255, 196, 0.6);
+  box-shadow: 0 0 32px -6px var(--save-glow);
 }
 
 .card__stamp--skip {
   right: 24px;
-  color: #ff8fa8;
-  border: 2.5px solid rgba(255, 143, 168, 0.85);
-  background: rgba(255, 77, 109, 0.15);
+  color: var(--skip);
+  border: 2.5px solid var(--skip-edge);
+  background: var(--skip-soft);
   transform: rotate(14deg);
-  box-shadow: 0 0 32px -6px rgba(255, 143, 168, 0.6);
+  box-shadow: 0 0 32px -6px var(--skip-glow);
 }
 
 /* --------------------------------------------------------------------------
@@ -836,7 +958,7 @@ a {
   justify-content: center;
   gap: 18px;
   padding: 14px 20px calc(14px + env(safe-area-inset-bottom));
-  background: linear-gradient(180deg, transparent, rgba(10, 10, 15, 0.8) 45%);
+  background: linear-gradient(180deg, transparent, var(--veil-deck) 45%);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
 }
@@ -856,7 +978,7 @@ a {
   place-items: center;
   cursor: pointer;
   border: 1px solid var(--edge-bright);
-  background: rgba(255, 255, 255, 0.06);
+  background: var(--glass-strong);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   color: var(--text);
@@ -881,15 +1003,15 @@ a {
 }
 
 .deckbar__btn--skip {
-  color: #ff8fa8;
-  border-color: rgba(255, 143, 168, 0.4);
-  box-shadow: 0 10px 30px -14px rgba(255, 77, 109, 0.9);
+  color: var(--skip);
+  border-color: var(--skip-edge);
+  box-shadow: 0 10px 30px -14px var(--skip-glow);
 }
 
 .deckbar__btn--save {
-  color: #7dffc4;
-  border-color: rgba(125, 255, 196, 0.4);
-  box-shadow: 0 10px 30px -14px rgba(45, 212, 154, 0.9);
+  color: var(--save);
+  border-color: var(--save-edge);
+  box-shadow: 0 10px 30px -14px var(--save-glow);
 }
 
 .deckbar__progress {
@@ -935,7 +1057,7 @@ a {
   font-size: 22px;
   font-weight: 640;
   letter-spacing: -0.025em;
-  color: #fff;
+  color: var(--title);
 }
 
 .empty__sub {
@@ -978,7 +1100,7 @@ body.is-deck .colophon {
   padding: 11px 20px;
   border-radius: var(--radius-pill);
   border: 1px solid var(--edge-bright);
-  background: rgba(20, 20, 30, 0.82);
+  background: var(--surface-solid);
   backdrop-filter: blur(20px) saturate(160%);
   -webkit-backdrop-filter: blur(20px) saturate(160%);
   box-shadow: var(--shadow);
@@ -1072,11 +1194,11 @@ body.is-deck .toast {
   .views,
   .toast,
   .deckbar__btn {
-    background: rgba(24, 24, 34, 0.92);
+    background: var(--solid-panel);
   }
   .masthead,
   .deckbar {
-    background: rgba(10, 10, 15, 0.95);
+    background: var(--solid-bar);
   }
 }
 

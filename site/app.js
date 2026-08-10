@@ -1,5 +1,5 @@
 /* ==========================================================================
-   PaperSwipe — feed behaviour
+   paperswipe — feed behaviour
    Desktop: a filterable glass grid. Mobile: a swipeable deck over the same data.
    Saves live in localStorage; nothing leaves the device.
    ========================================================================== */
@@ -35,7 +35,7 @@
   } catch (err) {
     // The grid still works from the server-rendered markup, but saves need the
     // data — fail loudly rather than degrading silently.
-    console.error("PaperSwipe: could not parse embedded paper data", err);
+    console.error("paperswipe: could not parse embedded paper data", err);
     payload = {};
   }
   var papers = payload.papers || [];
@@ -183,9 +183,10 @@
     meta.appendChild(el("span", "dot", "·"));
     var count = paper.author_count || (paper.authors || []).length;
     meta.appendChild(el("span", null, count + (count === 1 ? " author" : " authors")));
-    if (paper.published_label) {
+    var dayLabel = paper.daily_label || paper.published_label;
+    if (dayLabel) {
       meta.appendChild(el("span", "dot", "·"));
-      meta.appendChild(el("span", null, paper.published_label));
+      meta.appendChild(el("span", null, dayLabel));
     }
     bodyEl.appendChild(meta);
     card.appendChild(bodyEl);

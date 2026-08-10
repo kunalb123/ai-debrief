@@ -1,5 +1,5 @@
 {#-
-  PaperSwipe — Jinja2 template rendered by scripts/generate_site.py.
+  paperswipe — Jinja2 template rendered by scripts/generate_site.py.
 
   Cards are rendered server-side so the feed works with JavaScript disabled
   (it degrades to a plain responsive grid). app.js upgrades the same nodes into
@@ -10,12 +10,13 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>PaperSwipe — {{ data.date_label }}</title>
+<title>paperswipe — {{ data.date_label }}</title>
 <meta name="description" content="{{ data.count }} ML papers from HuggingFace Daily Papers for {{ data.date_label }} — swipe, scan, save.">
-<meta name="theme-color" content="#0a0a0f">
-<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#f4f5f7" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0c0d10" media="(prefers-color-scheme: dark)">
+<meta name="color-scheme" content="dark light">
 <meta property="og:type" content="website">
-<meta property="og:title" content="PaperSwipe — {{ data.date_label }}">
+<meta property="og:title" content="paperswipe — {{ data.date_label }}">
 <meta property="og:description" content="{{ data.count }} ML papers, one swipe at a time.">
 <link rel="icon" href="data:image/svg+xml,{{ favicon }}">
 <link rel="preconnect" href="https://huggingface.co">
@@ -25,10 +26,8 @@
 <body>
 
 <div class="bloom" aria-hidden="true">
-  <span class="bloom__orb bloom__orb--violet"></span>
-  <span class="bloom__orb bloom__orb--blue"></span>
-  <span class="bloom__orb bloom__orb--pink"></span>
-  <span class="bloom__orb bloom__orb--cyan"></span>
+  <span class="bloom__orb bloom__orb--accent"></span>
+  <span class="bloom__orb bloom__orb--neutral"></span>
   <span class="bloom__grain"></span>
 </div>
 
@@ -37,7 +36,7 @@
 <header class="masthead">
   <div class="masthead__row">
     <div class="masthead__brand">
-      <h1 class="wordmark">Paper<span class="wordmark__accent">Swipe</span></h1>
+      <h1 class="wordmark">paper<span class="wordmark__accent">swipe</span></h1>
       <p class="masthead__sub">
         <span class="masthead__date masthead__date--long">{{ data.date_label }}</span>
         <span class="masthead__date masthead__date--short">{{ data.date_short }}</span>
@@ -120,9 +119,9 @@
           <span title="{{ paper.authors[:8] | join(', ') }}{% if paper.author_count > 8 %} and {{ paper.author_count - 8 }} more{% endif %}">
             {{ paper.author_count }} author{{ '' if paper.author_count == 1 else 's' }}
           </span>
-          {%- if paper.published_label %}
+          {%- if paper.daily_label %}
           <span class="dot" aria-hidden="true">·</span>
-          <span>{{ paper.published_label }}</span>
+          <span title="Featured on HuggingFace Daily Papers on {{ paper.daily_date }}">{{ paper.daily_label }}</span>
           {%- endif %}
         </div>
       </div>
