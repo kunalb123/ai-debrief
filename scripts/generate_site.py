@@ -38,7 +38,7 @@ FAVICON_SVG = (
     "<defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'>"
     "<stop offset='0' stop-color='%23ffffff'/><stop offset='1' stop-color='%239a9ba0'/>"
     "</linearGradient></defs>"
-    "<rect width='64' height='64' rx='16' fill='%230c0d0e'/>"
+    "<rect width='64' height='64' rx='16' fill='%23000000'/>"
     "<rect x='14' y='12' width='30' height='40' rx='7' fill='none' stroke='url(%23g)' stroke-width='3.5' "
     "transform='rotate(-10 29 32)'/>"
     "<rect x='24' y='14' width='30' height='40' rx='7' fill='url(%23g)' opacity='.9' "

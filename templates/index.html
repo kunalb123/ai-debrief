@@ -12,8 +12,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>paperswipe — {{ data.date_label }}</title>
 <meta name="description" content="{{ data.count }} ML papers from HuggingFace Daily Papers for {{ data.date_label }} — swipe, scan, save.">
-<meta name="theme-color" content="#f5f5f6" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#0c0d0e" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#f2f2f3" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
 <meta name="color-scheme" content="dark light">
 <meta property="og:type" content="website">
 <meta property="og:title" content="paperswipe — {{ data.date_label }}">
@@ -24,12 +24,6 @@
 <script>document.documentElement.className = 'js';</script>
 </head>
 <body>
-
-<div class="bloom" aria-hidden="true">
-  <span class="bloom__orb bloom__orb--accent"></span>
-  <span class="bloom__orb bloom__orb--neutral"></span>
-  <span class="bloom__grain"></span>
-</div>
 
 <a class="skip-link" href="#feed">Skip to papers</a>
 
@@ -85,7 +79,7 @@
         <div class="card__head">
           <div class="card__tags">
             {%- for tag in paper.tags %}
-            <span class="pill"><span class="pill__glyph" aria-hidden="true">◆</span>{{ tag }}</span>
+            <span class="pill" data-tag="{{ tag }}"><span class="pill__glyph" aria-hidden="true">◆</span>{{ tag }}</span>
             {%- endfor %}
           </div>
           <span class="card__rank" aria-hidden="true">#{{ paper.rank }}</span>

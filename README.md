@@ -7,9 +7,10 @@ A TikTok-style ML paper discovery feed — swipeable cards, one headline, two se
 **Desktop:** a filterable grid of frosted-glass cards, ranked by upvotes across the week.
 **Mobile:** one card at a time — swipe left to skip, swipe right to save.
 
-Monochrome graphite: the accent is the far end of the value scale rather than a
-hue, so emphasis comes from contrast. A full light palette follows
-`prefers-color-scheme`.
+A flat monochrome ground — true black on dark, off-white on light — where the
+accent is the far end of the value scale rather than a hue. Colour is spent on
+exactly two things: a per-topic hue on the tags, and save/skip. Both themes
+follow `prefers-color-scheme`.
 
 No backend. No database. No API keys. No external AI calls.
 
@@ -94,7 +95,9 @@ it leaner.
 - **Read straight to the PDF** — the card's primary button opens
   `arxiv.org/pdf/<id>`. Build with `--link-target abstract` for the landing page.
 - **Topic filtering** — 16 topics (Interpretability, Alignment & Safety, RL,
-  Reasoning, Agents, Efficiency, …) inferred from title/abstract keywords.
+  Reasoning, Agents, Efficiency, …) inferred from title/abstract keywords. Each
+  carries its own hue, set by a single `--pill-hue` in `site/style.css` — add a
+  topic there when you add one to `TOPIC_RULES`.
 - **Full HF summary** — the card shows two sentences; expand for the whole abstract.
 - **Readable maths** — abstracts arrive with raw LaTeX in them, so `unlatex()` in
   the fetcher flattens it to Unicode at build time: `$R_{15}$` → `R₁₅`,

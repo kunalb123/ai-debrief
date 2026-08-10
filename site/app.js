@@ -147,6 +147,8 @@
     var tags = el("div", "card__tags");
     (paper.tags || []).forEach(function (tag) {
       var pill = el("span", "pill");
+      // Drives --pill-hue in the stylesheet, same as the server-rendered pills.
+      pill.setAttribute("data-tag", tag);
       var glyph = el("span", "pill__glyph", "◆");
       glyph.setAttribute("aria-hidden", "true");
       pill.appendChild(glyph);

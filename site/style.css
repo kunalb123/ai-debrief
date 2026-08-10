@@ -1,9 +1,16 @@
 /* ==========================================================================
-   paperswipe — "Graphite", monochrome
-   Neutral ground, frosted glass, no hue. The accent is simply the far end of
-   the value scale: near-white on dark, near-black on light — so emphasis comes
-   from contrast rather than colour. The only surviving chroma is a whisper on
-   save/skip, where the swipe outcome genuinely needs to read at a glance.
+   paperswipe — monochrome ground, colour where it means something
+
+   The ground is flat: true black on dark, flat off-white on light. No wash, no
+   bloom, no gradient — a gradient would make the black shallow, and the cards
+   are the only things meant to lift off it. The accent is the far end of the
+   value scale (near-white on dark, near-black on light), so chrome and emphasis
+   come from contrast alone.
+
+   Colour is then spent deliberately, at full saturation, on exactly two things:
+   topic pills, where a hue labels faster than a word, and save/skip, where the
+   swipe outcome has to read at a glance. Half-desaturated colour reads as a
+   mistake — anything coloured here is properly coloured.
 
    Every colour below is a token, and the whole palette is redefined once for
    light mode; nothing outside these two blocks names a colour, so the themes
@@ -20,39 +27,28 @@
 :root {
   color-scheme: dark;
 
-  /* Ground */
-  --ink: #0c0d0e;
-  --ink-2: #17181a;
-  --bloom-base:
-    radial-gradient(120% 80% at 50% -10%, #1b1c1f 0%, transparent 60%),
-    linear-gradient(180deg, #121314 0%, #0c0d0e 45%, #08090a 100%);
-  /* Light, not colour: the washes are pale grey lifting the ground. */
-  --wash-accent: radial-gradient(circle, rgba(226, 229, 233, 0.12), transparent 65%);
-  --wash-neutral: radial-gradient(circle, rgba(160, 164, 170, 0.1), transparent 65%);
-  --grain-opacity: 0.035;
-  --grain-blend: overlay;
+  /* Ground — true black, flat. No wash, no bloom: the cards are the only
+     thing lifted off it, which is what makes them read as objects. */
+  --ink: #000000;
+  --ink-2: #141416;
 
-  /* Glass */
+  /* Surfaces */
   --glass: rgba(255, 255, 255, 0.045);
   --glass-strong: rgba(255, 255, 255, 0.085);
-  --edge: rgba(255, 255, 255, 0.11);
-  --edge-bright: rgba(255, 255, 255, 0.2);
-  --card-bg: linear-gradient(
-    160deg, rgba(255, 255, 255, 0.07) 0%, rgba(255, 255, 255, 0.025) 42%, rgba(255, 255, 255, 0.045) 100%);
-  --card-sheen: linear-gradient(
-    160deg, rgba(255, 255, 255, 0.32), rgba(255, 255, 255, 0.02) 40%, transparent 70%);
-  /* Opaque enough that the card below in the deck reads as depth, not text. */
-  --card-solid: rgba(14, 15, 19, 0.66);
+  --edge: rgba(255, 255, 255, 0.09);
+  --edge-bright: rgba(255, 255, 255, 0.18);
+  --card-bg: #141416;
+  --card-solid: #141416;
   --rule: linear-gradient(
-    90deg, transparent, rgba(255, 255, 255, 0.14) 12%, rgba(255, 255, 255, 0.14) 88%, transparent);
+    90deg, transparent, rgba(255, 255, 255, 0.12) 12%, rgba(255, 255, 255, 0.12) 88%, transparent);
 
   /* Veils — the translucent bars that sit over scrolling content */
-  --veil-strong: rgba(12, 13, 14, 0.86);
-  --veil-soft: rgba(12, 13, 14, 0.6);
-  --veil-deck: rgba(12, 13, 14, 0.82);
-  --surface-solid: rgba(25, 26, 28, 0.86);
-  --solid-panel: rgba(25, 26, 28, 0.94);
-  --solid-bar: rgba(12, 13, 14, 0.96);
+  --veil-strong: rgba(0, 0, 0, 0.88);
+  --veil-soft: rgba(0, 0, 0, 0.62);
+  --veil-deck: rgba(0, 0, 0, 0.84);
+  --surface-solid: rgba(23, 23, 25, 0.88);
+  --solid-panel: rgba(23, 23, 25, 0.96);
+  --solid-bar: rgba(0, 0, 0, 0.96);
 
   /* Type */
   --title: #f6f7f8;
@@ -68,20 +64,25 @@
   --accent-glow: rgba(0, 0, 0, 0.7);
   --on-accent: #0c0d0e;
 
-  /* Semantic — swipe outcomes only. Barely saturated: the ✕/★ glyphs and the
-     drag direction carry the meaning, these just keep them apart at a glance. */
-  --save: #b1c3bb;
-  --save-edge: rgba(177, 195, 187, 0.5);
-  --save-soft: rgba(177, 195, 187, 0.12);
-  --save-glow: rgba(177, 195, 187, 0.55);
-  --skip: #c3b1b6;
-  --skip-edge: rgba(195, 177, 182, 0.5);
-  --skip-soft: rgba(195, 177, 182, 0.12);
-  --skip-glow: rgba(195, 177, 182, 0.55);
+  /* Semantic — swipe outcomes. Fully saturated on purpose: on a monochrome
+     ground the few coloured things should be unmistakably coloured. */
+  --save: #34d399;
+  --save-edge: rgba(52, 211, 153, 0.55);
+  --save-soft: rgba(52, 211, 153, 0.14);
+  --save-glow: rgba(52, 211, 153, 0.55);
+  --skip: #fb7185;
+  --skip-edge: rgba(251, 113, 133, 0.55);
+  --skip-soft: rgba(251, 113, 133, 0.14);
+  --skip-glow: rgba(251, 113, 133, 0.55);
 
-  --pill-bg: rgba(255, 255, 255, 0.06);
-  --pill-edge: rgba(255, 255, 255, 0.13);
-  --pill-text: rgba(244, 245, 247, 0.8);
+  /* Topic pills are hue-driven (see --pill-hue); these describe how a hue is
+     rendered against this theme's ground. */
+  --pill-sat: 72%;
+  --pill-lum: 70%;
+  --pill-fill: 0.13;
+  --pill-stroke: 0.3;
+
+  --wordmark-2: #6b6f76;
   --count-bg: rgba(255, 255, 255, 0.16);
   --btn-bg: rgba(255, 255, 255, 0.05);
   --btn-bg-hover: rgba(255, 255, 255, 0.09);
@@ -109,35 +110,24 @@
   :root {
     color-scheme: light;
 
-    --ink: #f5f5f6;
+    --ink: #f2f2f3;
     --ink-2: #ffffff;
-    --bloom-base:
-      radial-gradient(120% 80% at 50% -10%, #ffffff 0%, transparent 60%),
-      linear-gradient(180deg, #fbfbfc 0%, #f5f5f6 45%, #ededef 100%);
-    /* Shade rather than colour — the mirror of the dark theme's washes. */
-    --wash-accent: radial-gradient(circle, rgba(140, 143, 150, 0.16), transparent 65%);
-    --wash-neutral: radial-gradient(circle, rgba(120, 123, 130, 0.13), transparent 65%);
-    --grain-opacity: 0.02;
-    --grain-blend: multiply;
 
     --glass: rgba(255, 255, 255, 0.7);
     --glass-strong: rgba(255, 255, 255, 0.86);
     --edge: rgba(18, 19, 21, 0.1);
     --edge-bright: rgba(18, 19, 21, 0.2);
-    --card-bg: linear-gradient(
-      160deg, rgba(255, 255, 255, 0.92) 0%, rgba(255, 255, 255, 0.72) 42%, rgba(255, 255, 255, 0.85) 100%);
-    --card-sheen: linear-gradient(
-      160deg, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.2) 40%, transparent 70%);
-    --card-solid: rgba(253, 253, 254, 0.9);
+    --card-bg: #ffffff;
+    --card-solid: #ffffff;
     --rule: linear-gradient(
       90deg, transparent, rgba(18, 19, 21, 0.12) 12%, rgba(18, 19, 21, 0.12) 88%, transparent);
 
-    --veil-strong: rgba(245, 245, 246, 0.88);
-    --veil-soft: rgba(245, 245, 246, 0.58);
-    --veil-deck: rgba(245, 245, 246, 0.85);
+    --veil-strong: rgba(242, 242, 243, 0.9);
+    --veil-soft: rgba(242, 242, 243, 0.58);
+    --veil-deck: rgba(242, 242, 243, 0.86);
     --surface-solid: rgba(255, 255, 255, 0.9);
     --solid-panel: rgba(255, 255, 255, 0.96);
-    --solid-bar: rgba(245, 245, 246, 0.97);
+    --solid-bar: rgba(242, 242, 243, 0.97);
 
     --title: #111214;
     --text: rgba(17, 18, 20, 0.92);
@@ -152,18 +142,23 @@
     --accent-glow: rgba(29, 30, 33, 0.45);
     --on-accent: #ffffff;
 
-    --save: #4d5f58;
-    --save-edge: rgba(77, 95, 88, 0.5);
-    --save-soft: rgba(77, 95, 88, 0.1);
-    --save-glow: rgba(77, 95, 88, 0.45);
-    --skip: #5f4d52;
-    --skip-edge: rgba(95, 77, 82, 0.5);
-    --skip-soft: rgba(95, 77, 82, 0.1);
-    --skip-glow: rgba(95, 77, 82, 0.45);
+    /* Darker and denser than the dark theme's pair — the same colours read as
+       pastel wash-out against white. */
+    --save: #06915d;
+    --save-edge: rgba(6, 145, 93, 0.5);
+    --save-soft: rgba(6, 145, 93, 0.11);
+    --save-glow: rgba(6, 145, 93, 0.4);
+    --skip: #d81e46;
+    --skip-edge: rgba(216, 30, 70, 0.5);
+    --skip-soft: rgba(216, 30, 70, 0.11);
+    --skip-glow: rgba(216, 30, 70, 0.4);
 
-    --pill-bg: rgba(18, 19, 21, 0.05);
-    --pill-edge: rgba(18, 19, 21, 0.1);
-    --pill-text: rgba(17, 18, 20, 0.72);
+    --pill-sat: 68%;
+    --pill-lum: 33%;
+    --pill-fill: 0.09;
+    --pill-stroke: 0.24;
+
+    --wordmark-2: #a4a7ad;
     --count-bg: rgba(18, 19, 21, 0.1);
     --btn-bg: rgba(18, 19, 21, 0.035);
     --btn-bg-hover: rgba(18, 19, 21, 0.07);
@@ -245,62 +240,6 @@ a {
 }
 
 /* --------------------------------------------------------------------------
-   Background bloom — slow drifting orbs behind everything
-   -------------------------------------------------------------------------- */
-.bloom {
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  overflow: hidden;
-  background: var(--bloom-base);
-}
-
-.bloom__orb {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(90px);
-  opacity: 0.62;
-  will-change: transform;
-}
-
-/* Two washes rather than four orbs: enough atmosphere to feel alive, not
-   enough to become the page's identity. */
-.bloom__orb--accent {
-  width: 60vmax;
-  height: 60vmax;
-  top: -22vmax;
-  left: -10vmax;
-  background: var(--wash-accent);
-  animation: drift-a 34s var(--ease) infinite alternate;
-}
-
-.bloom__orb--neutral {
-  width: 52vmax;
-  height: 52vmax;
-  bottom: -18vmax;
-  right: -10vmax;
-  background: var(--wash-neutral);
-  animation: drift-b 42s var(--ease) infinite alternate;
-}
-
-/* Fine noise so the big gradients don't band on wide gamut displays. */
-.bloom__grain {
-  position: absolute;
-  inset: -50%;
-  opacity: var(--grain-opacity);
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/></filter><rect width='140' height='140' filter='url(%23n)'/></svg>");
-  mix-blend-mode: var(--grain-blend);
-  pointer-events: none;
-}
-
-@keyframes drift-a {
-  to { transform: translate3d(14vw, 10vh, 0) scale(1.18); }
-}
-@keyframes drift-b {
-  to { transform: translate3d(-12vw, 16vh, 0) scale(1.12); }
-}
-
-/* --------------------------------------------------------------------------
    Masthead
    -------------------------------------------------------------------------- */
 .masthead {
@@ -335,19 +274,13 @@ a {
   font-weight: 700;
   letter-spacing: -0.035em;
   line-height: 1.1;
+  color: var(--accent-hi);
 }
 
+/* "paper" carries the weight, "swipe" recedes — a value step inside one word
+   rather than two colours. Held well above the ground so it stays readable. */
 .wordmark__accent {
-  background: linear-gradient(100deg, var(--accent) 0%, var(--accent-hi) 34%, var(--accent) 68%, var(--accent-hi) 100%);
-  background-size: 220% 100%;
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  animation: shimmer 9s linear infinite;
-}
-
-@keyframes shimmer {
-  to { background-position: 220% 0; }
+  color: var(--wordmark-2);
 }
 
 .masthead__sub {
@@ -426,9 +359,10 @@ a {
   text-align: center;
 }
 
-/* The active tab is always accent with white text, in either theme. */
+/* Same reasoning as .chip.is-active .chip__count — tint the badge with the
+   colour that sits on the accent, not a fixed white. */
 .views__tab.is-active .views__count {
-  background: rgba(255, 255, 255, 0.24);
+  background: color-mix(in srgb, var(--on-accent) 18%, transparent);
 }
 
 /* Topic filter chips */
@@ -486,8 +420,11 @@ a {
   margin-left: 3px;
 }
 
+/* The active chip is a solid accent pill, so the count has to be drawn from the
+   text colour that sits on it — a fixed white here vanished on the dark theme,
+   where the accent is near-white. */
 .chip.is-active .chip__count {
-  color: rgba(255, 255, 255, 0.72);
+  color: color-mix(in srgb, var(--on-accent) 62%, transparent);
 }
 
 /* --------------------------------------------------------------------------
@@ -521,8 +458,6 @@ a {
   border-radius: var(--radius);
   border: 1px solid var(--edge);
   background: var(--card-bg);
-  backdrop-filter: blur(20px) saturate(150%);
-  -webkit-backdrop-filter: blur(20px) saturate(150%);
   box-shadow: var(--shadow);
   isolation: isolate;
   transition: transform 0.5s var(--spring), box-shadow 0.4s var(--ease), border-color 0.3s var(--ease);
@@ -535,22 +470,6 @@ a {
     transform: translateY(18px) scale(0.985);
     filter: blur(6px);
   }
-}
-
-/* Top inner highlight — the lit edge of a glass slab. */
-.card::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  padding: 1px;
-  background: var(--card-sheen);
-  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-  -webkit-mask-composite: xor;
-  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-  mask-composite: exclude;
-  pointer-events: none;
-  z-index: 2;
 }
 
 /* Siri activation ring, rebuilt in one hue: a comet of accent light travelling
@@ -630,7 +549,12 @@ a {
   min-width: 0;
 }
 
+/* The one place colour lives. The page is monochrome, so a topic tag reading in
+   its own hue is unmissable — and a hue is a faster label than a word you have
+   to read. One custom property carries it; the theme decides how a hue is
+   rendered, so light and dark can never drift apart. */
 .pill {
+  --pill-hue: 220;
   display: inline-flex;
   align-items: center;
   gap: 5px;
@@ -638,18 +562,39 @@ a {
   font-weight: 600;
   letter-spacing: 0.02em;
   text-transform: uppercase;
-  color: var(--pill-text);
+  color: hsl(var(--pill-hue) var(--pill-sat) var(--pill-lum));
   padding: 5px 11px;
   border-radius: var(--radius-pill);
-  border: 1px solid var(--pill-edge);
-  background: var(--pill-bg);
+  border: 1px solid hsl(var(--pill-hue) var(--pill-sat) var(--pill-lum) / var(--pill-stroke));
+  background: hsl(var(--pill-hue) var(--pill-sat) var(--pill-lum) / var(--pill-fill));
 }
 
 .pill__glyph {
   font-size: 8px;
-  color: var(--text-3);
+  opacity: 0.8;
   transform: translateY(-0.5px);
 }
+
+/* Hues are spaced at least 16° apart around the wheel so no two topics can be
+   confused, and loosely mapped to meaning where one exists — safety red,
+   efficiency teal, robotics steel. Keep in step with TOPIC_RULES in
+   scripts/fetch_papers.py. */
+.pill[data-tag="Alignment & Safety"] { --pill-hue: 8; }
+.pill[data-tag="Speech & Audio"] { --pill-hue: 36; }
+.pill[data-tag="Code"] { --pill-hue: 58; }
+.pill[data-tag="Training"] { --pill-hue: 82; }
+.pill[data-tag="Retrieval"] { --pill-hue: 104; }
+.pill[data-tag="Data & Evals"] { --pill-hue: 122; }
+.pill[data-tag="Reinforcement Learning"] { --pill-hue: 142; }
+.pill[data-tag="Efficiency"] { --pill-hue: 168; }
+.pill[data-tag="Vision"] { --pill-hue: 190; }
+.pill[data-tag="Reasoning"] { --pill-hue: 205; }
+.pill[data-tag="Robotics"] { --pill-hue: 240; }
+.pill[data-tag="Agents"] { --pill-hue: 262; }
+.pill[data-tag="Interpretability"] { --pill-hue: 280; }
+.pill[data-tag="Generative"] { --pill-hue: 296; }
+.pill[data-tag="Multimodal"] { --pill-hue: 318; }
+.pill[data-tag="Architecture"] { --pill-hue: 340; }
 
 .card__rank {
   flex: 0 0 auto;
@@ -1215,8 +1160,5 @@ body.is-deck .toast {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
-  }
-  .bloom__orb {
-    animation: none;
   }
 }
