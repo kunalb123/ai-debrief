@@ -38,11 +38,18 @@
     console.error("paperswipe: could not parse embedded paper data", err);
     payload = {};
   }
-  var papers = payload.papers || [];
+  // One list for both feeds; each entry carries a `kind` of "paper" or "news".
+  // `papers` is the pre-news payload shape, kept as a fallback so a stale
+  // cached page cannot end up with an empty deck.
+  var papers = payload.cards || payload.papers || [];
   // Where "Read" goes: the arXiv PDF or its abstract page. Set at build time by
   // generate_site.py --link-target, and mirrored here so the JS-rendered deck
   // cards match the server-rendered ones exactly.
   var linkToPdf = payload.link_target !== "abstract";
+  // Copy has to stay true whichever feeds are in the build, so the noun follows
+  // --content rather than being hardcoded to "paper".
+  var NOUN = payload.content === "news" ? "story" : payload.content === "papers" ? "paper" : "card";
+  var NOUN_PLURAL = NOUN === "story" ? "stories" : NOUN + "s";
   var byId = {};
   papers.forEach(function (paper) {
     byId[paper.id] = paper;
@@ -96,7 +103,7 @@
   var savedFeed = document.createElement("section");
   savedFeed.className = "feed";
   savedFeed.id = "saved-feed";
-  savedFeed.setAttribute("aria-label", "Saved papers");
+  savedFeed.setAttribute("aria-label", "Saved " + NOUN_PLURAL);
   savedFeed.hidden = true;
   feed.parentNode.insertBefore(savedFeed, feed.nextSibling);
 
@@ -123,10 +130,12 @@
     return node;
   }
 
-  /** Build a card node from paper data — mirrors templates/index.html. */
+  /** Build a card node from item data — mirrors templates/index.html. */
   function renderCard(paper) {
+    var isNews = paper.kind === "news";
     var card = el("article", "card");
     card.dataset.id = paper.id;
+    card.dataset.kind = paper.kind || "paper";
     card.dataset.rank = paper.rank || 0;
     card.dataset.upvotes = paper.upvotes || 0;
     card.dataset.tags = (paper.tags || []).join("|");
@@ -146,7 +155,8 @@
     var head = el("div", "card__head");
     var tags = el("div", "card__tags");
     (paper.tags || []).forEach(function (tag) {
-      var pill = el("span", "pill");
+      // Solid fill marks news, outline marks research; hue still carries topic.
+      var pill = el("span", isNews ? "pill pill--news" : "pill");
       // Drives --pill-hue in the stylesheet, same as the server-rendered pills.
       pill.setAttribute("data-tag", tag);
       var glyph = el("span", "pill__glyph", "◆");
@@ -185,25 +195,33 @@
     bodyEl.appendChild(el("hr", "card__rule"));
 
     var meta = el("div", "card__meta");
-    meta.appendChild(el("span", "card__votes", "↑ " + (paper.upvotes || 0)));
-    meta.appendChild(el("span", "dot", "·"));
-    var count = paper.author_count || (paper.authors || []).length;
-    meta.appendChild(el("span", null, count + (count === 1 ? " author" : " authors")));
+    if (isNews) {
+      meta.appendChild(el("span", "card__outlet", paper.outlet || ""));
+      if (paper.outlet_count > 1) {
+        meta.appendChild(el("span", "dot", "·"));
+        var outlets = el("span", null, paper.outlet_count + " outlets");
+        outlets.title = "Also covered by " + (paper.outlets || []).join(", ");
+        meta.appendChild(outlets);
+      }
+    } else {
+      meta.appendChild(el("span", "card__votes", "↑ " + (paper.upvotes || 0)));
+      meta.appendChild(el("span", "dot", "·"));
+      var count = paper.author_count || (paper.authors || []).length;
+      meta.appendChild(el("span", null, count + (count === 1 ? " author" : " authors")));
+    }
     var dayLabel = paper.daily_label || paper.published_label;
     if (dayLabel) {
-      meta.appendChild(el("span", "dot", "·"));
+      if (meta.childNodes.length) meta.appendChild(el("span", "dot", "·"));
       meta.appendChild(el("span", null, dayLabel));
     }
     bodyEl.appendChild(meta);
     card.appendChild(bodyEl);
 
     var actions = el("div", "card__actions");
-    var read = el("a", "btn btn--primary", linkToPdf ? "Read PDF" : "Read paper");
-    read.href =
-      (linkToPdf ? paper.pdf_url : paper.arxiv_url) ||
-      paper.arxiv_url ||
-      paper.hf_url ||
-      "#";
+    var read = el("a", "btn btn--primary", isNews ? "Read story" : linkToPdf ? "Read PDF" : "Read paper");
+    read.href = isNews
+      ? paper.url || "#"
+      : (linkToPdf ? paper.pdf_url : paper.arxiv_url) || paper.arxiv_url || paper.hf_url || "#";
     read.target = "_blank";
     read.rel = "noopener";
     actions.appendChild(read);
@@ -363,9 +381,9 @@
     }).length;
     emptyTitle.textContent = order.length ? "You're all caught up" : "Nothing here";
     emptySub.textContent = order.length
-      ? "You went through " + order.length + " paper" + (order.length === 1 ? "" : "s") +
+      ? "You went through " + order.length + " " + (order.length === 1 ? NOUN : NOUN_PLURAL) +
         " and saved " + savedToday + "."
-      : "No papers match this topic. Try another filter.";
+      : "Nothing matches this topic. Try another filter.";
     restartBtn.hidden = !order.length;
     emptyEl.hidden = false;
   }
@@ -515,7 +533,7 @@
     feed.hidden = visible === 0;
     if (visible === 0) {
       emptyTitle.textContent = "Nothing here";
-      emptySub.textContent = "No papers match this topic. Try another filter.";
+      emptySub.textContent = "Nothing matches this topic. Try another filter.";
       restartBtn.hidden = true;
       emptyEl.hidden = false;
     } else {
@@ -550,9 +568,9 @@
   function renderSavedView() {
     savedFeed.textContent = "";
     if (!saved.length) {
-      emptyTitle.textContent = "No saved papers yet";
+      emptyTitle.textContent = "Nothing saved yet";
       emptySub.textContent = deckMQ.matches
-        ? "Swipe right — or tap ★ — to keep a paper here."
+        ? "Swipe right — or tap ★ — to keep something here."
         : "Hit Save on any card to keep it here.";
       restartBtn.hidden = true;
       emptyEl.hidden = false;

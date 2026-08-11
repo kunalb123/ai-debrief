@@ -10,14 +10,23 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+{%- set blurb -%}
+{%- if data.content == 'news' -%}
+{{ data.news_count }} AI industry stories
+{%- elif data.content == 'papers' -%}
+{{ data.paper_count }} ML papers from HuggingFace Daily Papers
+{%- else -%}
+{{ data.paper_count }} ML papers and {{ data.news_count }} AI news stories
+{%- endif -%}
+{%- endset %}
 <title>paperswipe — {{ data.date_label }}</title>
-<meta name="description" content="{{ data.count }} ML papers from HuggingFace Daily Papers for {{ data.date_label }} — swipe, scan, save.">
+<meta name="description" content="{{ blurb }} for {{ data.date_label }} — swipe, scan, save.">
 <meta name="theme-color" content="#f2f2f3" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
 <meta name="color-scheme" content="dark light">
 <meta property="og:type" content="website">
 <meta property="og:title" content="paperswipe — {{ data.date_label }}">
-<meta property="og:description" content="{{ data.count }} ML papers, one swipe at a time.">
+<meta property="og:description" content="{{ blurb }}, one swipe at a time.">
 <link rel="icon" href="data:image/svg+xml,{{ favicon }}">
 <link rel="preconnect" href="https://huggingface.co">
 <link rel="stylesheet" href="style.css?v={{ asset_version }}">
@@ -25,7 +34,7 @@
 </head>
 <body>
 
-<a class="skip-link" href="#feed">Skip to papers</a>
+<a class="skip-link" href="#feed">Skip to the feed</a>
 
 <header class="masthead">
   <div class="masthead__row">
@@ -34,10 +43,18 @@
       <p class="masthead__sub">
         <span class="masthead__date masthead__date--long">{{ data.date_label }}</span>
         <span class="masthead__date masthead__date--short">{{ data.date_short }}</span>
+        {%- if data.paper_count %}
         <span class="dot" aria-hidden="true">·</span>
-        <span>{{ data.count }} paper{{ '' if data.count == 1 else 's' }}</span>
+        <span>{{ data.paper_count }} paper{{ '' if data.paper_count == 1 else 's' }}</span>
+        {%- endif %}
+        {%- if data.news_count %}
+        <span class="dot" aria-hidden="true">·</span>
+        <span>{{ data.news_count }} news</span>
+        {%- endif %}
+        {%- if data.paper_count %}
         <span class="dot masthead__source" aria-hidden="true">·</span>
         <a class="masthead__source" href="{{ data.source_url }}" target="_blank" rel="noopener">HF Daily</a>
+        {%- endif %}
       </p>
     </div>
 
@@ -54,7 +71,7 @@
       All <span class="chip__count">{{ data.count }}</span>
     </button>
     {%- for tag in data.tags %}
-    <button class="chip" data-tag="{{ tag.name }}" aria-pressed="false">
+    <button class="chip{{ ' chip--news' if tag.kind == 'news' }}" data-tag="{{ tag.name }}" aria-pressed="false">
       {{ tag.name }} <span class="chip__count">{{ tag.count }}</span>
     </button>
     {%- endfor %}
@@ -62,12 +79,13 @@
 </header>
 
 <main>
-  <section id="feed" class="feed" aria-label="Paper feed">
-    {%- for paper in data.papers %}
+  <section id="feed" class="feed" aria-label="{{ 'News feed' if data.content == 'news' else 'Paper feed' if data.content == 'papers' else 'Papers and news feed' }}">
+    {%- for paper in data.cards %}
     <article class="card"
              data-id="{{ paper.id }}"
+             data-kind="{{ paper.kind }}"
              data-rank="{{ paper.rank }}"
-             data-upvotes="{{ paper.upvotes }}"
+             data-upvotes="{{ paper.upvotes | default(0) }}"
              data-tags="{{ paper.tags | join('|') }}"
              tabindex="0"
              aria-labelledby="title-{{ paper.id }}">
@@ -79,10 +97,12 @@
         <div class="card__head">
           <div class="card__tags">
             {%- for tag in paper.tags %}
-            <span class="pill" data-tag="{{ tag }}"><span class="pill__glyph" aria-hidden="true">◆</span>{{ tag }}</span>
+            {#- Solid fill marks news, outline marks research. Hue stays purely
+                topical, so all 16 research colours survive the addition. -#}
+            <span class="pill{{ ' pill--news' if paper.kind == 'news' }}" data-tag="{{ tag }}"><span class="pill__glyph" aria-hidden="true">◆</span>{{ tag }}</span>
             {%- endfor %}
           </div>
-          <span class="card__rank" aria-hidden="true">#{{ paper.rank }}</span>
+          <span class="card__rank" aria-hidden="true">#{{ paper.position }}</span>
         </div>
 
         <h2 class="card__title" id="title-{{ paper.id }}">{{ paper.title }}</h2>
@@ -105,7 +125,21 @@
 
         <hr class="card__rule">
 
+        {#- The metadata row differentiates as much as the pill does: papers are
+            credited by authors and upvotes, news by outlet and how many desks
+            covered it — which is also how news is ranked. -#}
         <div class="card__meta">
+          {%- if paper.kind == 'news' %}
+          <span class="card__outlet">{{ paper.outlet }}</span>
+          {%- if paper.outlet_count > 1 %}
+          <span class="dot" aria-hidden="true">·</span>
+          <span title="Also covered by {{ paper.outlets | join(', ') }}">{{ paper.outlet_count }} outlets</span>
+          {%- endif %}
+          {%- if paper.published_label %}
+          <span class="dot" aria-hidden="true">·</span>
+          <span title="Published {{ paper.published }}">{{ paper.published_label }}</span>
+          {%- endif %}
+          {%- else %}
           <span class="card__votes" title="{{ paper.upvotes }} upvotes on HuggingFace">
             <span aria-hidden="true">↑</span> {{ paper.upvotes }}
           </span>
@@ -117,11 +151,14 @@
           <span class="dot" aria-hidden="true">·</span>
           <span title="Featured on HuggingFace Daily Papers on {{ paper.daily_date }}">{{ paper.daily_label }}</span>
           {%- endif %}
+          {%- endif %}
         </div>
       </div>
 
       <div class="card__actions">
-        {% if data.link_target == 'abstract' %}
+        {% if paper.kind == 'news' %}
+        <a class="btn btn--primary" href="{{ paper.url }}" target="_blank" rel="noopener">Read story</a>
+        {% elif data.link_target == 'abstract' %}
         <a class="btn btn--primary" href="{{ paper.arxiv_url }}" target="_blank" rel="noopener">Read paper</a>
         {% else %}
         <a class="btn btn--primary" href="{{ paper.pdf_url }}" target="_blank" rel="noopener">Read PDF</a>
@@ -137,7 +174,7 @@
   <div class="empty" data-empty hidden>
     <div class="empty__glass">
       <p class="empty__title" data-empty-title>You're all caught up</p>
-      <p class="empty__sub" data-empty-sub>That's every paper for today.</p>
+      <p class="empty__sub" data-empty-sub>That's everything in the feed.</p>
       <button class="btn btn--primary" type="button" data-restart>Start over</button>
     </div>
   </div>
@@ -159,7 +196,12 @@
 <footer class="colophon">
   <p>
     Rebuilt {{ data.generated_at[:10] }} from
-    <a href="https://huggingface.co/papers" target="_blank" rel="noopener">HuggingFace Daily Papers</a>.
+    {%- if data.paper_count %}
+    <a href="https://huggingface.co/papers" target="_blank" rel="noopener">HuggingFace Daily Papers</a>{{ ' and' if data.news_count else '.' }}
+    {%- endif %}
+    {%- if data.news_count %}
+    <span title="{{ data.news_sources | join(', ') }}">{{ data.news_sources | length }} AI news desks</span>.
+    {%- endif %}
     Saves live in your browser only.
   </p>
 </footer>

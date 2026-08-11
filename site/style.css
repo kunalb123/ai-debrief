@@ -414,6 +414,21 @@ a {
   box-shadow: 0 8px 24px -12px var(--accent-glow);
 }
 
+/* Filters run two families in one row, so a news chip carries a filled marker —
+   the same solid-vs-outline language the pills use, at chip scale. currentColor
+   keeps it correct on the active chip, where the ground inverts. */
+.chip--news::before {
+  content: "";
+  display: inline-block;
+  width: 5px;
+  height: 5px;
+  margin-right: 7px;
+  border-radius: 50%;
+  background: currentColor;
+  opacity: 0.5;
+  vertical-align: middle;
+}
+
 .chip__count {
   color: var(--text-3);
   font-variant-numeric: tabular-nums;
@@ -596,6 +611,32 @@ a {
 .pill[data-tag="Multimodal"] { --pill-hue: 318; }
 .pill[data-tag="Architecture"] { --pill-hue: 340; }
 
+/* News rides the same hue system, filled rather than outlined. Hue keeps meaning
+   exactly one thing — the topic — so all sixteen research colours above survive
+   untouched; weight is what separates a story from a paper. --on-accent already
+   flips per theme, and the fill lands at --pill-lum (70% dark / 33% light), so
+   the label stays legible on both grounds without a second colour decision. */
+.pill--news {
+  color: var(--on-accent);
+  border-color: transparent;
+  background: hsl(var(--pill-hue) var(--pill-sat) var(--pill-lum));
+}
+
+.pill--news .pill__glyph {
+  opacity: 0.55;
+}
+
+/* Keep in step with NEWS_RULES in scripts/fetch_news.py. Spaced away from each
+   other, not from the research hues — the fill already tells those apart. */
+.pill[data-tag="Policy"] { --pill-hue: 350; }
+.pill[data-tag="Chips & compute"] { --pill-hue: 24; }
+.pill[data-tag="Business"] { --pill-hue: 46; }
+.pill[data-tag="Open weights"] { --pill-hue: 150; }
+.pill[data-tag="Research results"] { --pill-hue: 186; }
+.pill[data-tag="Model release"] { --pill-hue: 214; }
+.pill[data-tag="Product"] { --pill-hue: 272; }
+.pill[data-tag="Industry"] { --pill-hue: 220; --pill-sat: 4%; }
+
 .card__rank {
   flex: 0 0 auto;
   padding-top: 5px;
@@ -704,6 +745,17 @@ a {
 .card__votes {
   color: var(--text-2);
   font-weight: 600;
+}
+
+/* The outlet sits where a paper's upvote count does and carries the same weight:
+   it is the first thing worth knowing about a story, the way a vote count is for
+   a paper. Small caps keep a masthead from competing with the headline above. */
+.card__outlet {
+  color: var(--text-2);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-size: 11.5px;
 }
 
 .card__actions {

@@ -13,6 +13,12 @@ on:
         description: "Fetch a specific day (YYYY-MM-DD). Blank = today."
         required: false
         type: string
+      content:
+        description: "Which feeds to publish."
+        required: false
+        default: mixed
+        type: choice
+        options: [mixed, papers, news]
 
 permissions:
   contents: read
@@ -40,8 +46,15 @@ jobs:
       - name: Fetch today's papers
         run: python scripts/fetch_papers.py ${{ inputs.date && format('--date {0}', inputs.date) || '' }}
 
+      # Fifteen third-party feeds, any of which can be down at 08:00 UTC.
+      # generate_site.py falls back to papers only when news.json is missing,
+      # so a bad news day must not block the deploy.
+      - name: Fetch AI industry news
+        continue-on-error: true
+        run: python scripts/fetch_news.py ${{ inputs.date && format('--date {0}', inputs.date) || '' }}
+
       - name: Generate site
-        run: python scripts/generate_site.py --out dist
+        run: python scripts/generate_site.py --out dist --content ${{ inputs.content || 'mixed' }}
 
       - uses: actions/configure-pages@v5
 
