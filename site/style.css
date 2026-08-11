@@ -273,6 +273,11 @@ a {
   font-size: clamp(26px, 3.4vw, 34px);
   font-weight: 700;
   letter-spacing: -0.035em;
+  /* A real space between the words, pulled in to about half its natural width.
+     Full word-spacing reads as two separate labels at this size; this keeps it
+     one mark with a seam. The space stays a real character so the title still
+     copies and reads aloud as "ai debrief". */
+  word-spacing: -0.12em;
   line-height: 1.1;
   color: var(--accent-hi);
 }

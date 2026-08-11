@@ -19,13 +19,13 @@
 {{ data.paper_count }} ML papers and {{ data.news_count }} AI news stories
 {%- endif -%}
 {%- endset %}
-<title>aidebrief — {{ data.date_label }}</title>
+<title>ai debrief — {{ data.date_label }}</title>
 <meta name="description" content="{{ blurb }} for {{ data.date_label }} — swipe, scan, save.">
 <meta name="theme-color" content="#f2f2f3" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
 <meta name="color-scheme" content="dark light">
 <meta property="og:type" content="website">
-<meta property="og:title" content="aidebrief — {{ data.date_label }}">
+<meta property="og:title" content="ai debrief — {{ data.date_label }}">
 <meta property="og:description" content="{{ blurb }}, one swipe at a time.">
 <link rel="icon" href="data:image/svg+xml,{{ favicon }}">
 <link rel="preconnect" href="https://huggingface.co">
@@ -39,7 +39,7 @@
 <header class="masthead">
   <div class="masthead__row">
     <div class="masthead__brand">
-      <h1 class="wordmark">ai<span class="wordmark__accent">debrief</span></h1>
+      <h1 class="wordmark">ai <span class="wordmark__accent">debrief</span></h1>
       <p class="masthead__sub">
         <span class="masthead__date masthead__date--long">{{ data.date_label }}</span>
         <span class="masthead__date masthead__date--short">{{ data.date_short }}</span>
