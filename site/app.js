@@ -565,9 +565,23 @@
     }
   }
 
+  // What the saved feed currently holds, so a re-render that would produce the
+  // same cards can be skipped. applyMode() runs on every resize, and expanding a
+  // card resizes the page — on mobile it collapses the address bar — so an
+  // unconditional rebuild would throw away the expansion the tap just opened and
+  // jump the scroll position. Only a change to the saved list rebuilds.
+  var savedRendered = null;
+
   function renderSavedView() {
-    savedFeed.textContent = "";
+    var signature = saved
+      .map(function (paper) {
+        return paper.id;
+      })
+      .join("|");
+
     if (!saved.length) {
+      savedFeed.textContent = "";
+      savedRendered = signature;
       emptyTitle.textContent = "Nothing saved yet";
       emptySub.textContent = deckMQ.matches
         ? "Swipe right — or tap ★ — to keep something here."
@@ -579,6 +593,10 @@
     }
     emptyEl.hidden = true;
     savedFeed.hidden = false;
+    if (signature === savedRendered) return;
+
+    savedFeed.textContent = "";
+    savedRendered = signature;
     saved.forEach(function (paper) {
       savedFeed.appendChild(renderCard(paper));
     });
