@@ -26,7 +26,7 @@ from pathlib import Path
 from typing import Any, Iterable
 
 API_URL = "https://huggingface.co/api/daily_papers"
-USER_AGENT = "paperswipe/1.0 (+https://github.com/topics/paperswipe)"
+USER_AGENT = "ai-debrief/1.0 (+https://github.com/kunalb123/ai-debrief)"
 REPO_ROOT = Path(__file__).resolve().parent.parent
 DEFAULT_OUT = REPO_ROOT / "data" / "papers.json"
 

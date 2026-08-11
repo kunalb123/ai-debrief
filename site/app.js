@@ -1,5 +1,5 @@
 /* ==========================================================================
-   paperswipe — feed behaviour
+   ai-debrief — feed behaviour
    Desktop: a filterable glass grid. Mobile: a swipeable deck over the same data.
    Saves live in localStorage; nothing leaves the device.
    ========================================================================== */
@@ -7,8 +7,8 @@
   "use strict";
 
   // ---------------------------------------------------------------- storage
-  var SAVED_KEY = "paperswipe:saved:v1";
-  var SEEN_KEY = "paperswipe:seen:v1";
+  var SAVED_KEY = "aidebrief:saved:v1";
+  var SEEN_KEY = "aidebrief:seen:v1";
 
   function readJSON(key, fallback) {
     try {
@@ -35,7 +35,7 @@
   } catch (err) {
     // The grid still works from the server-rendered markup, but saves need the
     // data — fail loudly rather than degrading silently.
-    console.error("paperswipe: could not parse embedded paper data", err);
+    console.error("aidebrief: could not parse embedded paper data", err);
     payload = {};
   }
   // One list for both feeds; each entry carries a `kind` of "paper" or "news".

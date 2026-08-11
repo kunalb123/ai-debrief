@@ -1,6 +1,6 @@
-# paperswipe
+# ai-debrief
 
-**→ [kunalb123.github.io/paperswipe](https://kunalb123.github.io/paperswipe/)**
+**→ [kunalb123.github.io/ai-debrief](https://kunalb123.github.io/ai-debrief/)**
 
 A TikTok-style AI discovery feed — swipeable cards, one headline, two sentences, tap to go deeper. Rebuilt daily from [HuggingFace Daily Papers](https://huggingface.co/papers) and fifteen AI news desks, covering the last seven days. Hosted free on GitHub Pages.
 
@@ -56,7 +56,7 @@ keeps the mix even the whole way down.
 2. **Settings → Pages → Source: GitHub Actions.**
 3. That's it — no secrets. The workflow runs on push and daily at 08:00 UTC.
 
-Your feed is live at `https://<your-username>.github.io/paperswipe`.
+Your feed is live at `https://<your-username>.github.io/ai-debrief`.
 
 The window is anchored to a calendar, and calendars are local, so the workflow
 sets `TZ: America/Los_Angeles` and both fetchers read the machine's timezone
@@ -191,7 +191,7 @@ costs at most the one item.
 ## Repo structure
 
 ```
-paperswipe/
+ai-debrief/
 ├── .github/workflows/daily.yml   # fetch → build → deploy to Pages
 ├── scripts/
 │   ├── fetch_papers.py           # HF API → data/papers.json (stdlib only)

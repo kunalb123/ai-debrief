@@ -1,5 +1,5 @@
 /* ==========================================================================
-   paperswipe — monochrome ground, colour where it means something
+   ai-debrief — monochrome ground, colour where it means something
 
    The ground is flat: true black on dark, flat off-white on light. No wash, no
    bloom, no gradient — a gradient would make the black shallow, and the cards
@@ -277,7 +277,7 @@ a {
   color: var(--accent-hi);
 }
 
-/* "paper" carries the weight, "swipe" recedes — a value step inside one word
+/* "AI" carries the weight, "Debrief" recedes — a value step inside one word
    rather than two colours. Held well above the ground so it stays readable. */
 .wordmark__accent {
   color: var(--wordmark-2);

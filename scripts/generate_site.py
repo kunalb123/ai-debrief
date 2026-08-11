@@ -236,7 +236,7 @@ def serve(directory: Path, port: int) -> None:
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description="Generate the paperswipe static site")
+    parser = argparse.ArgumentParser(description="Generate the ai-debrief static site")
     parser.add_argument("--data", default=str(DEFAULT_DATA), help="Path to papers.json")
     parser.add_argument("--news", default=str(DEFAULT_NEWS), help="Path to news.json")
     parser.add_argument(

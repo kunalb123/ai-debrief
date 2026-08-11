@@ -47,7 +47,7 @@ from fetch_papers import (  # noqa: E402
     split_teaser,
 )
 
-USER_AGENT = "paperswipe/1.0 (+https://github.com/topics/paperswipe)"
+USER_AGENT = "ai-debrief/1.0 (+https://github.com/kunalb123/ai-debrief)"
 REPO_ROOT = Path(__file__).resolve().parent.parent
 DEFAULT_OUT = REPO_ROOT / "data" / "news.json"
 
