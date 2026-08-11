@@ -577,6 +577,10 @@ a {
   white-space: nowrap;
   color: var(--card-solid);
   background: var(--title);
+  /* Double the gap the pills use between themselves. The badge is a different
+     family of label, so it should sit apart from the run of topics rather than
+     read as the first one in the row. */
+  margin-inline-end: 6px;
 }
 
 /* The one place colour lives. The page is monochrome, so a topic tag reading in
