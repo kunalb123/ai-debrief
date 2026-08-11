@@ -58,6 +58,13 @@ keeps the mix even the whole way down.
 
 Your feed is live at `https://<your-username>.github.io/paperswipe`.
 
+The window is anchored to a calendar, and calendars are local, so the workflow
+sets `TZ: America/Los_Angeles` and both fetchers read the machine's timezone
+rather than UTC. Change that one line in
+[`.github/workflows/daily.yml`](.github/workflows/daily.yml) to your own zone
+when you fork — otherwise an evening build west of Greenwich puts a date on the
+masthead that hasn't happened yet where you're sitting.
+
 To build a specific day by hand: **Actions → Daily build → Run workflow**, and
 optionally pass a date and which feeds to publish (`mixed`, `papers` or `news`).
 
@@ -119,10 +126,13 @@ for `--content papers` alone. Drop `--days` if you want it leaner.
 - **Topic filtering** — 16 topics (Interpretability, Alignment & Safety, RL,
   Reasoning, Agents, Efficiency, …) inferred from title/abstract keywords. Each
   carries its own hue, set by a single `--pill-hue` in `site/style.css` — add a
-  topic there when you add one to `TOPIC_RULES`.
-- **Papers and news in one deck** — news cards carry a solid tag instead of an
-  outlined one, and are credited by outlet rather than by authors and upvotes.
-  The filter row keeps the two families of topics grouped rather than pooled.
+  topic there when you add one to `TOPIC_RULES`. Hue means topic and only topic;
+  research vs news is carried by the block label, never by colour.
+- **Papers and news in one deck** — every card leads with a solid `RESEARCH` or
+  `NEWS` block ahead of its topic tags: squared and monochrome where the tags are
+  round and hued, so it reads as a different class of label rather than one more
+  topic. News is credited by outlet rather than by authors and upvotes. The filter
+  row gains matching Research/News chips when a build actually has both feeds.
 - **Full HF summary** — the card shows two sentences; expand for the whole abstract.
 - **Readable maths** — abstracts arrive with raw LaTeX in them, so `unlatex()` in
   the fetcher flattens it to Unicode at build time: `$R_{15}$` → `R₁₅`,
@@ -275,6 +285,10 @@ paperswipe/
   `applyMode()` runs on every resize, and expanding a card resizes the page — on
   mobile it collapses the address bar — so an unconditional rebuild would throw
   away the expansion the tap just opened and jump the scroll position.
+- `local_now()`/`local_today()` in `fetch_papers.py` are shared by both fetchers,
+  so the seven-day window, the masthead date and the `generated_at` stamp all
+  agree on one clock. Setting `TZ` in the workflow is the only configuration
+  that needs; nothing reads an environment variable of its own.
 - Several desks put the entire article in `<content:encoded>`; one podcast
   transcript arrived at 60 KB. Since a card only ever shows a teaser plus an
   expandable remainder, summaries are clipped to a sentence boundary at fetch

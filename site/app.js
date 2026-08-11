@@ -154,9 +154,12 @@
 
     var head = el("div", "card__head");
     var tags = el("div", "card__tags");
+    // Which feed the card came from, ahead of what it's about. Squared and
+    // monochrome against the pills' round hued outline, so it never reads as
+    // one more topic.
+    tags.appendChild(el("span", "kind", isNews ? "News" : "Research"));
     (paper.tags || []).forEach(function (tag) {
-      // Solid fill marks news, outline marks research; hue still carries topic.
-      var pill = el("span", isNews ? "pill pill--news" : "pill");
+      var pill = el("span", "pill");
       // Drives --pill-hue in the stylesheet, same as the server-rendered pills.
       pill.setAttribute("data-tag", tag);
       var glyph = el("span", "pill__glyph", "◆");
@@ -295,6 +298,10 @@
   // ------------------------------------------------------------- filtering
   function matchesTag(card) {
     if (activeTag === "__all__") return true;
+    // Two families in one row: the kind chips filter which feed you're in, the
+    // topic chips filter within whatever is there.
+    if (activeTag === "__research__") return card.dataset.kind !== "news";
+    if (activeTag === "__news__") return card.dataset.kind === "news";
     var tags = (card.dataset.tags || "").split("|");
     return tags.indexOf(activeTag) !== -1;
   }

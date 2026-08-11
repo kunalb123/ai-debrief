@@ -25,6 +25,14 @@ permissions:
   pages: write
   id-token: write
 
+# Runners are UTC, which puts a date on the masthead that hasn't happened yet
+# for anyone west of Greenwich — at 11pm Pacific, UTC is already tomorrow. Both
+# fetchers anchor their window to the machine's timezone, so setting it here is
+# what makes the published feed agree with the reader's calendar. Change this to
+# your own zone if you fork.
+env:
+  TZ: America/Los_Angeles
+
 # Never let two deploys race; let a manual run cancel a queued cron run.
 concurrency:
   group: pages

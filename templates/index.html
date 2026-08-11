@@ -70,8 +70,19 @@
     <button class="chip is-active" data-tag="__all__" aria-pressed="true">
       All <span class="chip__count">{{ data.count }}</span>
     </button>
+    {#- Kind chips pick the feed, topic chips filter within it. They only earn
+        their place when both feeds are actually present. -#}
+    {%- if data.paper_count and data.news_count %}
+    <button class="chip" data-tag="__research__" aria-pressed="false">
+      Research <span class="chip__count">{{ data.paper_count }}</span>
+    </button>
+    <button class="chip" data-tag="__news__" aria-pressed="false">
+      News <span class="chip__count">{{ data.news_count }}</span>
+    </button>
+    <span class="filters__rule" aria-hidden="true"></span>
+    {%- endif %}
     {%- for tag in data.tags %}
-    <button class="chip{{ ' chip--news' if tag.kind == 'news' }}" data-tag="{{ tag.name }}" aria-pressed="false">
+    <button class="chip" data-tag="{{ tag.name }}" aria-pressed="false">
       {{ tag.name }} <span class="chip__count">{{ tag.count }}</span>
     </button>
     {%- endfor %}
@@ -96,10 +107,13 @@
       <div class="card__body">
         <div class="card__head">
           <div class="card__tags">
+            {#- Which feed the card came from, ahead of what it's about. Squared
+                and monochrome against the pills' round hued outline, so it can
+                never be mistaken for one more topic — and hue goes on meaning
+                the topic and nothing else. -#}
+            <span class="kind">{{ 'News' if paper.kind == 'news' else 'Research' }}</span>
             {%- for tag in paper.tags %}
-            {#- Solid fill marks news, outline marks research. Hue stays purely
-                topical, so all 16 research colours survive the addition. -#}
-            <span class="pill{{ ' pill--news' if paper.kind == 'news' }}" data-tag="{{ tag }}"><span class="pill__glyph" aria-hidden="true">◆</span>{{ tag }}</span>
+            <span class="pill" data-tag="{{ tag }}"><span class="pill__glyph" aria-hidden="true">◆</span>{{ tag }}</span>
             {%- endfor %}
           </div>
           <span class="card__rank" aria-hidden="true">#{{ paper.position }}</span>

@@ -6,7 +6,7 @@ pool the results, ranked by upvotes across the whole week. Weekends and holidays
 come back empty, which is normal — only if the entire window is empty do we keep
 walking backwards looking for a day that isn't.
 
-    python scripts/fetch_papers.py                 # the 7 days ending today (UTC)
+    python scripts/fetch_papers.py                 # the 7 days ending today (local time)
     python scripts/fetch_papers.py --days 1        # just today
     python scripts/fetch_papers.py --date 2026-08-05 --days 14
     python scripts/fetch_papers.py --out data/papers.json
@@ -398,6 +398,22 @@ def split_teaser(summary: str, sentences: int = 2) -> tuple[str, str]:
     return " ".join(parts[:sentences]), " ".join(parts[sentences:])
 
 
+def local_now() -> datetime:
+    """Now, in whatever timezone the machine is set to.
+
+    The window is a human-facing "the last seven days", so it has to be anchored
+    to the reader's calendar rather than UTC's. At 11pm Pacific, UTC has already
+    rolled into tomorrow, and a UTC-anchored window puts a day on the masthead
+    that hasn't happened yet where the reader is sitting. CI sets TZ in the
+    workflow so a deploy lands on the same date as the audience it's built for.
+    """
+    return datetime.now().astimezone()
+
+
+def local_today() -> date:
+    return local_now().date()
+
+
 def parse_date(value: Any) -> date | None:
     if not value:
         return None
@@ -634,7 +650,7 @@ def build_payload(
         "date_label": date_label,
         "date_short": date_short,
         "days": len(days_covered),
-        "generated_at": datetime.now(timezone.utc).replace(microsecond=0).isoformat(),
+        "generated_at": local_now().replace(microsecond=0).isoformat(),
         "count": len(papers),
         "total_upvotes": sum(p["upvotes"] for p in papers),
         "tags": tags,
@@ -646,7 +662,10 @@ def build_payload(
 
 def main() -> int:
     parser = argparse.ArgumentParser(description="Fetch HuggingFace Daily Papers into papers.json")
-    parser.add_argument("--date", help="Last day of the window (YYYY-MM-DD). Defaults to today in UTC.")
+    parser.add_argument(
+        "--date",
+        help="Last day of the window (YYYY-MM-DD). Defaults to today in the local timezone.",
+    )
     parser.add_argument(
         "--days",
         type=int,
@@ -672,7 +691,7 @@ def main() -> int:
         if target is None:
             parser.error(f"could not parse --date {args.date!r}; expected YYYY-MM-DD")
     else:
-        target = datetime.now(timezone.utc).date()
+        target = local_today()
 
     days_covered, entries = fetch_window(
         target,

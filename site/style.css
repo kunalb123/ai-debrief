@@ -414,19 +414,14 @@ a {
   box-shadow: 0 8px 24px -12px var(--accent-glow);
 }
 
-/* Filters run two families in one row, so a news chip carries a filled marker —
-   the same solid-vs-outline language the pills use, at chip scale. currentColor
-   keeps it correct on the active chip, where the ground inverts. */
-.chip--news::before {
-  content: "";
-  display: inline-block;
-  width: 5px;
-  height: 5px;
-  margin-right: 7px;
-  border-radius: 50%;
-  background: currentColor;
-  opacity: 0.5;
-  vertical-align: middle;
+/* Splits the kind chips from the topic chips. A hairline rather than a gap:
+   the row scrolls horizontally, and a gap alone reads as an accident once it
+   lands mid-scroll. */
+.filters__rule {
+  flex: 0 0 1px;
+  align-self: stretch;
+  margin: 4px 2px;
+  background: var(--rule);
 }
 
 .chip__count {
@@ -564,6 +559,26 @@ a {
   min-width: 0;
 }
 
+/* Which feed a card came from, ahead of what it is about. Squared, monochrome
+   and solid against the pills' round hued outline — different on shape, fill and
+   colour at once, so it reads as a different class of label rather than as one
+   more topic. --title and --card-solid both flip per theme, so this inverts
+   correctly on either ground without naming a colour. */
+.kind {
+  display: inline-flex;
+  align-items: center;
+  flex: 0 0 auto;
+  padding: 5px 9px;
+  border-radius: 5px;
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--card-solid);
+  background: var(--title);
+}
+
 /* The one place colour lives. The page is monochrome, so a topic tag reading in
    its own hue is unmissable — and a hue is a faster label than a word you have
    to read. One custom property carries it; the theme decides how a hue is
@@ -611,29 +626,20 @@ a {
 .pill[data-tag="Multimodal"] { --pill-hue: 318; }
 .pill[data-tag="Architecture"] { --pill-hue: 340; }
 
-/* News rides the same hue system, filled rather than outlined. Hue keeps meaning
-   exactly one thing — the topic — so all sixteen research colours above survive
-   untouched; weight is what separates a story from a paper. --on-accent already
-   flips per theme, and the fill lands at --pill-lum (70% dark / 33% light), so
-   the label stays legible on both grounds without a second colour decision. */
-.pill--news {
-  color: var(--on-accent);
-  border-color: transparent;
-  background: hsl(var(--pill-hue) var(--pill-sat) var(--pill-lum));
-}
+/* News topics ride the same hue system and the same outlined treatment as the
+   research ones: the kind badge says which feed a card came from, so hue is
+   left to mean the topic and nothing else.
 
-.pill--news .pill__glyph {
-  opacity: 0.55;
-}
-
-/* Keep in step with NEWS_RULES in scripts/fetch_news.py. Spaced away from each
-   other, not from the research hues — the fill already tells those apart. */
+   Keep in step with NEWS_RULES in scripts/fetch_news.py. With 23 topics sharing
+   one wheel, the 16° spacing the research set holds to is no longer achievable
+   everywhere — these sit in the widest gaps left by the block above, and the
+   written label carries anything the hue can't. */
 .pill[data-tag="Policy"] { --pill-hue: 350; }
 .pill[data-tag="Chips & compute"] { --pill-hue: 24; }
 .pill[data-tag="Business"] { --pill-hue: 46; }
-.pill[data-tag="Open weights"] { --pill-hue: 150; }
-.pill[data-tag="Research results"] { --pill-hue: 186; }
-.pill[data-tag="Model release"] { --pill-hue: 214; }
+.pill[data-tag="Open weights"] { --pill-hue: 155; }
+.pill[data-tag="Research results"] { --pill-hue: 178; }
+.pill[data-tag="Model release"] { --pill-hue: 222; }
 .pill[data-tag="Product"] { --pill-hue: 272; }
 .pill[data-tag="Industry"] { --pill-hue: 220; --pill-sat: 4%; }
 

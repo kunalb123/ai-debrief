@@ -11,7 +11,7 @@ cover whoever is newsworthy, so no lab can go missing because it happens not to
 publish an RSS feed of its own. Anthropic, which has no feed anywhere, still
 lands in the top handful of mentioned organisations through coverage alone.
 
-    python scripts/fetch_news.py                  # the 7 days ending today (UTC)
+    python scripts/fetch_news.py                  # the 7 days ending today (local time)
     python scripts/fetch_news.py --days 3
     python scripts/fetch_news.py --out data/news.json
 """
@@ -37,7 +37,15 @@ from typing import Any, Iterable
 # split_teaser / clean_text / split_sentences are identical work for an abstract
 # and an article summary, so they are shared rather than reimplemented.
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from fetch_papers import NO_PAD, clean_text, range_labels, split_sentences, split_teaser  # noqa: E402
+from fetch_papers import (  # noqa: E402
+    NO_PAD,
+    clean_text,
+    local_now,
+    local_today,
+    range_labels,
+    split_sentences,
+    split_teaser,
+)
 
 USER_AGENT = "paperswipe/1.0 (+https://github.com/topics/paperswipe)"
 REPO_ROOT = Path(__file__).resolve().parent.parent
@@ -475,7 +483,7 @@ def build_payload(items: list[dict[str, Any]], start: date, end: date) -> dict[s
         "date_label": date_label,
         "date_short": date_short,
         "days": (end - start).days + 1,
-        "generated_at": datetime.now(timezone.utc).replace(microsecond=0).isoformat(),
+        "generated_at": local_now().replace(microsecond=0).isoformat(),
         "count": len(news),
         "tags": tags,
         "sources": sorted({card["outlet"] for card in news}),
@@ -485,8 +493,9 @@ def build_payload(items: list[dict[str, Any]], start: date, end: date) -> dict[s
 
 
 def collect(days: int, end: date) -> list[dict[str, Any]]:
-    cutoff = datetime.combine(end - timedelta(days=days - 1), datetime.min.time(), timezone.utc)
-    horizon = datetime.combine(end, datetime.max.time(), timezone.utc)
+    tz = local_now().tzinfo
+    cutoff = datetime.combine(end - timedelta(days=days - 1), datetime.min.time(), tz)
+    horizon = datetime.combine(end, datetime.max.time(), tz)
 
     with concurrent.futures.ThreadPoolExecutor(max_workers=8) as pool:
         results = list(pool.map(fetch_feed, FEEDS))
@@ -516,7 +525,10 @@ def main() -> int:
     global MAX_PER_SOURCE  # noqa: PLW0603 - one knob, set once from argv
 
     parser = argparse.ArgumentParser(description="Fetch AI industry news into news.json")
-    parser.add_argument("--date", help="Last day of the window (YYYY-MM-DD). Defaults to today in UTC.")
+    parser.add_argument(
+        "--date",
+        help="Last day of the window (YYYY-MM-DD). Defaults to today in the local timezone.",
+    )
     parser.add_argument("--days", type=int, default=DEFAULT_DAYS, help=f"Window size (default {DEFAULT_DAYS}).")
     parser.add_argument("--out", default=str(DEFAULT_OUT), help="Output JSON path.")
     parser.add_argument("--limit", type=int, default=MAX_PER_SOURCE, help="Max items kept per source.")
@@ -531,7 +543,7 @@ def main() -> int:
         except ValueError:
             parser.error(f"could not parse --date {args.date!r}; expected YYYY-MM-DD")
     else:
-        end = datetime.now(timezone.utc).date()
+        end = local_today()
 
     MAX_PER_SOURCE = args.limit
 

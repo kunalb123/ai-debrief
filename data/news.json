@@ -5,16 +5,16 @@
   "date_label": "August 5–11, 2026",
   "date_short": "Aug 5–11",
   "days": 7,
-  "generated_at": "2026-08-11T04:51:24+00:00",
-  "count": 111,
+  "generated_at": "2026-08-11T00:03:19-07:00",
+  "count": 112,
   "tags": [
     {
       "name": "Business",
-      "count": 30
+      "count": 31
     },
     {
       "name": "Industry",
-      "count": 18
+      "count": 19
     },
     {
       "name": "Research results",
@@ -22,11 +22,11 @@
     },
     {
       "name": "Chips & compute",
-      "count": 17
+      "count": 16
     },
     {
       "name": "Policy",
-      "count": 13
+      "count": 14
     },
     {
       "name": "Product",
@@ -58,6 +58,29 @@
   "source": "AI industry press",
   "news": [
     {
+      "id": "nbc6209d116ec",
+      "kind": "news",
+      "title": "Amazon backs power plant that may become top source of US climate pollution",
+      "summary": "Amazon’s artificial intelligence ambitions will soon be partly fueled by a natural gas-burning power plant in Texas that “could become the largest single source of climate pollution in the United States,” The New York Times reported . These gas-burning plants are increasingly lumped into data center projects. They produce harmful pollutants, which can accelerate climate change impacts and harm public health—contributing to conditions like asthma, heart disease, lung cancer, and strokes. Some communities are demanding more stringent environmental reviews, but the Trump administration favors fast-tracking that can include skipping the permitting process entirely. Since Elon Musk’s xAI controversially began relying on gas turbines last spring to power its biggest AI data center, Colossus, there has been public backlash to off-the-grid data centers like the one Amazon is building.…",
+      "teaser": "Amazon’s artificial intelligence ambitions will soon be partly fueled by a natural gas-burning power plant in Texas that “could become the largest single source of climate pollution in the United States,” The New York Times reported . These gas-burning plants are increasingly lumped into data center projects.",
+      "teaser_rest": "They produce harmful pollutants, which can accelerate climate change impacts and harm public health—contributing to conditions like asthma, heart disease, lung cancer, and strokes. Some communities are demanding more stringent environmental reviews, but the Trump administration favors fast-tracking that can include skipping the permitting process entirely. Since Elon Musk’s xAI controversially began relying on gas turbines last spring to power its biggest AI data center, Colossus, there has been public backlash to off-the-grid data centers like the one Amazon is building.…",
+      "sentence_count": 5,
+      "tags": [
+        "Chips & compute"
+      ],
+      "outlet": "Ars Technica",
+      "outlets": [
+        "Ars Technica",
+        "SiliconANGLE",
+        "TechCrunch"
+      ],
+      "outlet_count": 3,
+      "url": "https://arstechnica.com/tech-policy/2026/08/amazon-funds-biggest-gas-power-plant-in-us-despite-climate-pledge",
+      "published": "2026-08-10",
+      "published_label": "Aug 10",
+      "rank": 1
+    },
+    {
       "id": "n4c8ce4dab58e",
       "kind": "news",
       "title": "Large genome models used to design new viruses",
@@ -77,7 +100,7 @@
       "url": "https://arstechnica.com/science/2026/08/large-genome-models-used-to-design-new-viruses",
       "published": "2026-08-07",
       "published_label": "Aug 7",
-      "rank": 1
+      "rank": 2
     },
     {
       "id": "nd7d4e8dbf102",
@@ -99,7 +122,7 @@
       "url": "https://www.theguardian.com/technology/2026/aug/08/google-demis-hassabis-deepmind-shifts-role",
       "published": "2026-08-08",
       "published_label": "Aug 8",
-      "rank": 2
+      "rank": 3
     },
     {
       "id": "n3835de70aa7a",
@@ -119,28 +142,6 @@
       ],
       "outlet_count": 2,
       "url": "https://www.theverge.com/ai-artificial-intelligence/977124/amazon-data-center-worst-polluting-power-plant",
-      "published": "2026-08-10",
-      "published_label": "Aug 10",
-      "rank": 3
-    },
-    {
-      "id": "nd294f0c161f3",
-      "kind": "news",
-      "title": "Intel to launch $15B stock sale amid AI boom, advanced packaging demand",
-      "summary": "Intel Corp. today announced plans to raise $15 billion by selling common stock. The banks underwriting the deal have the option to buy up to $2.25 billion worth of additional shares within 30 days. The offering follows a year in which Intel’s stock price more than tripled. That increase reflects investor optimism about its data […]",
-      "teaser": "Intel Corp. today announced plans to raise $15 billion by selling common stock. The banks underwriting the deal have the option to buy up to $2.25 billion worth of additional shares within 30 days.",
-      "teaser_rest": "The offering follows a year in which Intel’s stock price more than tripled. That increase reflects investor optimism about its data […]",
-      "sentence_count": 4,
-      "tags": [
-        "Business"
-      ],
-      "outlet": "SiliconANGLE",
-      "outlets": [
-        "Bloomberg",
-        "SiliconANGLE"
-      ],
-      "outlet_count": 2,
-      "url": "https://siliconangle.com/2026/08/10/intel-launch-15b-stock-sale-amid-ai-boom-advanced-packaging-demand",
       "published": "2026-08-10",
       "published_label": "Aug 10",
       "rank": 4
@@ -276,27 +277,6 @@
       "rank": 10
     },
     {
-      "id": "n92623ad13c20",
-      "kind": "news",
-      "title": "Trump White House Readies AI Framework to Review Security Risks",
-      "summary": "The voluntary review process will cover closed-source artificial intelligence models, but exclude those that publish the underlying code.",
-      "teaser": "The voluntary review process will cover closed-source artificial intelligence models, but exclude those that publish the underlying code.",
-      "teaser_rest": "",
-      "sentence_count": 1,
-      "tags": [
-        "Policy"
-      ],
-      "outlet": "NYT",
-      "outlets": [
-        "NYT"
-      ],
-      "outlet_count": 1,
-      "url": "https://www.nytimes.com/2026/08/04/technology/white-house-ai-framework.html",
-      "published": "2026-08-05",
-      "published_label": "Aug 5",
-      "rank": 11
-    },
-    {
       "id": "n94f31bf207be",
       "kind": "news",
       "title": "AI isn’t enough to protect social media communities from AI",
@@ -315,7 +295,7 @@
       "url": "https://arstechnica.com/gadgets/2026/08/ai-isnt-enough-to-protect-social-media-communities-from-ai",
       "published": "2026-08-06",
       "published_label": "Aug 6",
-      "rank": 12
+      "rank": 11
     },
     {
       "id": "na838fd5d8dff",
@@ -337,7 +317,7 @@
       "url": "https://arstechnica.com/ai/2026/08/anthropic-confirms-plans-to-build-an-in-house-silicon-team",
       "published": "2026-08-06",
       "published_label": "Aug 6",
-      "rank": 13
+      "rank": 12
     },
     {
       "id": "n5c9c345d638c",
@@ -358,7 +338,7 @@
       "url": "https://arstechnica.com/ai/2026/08/cloudflare-open-sources-vibe-coding-platform-for-people-who-arent-coders",
       "published": "2026-08-06",
       "published_label": "Aug 6",
-      "rank": 14
+      "rank": 13
     },
     {
       "id": "n01f403155b11",
@@ -379,7 +359,7 @@
       "url": "https://www.wired.com/story/ice-dna-collection-increases-spacex-rocket-crashes-into-the-moon-and-the-ai-backlash-grows",
       "published": "2026-08-06",
       "published_label": "Aug 6",
-      "rank": 15
+      "rank": 14
     },
     {
       "id": "nf98cdc7debc7",
@@ -400,7 +380,7 @@
       "url": "https://arstechnica.com/ai/2026/08/suno-hopes-to-go-legit-with-watermarks-for-ai-generated-music",
       "published": "2026-08-06",
       "published_label": "Aug 6",
-      "rank": 16
+      "rank": 15
     },
     {
       "id": "nc61a2c5c4a5a",
@@ -421,7 +401,7 @@
       "url": "https://www.technologyreview.com/2026/08/06/1141278/the-download-google-ai-shake-up-meta-rogue-model",
       "published": "2026-08-06",
       "published_label": "Aug 6",
-      "rank": 17
+      "rank": 16
     },
     {
       "id": "n508a91e2b397",
@@ -442,7 +422,7 @@
       "url": "https://www.wired.com/story/why-normal-people-arent-using-ai-agents",
       "published": "2026-08-06",
       "published_label": "Aug 6",
-      "rank": 18
+      "rank": 17
     },
     {
       "id": "ne8fda4ae589a",
@@ -463,7 +443,7 @@
       "url": "https://arstechnica.com/ai/2026/08/ai-chatbots-have-failed-people-in-crisis-can-that-be-fixed",
       "published": "2026-08-07",
       "published_label": "Aug 7",
-      "rank": 19
+      "rank": 18
     },
     {
       "id": "n7c16bfed4c64",
@@ -484,7 +464,7 @@
       "url": "https://www.theverge.com/column/976690/ai-writing-detectors-suspicion",
       "published": "2026-08-07",
       "published_label": "Aug 7",
-      "rank": 20
+      "rank": 19
     },
     {
       "id": "nf6ae80fa97df",
@@ -505,7 +485,7 @@
       "url": "https://arstechnica.com/ai/2026/08/bytedance-trains-massive-ai-model-in-bid-to-rival-anthropic",
       "published": "2026-08-07",
       "published_label": "Aug 7",
-      "rank": 21
+      "rank": 20
     },
     {
       "id": "nd24024f22be6",
@@ -526,7 +506,7 @@
       "url": "https://www.theverge.com/ai-artificial-intelligence/976801/fenix-flexin-rubberz-ai-song-treblo",
       "published": "2026-08-07",
       "published_label": "Aug 7",
-      "rank": 22
+      "rank": 21
     },
     {
       "id": "n2ad030d458ae",
@@ -547,7 +527,7 @@
       "url": "https://www.theverge.com/transportation/976748/ford-ai-assistant-mobile-app",
       "published": "2026-08-07",
       "published_label": "Aug 7",
-      "rank": 23
+      "rank": 22
     },
     {
       "id": "nf23ee933ea2d",
@@ -568,7 +548,7 @@
       "url": "https://www.wired.com/story/moonshot-kimi-k3-ai-model-escape-sandbox",
       "published": "2026-08-07",
       "published_label": "Aug 7",
-      "rank": 24
+      "rank": 23
     },
     {
       "id": "nd128983602b2",
@@ -589,7 +569,7 @@
       "url": "https://www.theverge.com/ai-artificial-intelligence/976948/openai-astra-model-pause-critical-cyber-capabilities",
       "published": "2026-08-07",
       "published_label": "Aug 7",
-      "rank": 25
+      "rank": 24
     },
     {
       "id": "nc7b85ab0ace2",
@@ -610,7 +590,7 @@
       "url": "https://arstechnica.com/gadgets/2026/08/openais-expensive-smart-speaker-will-use-moving-parts-to-seem-more-alive",
       "published": "2026-08-07",
       "published_label": "Aug 7",
-      "rank": 26
+      "rank": 25
     },
     {
       "id": "nfb75f006e35c",
@@ -631,7 +611,7 @@
       "url": "https://www.technologyreview.com/2026/08/07/1141389/the-download-censorship-conspiracy-theory-first-ai-virus",
       "published": "2026-08-07",
       "published_label": "Aug 7",
-      "rank": 27
+      "rank": 26
     },
     {
       "id": "nb068249112b1",
@@ -652,7 +632,7 @@
       "url": "https://www.wired.com/story/this-chatbot-is-just-a-random-guy-lol",
       "published": "2026-08-07",
       "published_label": "Aug 7",
-      "rank": 28
+      "rank": 27
     },
     {
       "id": "nc92dc76e40a5",
@@ -673,7 +653,7 @@
       "url": "https://www.theverge.com/entertainment/976939/roku-fairground-ai-fast-channel",
       "published": "2026-08-07",
       "published_label": "Aug 7",
-      "rank": 29
+      "rank": 28
     },
     {
       "id": "n767e307c3d18",
@@ -694,7 +674,7 @@
       "url": "https://www.theverge.com/podcast/976784/google-deepmind-ai-race-vergecast",
       "published": "2026-08-07",
       "published_label": "Aug 7",
-      "rank": 30
+      "rank": 29
     },
     {
       "id": "n0dc29721eaf2",
@@ -715,7 +695,7 @@
       "url": "https://arstechnica.com/science/2026/08/deepminds-hurricane-model-bought-forecasters-an-extra-day",
       "published": "2026-08-08",
       "published_label": "Aug 8",
-      "rank": 31
+      "rank": 30
     },
     {
       "id": "nf029b1d94fdf",
@@ -736,7 +716,7 @@
       "url": "https://www.wired.com/story/how-to-disable-the-gemini-ai-features-in-gmail-and-google-docs",
       "published": "2026-08-08",
       "published_label": "Aug 8",
-      "rank": 32
+      "rank": 31
     },
     {
       "id": "nb293d9267a45",
@@ -757,28 +737,7 @@
       "url": "https://www.theguardian.com/commentisfree/2026/aug/08/ai-optimized-parenting",
       "published": "2026-08-08",
       "published_label": "Aug 8",
-      "rank": 33
-    },
-    {
-      "id": "nc36c8de8383e",
-      "kind": "news",
-      "title": "Planned Amazon data center could become the biggest climate polluter in the US",
-      "summary": "AI has already had a significant impact on Amazon’s carbon emissions, which it reported were up 16% last year — the wrong direction for a company that pledged to eliminate its carbon emissions by 2040.",
-      "teaser": "AI has already had a significant impact on Amazon’s carbon emissions, which it reported were up 16% last year — the wrong direction for a company that pledged to eliminate its carbon emissions by 2040.",
-      "teaser_rest": "",
-      "sentence_count": 1,
-      "tags": [
-        "Chips & compute"
-      ],
-      "outlet": "TechCrunch",
-      "outlets": [
-        "TechCrunch"
-      ],
-      "outlet_count": 1,
-      "url": "https://techcrunch.com/2026/08/08/planned-amazon-data-center-could-become-the-biggest-climate-polluter-in-the-u-s",
-      "published": "2026-08-08",
-      "published_label": "Aug 8",
-      "rank": 34
+      "rank": 32
     },
     {
       "id": "n2636f224bec5",
@@ -799,7 +758,7 @@
       "url": "https://the-decoder.com/ai-is-flooding-britains-employment-courts-with-lawsuits",
       "published": "2026-08-09",
       "published_label": "Aug 9",
-      "rank": 35
+      "rank": 33
     },
     {
       "id": "ndb7383ecee01",
@@ -820,28 +779,7 @@
       "url": "https://www.theguardian.com/business/2026/aug/09/ai-push-banks-tech-firms-moodys-risks-financial-sector",
       "published": "2026-08-09",
       "published_label": "Aug 9",
-      "rank": 36
-    },
-    {
-      "id": "na1a0be3198f5",
-      "kind": "news",
-      "title": "Amazon is building a new AI data center in Texas that could become the country’s largest source of carbon emissions",
-      "summary": "A data center facility being constructed by Amazon.com Inc. to host workloads for Amazon Web Services is set to become the single-largest source of pollution in the entire U.S., according to a report by the New York Times Saturday. The company, which already operates more data center facilities globally than any other organization, has secured […]",
-      "teaser": "A data center facility being constructed by Amazon.com Inc. to host workloads for Amazon Web Services is set to become the single-largest source of pollution in the entire U.S., according to a report by the New York Times Saturday. The company, which already operates more data center facilities globally than any other organization, has secured […]",
-      "teaser_rest": "",
-      "sentence_count": 2,
-      "tags": [
-        "Chips & compute"
-      ],
-      "outlet": "SiliconANGLE",
-      "outlets": [
-        "SiliconANGLE"
-      ],
-      "outlet_count": 1,
-      "url": "https://siliconangle.com/2026/08/09/amazon-building-new-ai-data-center-texas-become-countrys-largest-source-carbon-emissions",
-      "published": "2026-08-09",
-      "published_label": "Aug 9",
-      "rank": 37
+      "rank": 34
     },
     {
       "id": "n53f6c1811ec1",
@@ -862,7 +800,7 @@
       "url": "https://techcrunch.com/2026/08/09/anthropic-is-turning-claude-codes-auto-mode-on-by-default",
       "published": "2026-08-09",
       "published_label": "Aug 9",
-      "rank": 38
+      "rank": 35
     },
     {
       "id": "nff6fc8e31dc7",
@@ -883,7 +821,7 @@
       "url": "https://www.theguardian.com/commentisfree/2026/aug/09/slough-famous-the-office-datacentres-locals-hub-europe",
       "published": "2026-08-09",
       "published_label": "Aug 9",
-      "rank": 39
+      "rank": 36
     },
     {
       "id": "nc57ef703537a",
@@ -905,7 +843,7 @@
       "url": "https://techcrunch.com/2026/08/09/embattled-hedge-fund-situational-awareness-invests-400m-in-chip-startup-source-foundry",
       "published": "2026-08-09",
       "published_label": "Aug 9",
-      "rank": 40
+      "rank": 37
     },
     {
       "id": "n05e4b34ef80e",
@@ -926,7 +864,7 @@
       "url": "https://the-decoder.com/google-deepminds-weathernext-predicts-cyclone-tracks-and-intensity-at-the-same-time",
       "published": "2026-08-09",
       "published_label": "Aug 9",
-      "rank": 41
+      "rank": 38
     },
     {
       "id": "n5e03f9531af4",
@@ -947,7 +885,7 @@
       "url": "https://the-decoder.com/googles-diffusiongemma-proves-you-dont-need-to-train-from-scratch-to-build-a-text-diffusion-model",
       "published": "2026-08-09",
       "published_label": "Aug 9",
-      "rank": 42
+      "rank": 39
     },
     {
       "id": "n70ac8307a80a",
@@ -969,7 +907,7 @@
       "url": "https://techcrunch.com/2026/08/09/historian-jill-lepore-says-the-tech-industry-is-led-by-bad-readers-who-are-undermining-democracy",
       "published": "2026-08-09",
       "published_label": "Aug 9",
-      "rank": 43
+      "rank": 40
     },
     {
       "id": "n4cf2ca4920d8",
@@ -990,7 +928,7 @@
       "url": "https://www.wired.com/story/meetily-lets-you-transcribe-and-summarize-meetings-without-a-subscription-heres-how",
       "published": "2026-08-09",
       "published_label": "Aug 9",
-      "rank": 44
+      "rank": 41
     },
     {
       "id": "nda1380c526b4",
@@ -1011,7 +949,7 @@
       "url": "https://the-decoder.com/scammers-are-enrolling-fake-students-at-us-community-colleges-and-using-ai-to-collect-financial-aid",
       "published": "2026-08-09",
       "published_label": "Aug 9",
-      "rank": 45
+      "rank": 42
     },
     {
       "id": "n4c5b2bdf1256",
@@ -1032,7 +970,7 @@
       "url": "https://techcrunch.com/2026/08/09/the-ai-safety-test-is-becoming-a-safety-risk",
       "published": "2026-08-09",
       "published_label": "Aug 9",
-      "rank": 46
+      "rank": 43
     },
     {
       "id": "n2adaa8a4a0e8",
@@ -1053,7 +991,7 @@
       "url": "https://www.wired.com/story/ai-billionaires-are-pledging-their-wealth-good-or-bad",
       "published": "2026-08-09",
       "published_label": "Aug 9",
-      "rank": 47
+      "rank": 44
     },
     {
       "id": "n2ab39921ddde",
@@ -1074,7 +1012,7 @@
       "url": "https://www.nytimes.com/2026/08/10/technology/memory-chip-shortage-ai.html",
       "published": "2026-08-10",
       "published_label": "Aug 10",
-      "rank": 48
+      "rank": 45
     },
     {
       "id": "n7ff4a221e321",
@@ -1096,7 +1034,7 @@
       "url": "https://www.tomshardware.com/tech-industry/data-centers/ai-data-center-bans-surge-past-500-nationwide-as-local-us-politicians-begin-blocking-new-developments-growing-public-outrage-and-bipartisan-pushback-threaten-big-tech-expansion-plans",
       "published": "2026-08-10",
       "published_label": "Aug 10",
-      "rank": 49
+      "rank": 46
     },
     {
       "id": "n9f4ff92be723",
@@ -1117,7 +1055,7 @@
       "url": "https://www.technologyreview.com/2026/08/10/1141384/ai-agents-for-science",
       "published": "2026-08-10",
       "published_label": "Aug 10",
-      "rank": 50
+      "rank": 47
     },
     {
       "id": "n1753f5490b10",
@@ -1138,7 +1076,7 @@
       "url": "https://www.technologyreview.com/2026/08/10/1141597/ai-professors-are-negotiating-the-new-realities-of-academic-research",
       "published": "2026-08-10",
       "published_label": "Aug 10",
-      "rank": 51
+      "rank": 48
     },
     {
       "id": "nbf6545b0f124",
@@ -1159,7 +1097,7 @@
       "url": "https://siliconangle.com/2026/08/10/ai-native-market-research-automation-startup-echovane-raises-1m",
       "published": "2026-08-10",
       "published_label": "Aug 10",
-      "rank": 52
+      "rank": 49
     },
     {
       "id": "n11edeae92636",
@@ -1180,49 +1118,7 @@
       "url": "https://www.tomshardware.com/laptops/acer-swift-go-16-ai-amd-gorgon-point-review",
       "published": "2026-08-10",
       "published_label": "Aug 10",
-      "rank": 53
-    },
-    {
-      "id": "nbc6209d116ec",
-      "kind": "news",
-      "title": "Amazon backs power plant that may become top source of US climate pollution",
-      "summary": "Amazon’s artificial intelligence ambitions will soon be partly fueled by a natural gas-burning power plant in Texas that “could become the largest single source of climate pollution in the United States,” The New York Times reported . These gas-burning plants are increasingly lumped into data center projects. They produce harmful pollutants, which can accelerate climate change impacts and harm public health—contributing to conditions like asthma, heart disease, lung cancer, and strokes. Some communities are demanding more stringent environmental reviews, but the Trump administration favors fast-tracking that can include skipping the permitting process entirely. Since Elon Musk’s xAI controversially began relying on gas turbines last spring to power its biggest AI data center, Colossus, there has been public backlash to off-the-grid data centers like the one Amazon is building.…",
-      "teaser": "Amazon’s artificial intelligence ambitions will soon be partly fueled by a natural gas-burning power plant in Texas that “could become the largest single source of climate pollution in the United States,” The New York Times reported . These gas-burning plants are increasingly lumped into data center projects.",
-      "teaser_rest": "They produce harmful pollutants, which can accelerate climate change impacts and harm public health—contributing to conditions like asthma, heart disease, lung cancer, and strokes. Some communities are demanding more stringent environmental reviews, but the Trump administration favors fast-tracking that can include skipping the permitting process entirely. Since Elon Musk’s xAI controversially began relying on gas turbines last spring to power its biggest AI data center, Colossus, there has been public backlash to off-the-grid data centers like the one Amazon is building.…",
-      "sentence_count": 5,
-      "tags": [
-        "Chips & compute"
-      ],
-      "outlet": "Ars Technica",
-      "outlets": [
-        "Ars Technica"
-      ],
-      "outlet_count": 1,
-      "url": "https://arstechnica.com/tech-policy/2026/08/amazon-funds-biggest-gas-power-plant-in-us-despite-climate-pledge",
-      "published": "2026-08-10",
-      "published_label": "Aug 10",
-      "rank": 54
-    },
-    {
-      "id": "nc483b0b1c7d5",
-      "kind": "news",
-      "title": "Anthropic details an unreleased Claude model's attempt to solve the Riemann hypothesis; it didn't solve it but \"unexpectedly\" made strides on a related problem (Anthropic)",
-      "summary": "Anthropic : Anthropic details an unreleased Claude model's attempt to solve the Riemann hypothesis; it didn't solve it but “unexpectedly” made strides on a related problem — Recently, a member of staff at Anthropic gave Claude an unreasonable challenge. It was about one of the most famous …",
-      "teaser": "Anthropic : Anthropic details an unreleased Claude model's attempt to solve the Riemann hypothesis; it didn't solve it but “unexpectedly” made strides on a related problem — Recently, a member of staff at Anthropic gave Claude an unreasonable challenge. It was about one of the most famous …",
-      "teaser_rest": "",
-      "sentence_count": 2,
-      "tags": [
-        "Research results"
-      ],
-      "outlet": "Techmeme",
-      "outlets": [
-        "Techmeme"
-      ],
-      "outlet_count": 1,
-      "url": "https://www.techmeme.com/260810/p37",
-      "published": "2026-08-10",
-      "published_label": "Aug 10",
-      "rank": 55
+      "rank": 50
     },
     {
       "id": "n6d54af4bce14",
@@ -1243,7 +1139,7 @@
       "url": "https://www.techmeme.com/260810/p42",
       "published": "2026-08-10",
       "published_label": "Aug 10",
-      "rank": 56
+      "rank": 51
     },
     {
       "id": "n166724c6c84d",
@@ -1264,7 +1160,7 @@
       "url": "https://techcrunch.com/2026/08/10/as-ai-led-attacks-multiply-openai-launches-a-new-cyber-model",
       "published": "2026-08-10",
       "published_label": "Aug 10",
-      "rank": 57
+      "rank": 52
     },
     {
       "id": "ne0733436b0f4",
@@ -1285,7 +1181,7 @@
       "url": "https://www.bloomberg.com/news/articles/2026-08-10/bank-stock-bull-run-may-have-legs-in-asia-as-ai-trade-wobbles",
       "published": "2026-08-10",
       "published_label": "Aug 10",
-      "rank": 58
+      "rank": 53
     },
     {
       "id": "n6706227c8f74",
@@ -1306,7 +1202,7 @@
       "url": "https://www.theguardian.com/technology/2026/aug/10/bernie-sanders-ai-development-pause-letter",
       "published": "2026-08-10",
       "published_label": "Aug 10",
-      "rank": 59
+      "rank": 54
     },
     {
       "id": "n4dd277a710b3",
@@ -1327,7 +1223,7 @@
       "url": "https://www.theguardian.com/games/2026/aug/10/ai-psychological-horror-game-prove-youre-human-sunset-visitor-studio",
       "published": "2026-08-10",
       "published_label": "Aug 10",
-      "rank": 60
+      "rank": 55
     },
     {
       "id": "ne88bfa2f3c8c",
@@ -1348,7 +1244,7 @@
       "url": "https://siliconangle.com/2026/08/10/corma-launches-60m-funding-defensive-cybersecurity-ai",
       "published": "2026-08-10",
       "published_label": "Aug 10",
-      "rank": 61
+      "rank": 56
     },
     {
       "id": "nf0dc88225492",
@@ -1369,7 +1265,7 @@
       "url": "https://siliconangle.com/2026/08/10/ciso-role-evolution-black-hat-2026-blackhat",
       "published": "2026-08-10",
       "published_label": "Aug 10",
-      "rank": 62
+      "rank": 57
     },
     {
       "id": "nf813d0c6a6d3",
@@ -1391,28 +1287,7 @@
       "url": "https://techcrunch.com/2026/08/10/discovered-materials-is-playing-ai-whack-a-mole-to-hunt-cooler-chips",
       "published": "2026-08-10",
       "published_label": "Aug 10",
-      "rank": 63
-    },
-    {
-      "id": "n8a8fa188fd49",
-      "kind": "news",
-      "title": "Five Takeaways From Zuckerberg's 6,500-word Manifesto on AI",
-      "summary": "Meta CEO Mark Zuckerberg touted his views on artificial intelligence in a 6,500-word essay published Monday, emphasizing his belief that wider access to AI models is key to the industry’s future. Rileyr Griffin has the five key takeaways. (Source: Bloomberg)",
-      "teaser": "Meta CEO Mark Zuckerberg touted his views on artificial intelligence in a 6,500-word essay published Monday, emphasizing his belief that wider access to AI models is key to the industry’s future. Rileyr Griffin has the five key takeaways.",
-      "teaser_rest": "(Source: Bloomberg)",
-      "sentence_count": 3,
-      "tags": [
-        "Business"
-      ],
-      "outlet": "Bloomberg",
-      "outlets": [
-        "Bloomberg"
-      ],
-      "outlet_count": 1,
-      "url": "https://www.bloomberg.com/news/videos/2026-08-10/five-takeaways-from-zuckerberg-s-manifesto-on-ai-video",
-      "published": "2026-08-10",
-      "published_label": "Aug 10",
-      "rank": 64
+      "rank": 58
     },
     {
       "id": "n38e9f5ee0031",
@@ -1433,7 +1308,7 @@
       "url": "https://www.theverge.com/tech/977395/meta-mark-zuckerberg-superintelligent-ai-ramble",
       "published": "2026-08-10",
       "published_label": "Aug 10",
-      "rank": 65
+      "rank": 59
     },
     {
       "id": "nfbe2612cf9ad",
@@ -1454,7 +1329,7 @@
       "url": "https://www.tomshardware.com/service-providers/streaming/geforce-now-exploit-lets-you-access-the-full-windows-desktop-through-a-simple-file-swap-modder-runs-local-ai-models-on-ultimate-tier-with-48gb-of-vram-and-no-restrictions",
       "published": "2026-08-10",
       "published_label": "Aug 10",
-      "rank": 66
+      "rank": 60
     },
     {
       "id": "n1c52c9f63a9f",
@@ -1475,7 +1350,7 @@
       "url": "https://www.tomshardware.com/pc-components/gpus/geforce-rtx-50-series-gpu-prices-spike-as-much-as-39-percent-as-blackwell-price-hikes-hit-the-us-rtx-5070-gets-a-36-percent-hike-rtx-5060-up-27-percent-at-the-median-of-newegg-listings",
       "published": "2026-08-10",
       "published_label": "Aug 10",
-      "rank": 67
+      "rank": 61
     },
     {
       "id": "n8de30731e52c",
@@ -1496,7 +1371,7 @@
       "url": "https://www.bloomberg.com/news/articles/2026-08-10/google-s-ai-team-tells-job-seekers-its-hr-filters-are-unreliable",
       "published": "2026-08-10",
       "published_label": "Aug 10",
-      "rank": 68
+      "rank": 62
     },
     {
       "id": "n4b036e512979",
@@ -1517,7 +1392,7 @@
       "url": "https://siliconangle.com/2026/08/10/graph-neural-networks-uncover-pharmaceutical-fraud-neo4jgraphtalk",
       "published": "2026-08-10",
       "published_label": "Aug 10",
-      "rank": 69
+      "rank": 63
     },
     {
       "id": "n2baff1ba9939",
@@ -1538,7 +1413,7 @@
       "url": "https://the-decoder.com/hidden-text-in-a-pdf-is-enough-to-steal-sensitive-data-through-atlassians-ai-agent-rovo",
       "published": "2026-08-10",
       "published_label": "Aug 10",
-      "rank": 70
+      "rank": 64
     },
     {
       "id": "nc0681e5fff69",
@@ -1559,7 +1434,7 @@
       "url": "https://www.tomshardware.com/tech-industry/drones/hoverair-unveils-the-versa-modular-pocket-gimbal-camera-that-transforms-into-a-self-flying-drone-modular-camera-transforms-into-an-auto-tracking-drone-by-magnetically-snapping-together-for-instant-palm-launch-and-ai-tracking",
       "published": "2026-08-10",
       "published_label": "Aug 10",
-      "rank": 71
+      "rank": 65
     },
     {
       "id": "n8eea798996e9",
@@ -1581,16 +1456,16 @@
       "url": "https://www.tomshardware.com/tech-industry/semiconductors/hyperscalers-commit-nearly-usd2-trillion-to-secure-ai-hardware-and-memory-google-leads-usd811-billion-spending-surge-while-apple-trails-at-usd57-billion",
       "published": "2026-08-10",
       "published_label": "Aug 10",
-      "rank": 72
+      "rank": 66
     },
     {
-      "id": "n0394341b80a1",
+      "id": "n65dba5a3659a",
       "kind": "news",
-      "title": "Investor ETF Appeal Of Photonics",
-      "summary": "Mayuranki De, vice president of ETF Trade Strategy at Raymond James, joins Isabelle Lee and Eric Balchunas on \"Bloomberg ETF IQ.\" They discuss the Roundhill Photonics & Optics ETF (ticker: LYTE), an actively managed ETF that seeks to provide capital appreciation. The Fund invests in the equity securities of companies whose core technology involves generating, manipulating, detecting, or transmitting light for various technologies, such as AI data centers, defense, medical imaging, industrial manufacturing, and quantum computing. (Source: Bloomberg)",
-      "teaser": "Mayuranki De, vice president of ETF Trade Strategy at Raymond James, joins Isabelle Lee and Eric Balchunas on \"Bloomberg ETF IQ.\" They discuss the Roundhill Photonics & Optics ETF (ticker: LYTE), an actively managed ETF that seeks to provide capital appreciation. The Fund invests in the equity securities of companies whose core technology involves generating, manipulating, detecting, or transmitting light for various technologies, such as AI data centers, defense, medical imaging, industrial manufacturing, and quantum computing.",
-      "teaser_rest": "(Source: Bloomberg)",
-      "sentence_count": 3,
+      "title": "Intel Raises $20 Billion in Upsized Share Sale to Fund AI Plans",
+      "summary": "Intel Corp. raised $20 billion in an upsized share sale, a third more than it was targeting when it announced the deal Monday morning.",
+      "teaser": "Intel Corp. raised $20 billion in an upsized share sale, a third more than it was targeting when it announced the deal Monday morning.",
+      "teaser_rest": "",
+      "sentence_count": 1,
       "tags": [
         "Business"
       ],
@@ -1599,10 +1474,31 @@
         "Bloomberg"
       ],
       "outlet_count": 1,
-      "url": "https://www.bloomberg.com/news/videos/2026-08-10/investor-etf-appeal-of-photonics-video",
+      "url": "https://www.bloomberg.com/news/articles/2026-08-10/intel-is-said-to-near-share-sale-upsize-to-raise-20-billion",
       "published": "2026-08-10",
       "published_label": "Aug 10",
-      "rank": 73
+      "rank": 67
+    },
+    {
+      "id": "nd294f0c161f3",
+      "kind": "news",
+      "title": "Intel to launch $15B stock sale amid AI boom, advanced packaging demand",
+      "summary": "Intel Corp. today announced plans to raise $15 billion by selling common stock. The banks underwriting the deal have the option to buy up to $2.25 billion worth of additional shares within 30 days. The offering follows a year in which Intel’s stock price more than tripled. That increase reflects investor optimism about its data […]",
+      "teaser": "Intel Corp. today announced plans to raise $15 billion by selling common stock. The banks underwriting the deal have the option to buy up to $2.25 billion worth of additional shares within 30 days.",
+      "teaser_rest": "The offering follows a year in which Intel’s stock price more than tripled. That increase reflects investor optimism about its data […]",
+      "sentence_count": 4,
+      "tags": [
+        "Business"
+      ],
+      "outlet": "SiliconANGLE",
+      "outlets": [
+        "SiliconANGLE"
+      ],
+      "outlet_count": 1,
+      "url": "https://siliconangle.com/2026/08/10/intel-launch-15b-stock-sale-amid-ai-boom-advanced-packaging-demand",
+      "published": "2026-08-10",
+      "published_label": "Aug 10",
+      "rank": 68
     },
     {
       "id": "n638db6f13c0d",
@@ -1623,7 +1519,7 @@
       "url": "https://www.theverge.com/ai-artificial-intelligence/977623/mark-zuckerberg-ai-manifesto-dim-vision",
       "published": "2026-08-10",
       "published_label": "Aug 10",
-      "rank": 74
+      "rank": 69
     },
     {
       "id": "n19c9a264700a",
@@ -1644,7 +1540,7 @@
       "url": "https://techcrunch.com/2026/08/10/mark-zuckerbergs-ai-manifesto-is-exactly-why-people-dont-like-ai",
       "published": "2026-08-10",
       "published_label": "Aug 10",
-      "rank": 75
+      "rank": 70
     },
     {
       "id": "nb9b2879f745f",
@@ -1665,7 +1561,7 @@
       "url": "https://www.theguardian.com/commentisfree/picture/2026/aug/10/meme-factories-are-churning-out-pro-one-nation-ai-slop-on-facebook-im-frightened",
       "published": "2026-08-10",
       "published_label": "Aug 10",
-      "rank": 76
+      "rank": 71
     },
     {
       "id": "n05dade32148d",
@@ -1686,7 +1582,7 @@
       "url": "https://siliconangle.com/2026/08/10/meta-releases-open-source-muse-glimmer-model-30b-parameters",
       "published": "2026-08-10",
       "published_label": "Aug 10",
-      "rank": 77
+      "rank": 72
     },
     {
       "id": "n0fd219b789b0",
@@ -1707,7 +1603,7 @@
       "url": "https://the-decoder.com/meta-returns-to-open-models-with-zuckerbergs-plan-to-out-copy-china-and-sell-compute-by-auction",
       "published": "2026-08-10",
       "published_label": "Aug 10",
-      "rank": 78
+      "rank": 73
     },
     {
       "id": "n945000ec303e",
@@ -1728,7 +1624,7 @@
       "url": "https://techcrunch.com/2026/08/10/metas-new-glimmer-ai-model-offers-a-hint-at-zuckerbergs-personal-intelligence-vision",
       "published": "2026-08-10",
       "published_label": "Aug 10",
-      "rank": 79
+      "rank": 74
     },
     {
       "id": "n2717f7d86b64",
@@ -1749,7 +1645,7 @@
       "url": "https://www.tomshardware.com/pc-components/gpus/nvidia-reportedly-testing-lower-memory-configs-of-rubin-ultra-as-memory-shortage-bites-back-designs-tested-include-as-little-as-192-gb-and-step-back-to-hbm4",
       "published": "2026-08-10",
       "published_label": "Aug 10",
-      "rank": 80
+      "rank": 75
     },
     {
       "id": "nf541ccc7254e",
@@ -1770,7 +1666,7 @@
       "url": "https://the-decoder.com/old-ocr-text-cripples-language-model-training-and-finebooks-wants-to-fix-that-at-scale",
       "published": "2026-08-10",
       "published_label": "Aug 10",
-      "rank": 81
+      "rank": 76
     },
     {
       "id": "n61c281406fb1",
@@ -1791,7 +1687,7 @@
       "url": "https://siliconangle.com/2026/08/10/agentic-ai-systems-david-floyer-thecubepod",
       "published": "2026-08-10",
       "published_label": "Aug 10",
-      "rank": 82
+      "rank": 77
     },
     {
       "id": "n5a1ee7b835cb",
@@ -1812,7 +1708,7 @@
       "url": "https://the-decoder.com/openai-launches-gpt-5-6-cyber-to-help-defenders-find-vulnerabilities-before-attackers-do",
       "published": "2026-08-10",
       "published_label": "Aug 10",
-      "rank": 83
+      "rank": 78
     },
     {
       "id": "nef86a233f3f1",
@@ -1833,7 +1729,7 @@
       "url": "https://www.tomshardware.com/tech-industry/data-centers/over-70-percent-of-americans-oppose-ai-data-centers-us-protests-intensify-as-more-arrests-are-being-made-almost-40-arrested-this-year-in-backlash-to-ai-factory-buildout",
       "published": "2026-08-10",
       "published_label": "Aug 10",
-      "rank": 84
+      "rank": 79
     },
     {
       "id": "n96d56da9835f",
@@ -1854,7 +1750,7 @@
       "url": "https://arstechnica.com/science/2026/08/peer-review-is-overwhelmed-can-it-survive-in-the-ai-era",
       "published": "2026-08-10",
       "published_label": "Aug 10",
-      "rank": 85
+      "rank": 80
     },
     {
       "id": "nda815856ddef",
@@ -1875,7 +1771,7 @@
       "url": "https://siliconangle.com/2026/08/10/rackspace-beats-expectations-losses-pile-amid-aggressive-ai-pivot",
       "published": "2026-08-10",
       "published_label": "Aug 10",
-      "rank": 86
+      "rank": 81
     },
     {
       "id": "na633f78f0231",
@@ -1896,7 +1792,7 @@
       "url": "https://www.tomshardware.com/tech-industry/artificial-intelligence/rogue-ai-agent-tasked-with-booking-a-gym-class-hacks-system-removes-other-participant-says-sorry-about-that-after-trying-to-bump-user-up-the-waitlist",
       "published": "2026-08-10",
       "published_label": "Aug 10",
-      "rank": 87
+      "rank": 82
     },
     {
       "id": "n8a4573f69b46",
@@ -1917,7 +1813,7 @@
       "url": "https://www.theguardian.com/australia-news/live/2026/aug/10/australia-news-live-transport-minister-sydney-airport-air-traffic-control-catherine-king-aukus-public-inquiry-malcolm-turnbull-alan-jones-trial-ntwnfb",
       "published": "2026-08-10",
       "published_label": "Aug 10",
-      "rank": 88
+      "rank": 83
     },
     {
       "id": "n10417237035d",
@@ -1938,7 +1834,7 @@
       "url": "https://www.tomshardware.com/pc-components/ssds/save-nearly-usd350-on-this-4tb-samsung-9910-pro-ssd-with-gen-5-speeds-right-now-limited-time-woot-sale-delivers-ultra-fast-storage-with-speeds-up-to-14-800-mb-s",
       "published": "2026-08-10",
       "published_label": "Aug 10",
-      "rank": 89
+      "rank": 84
     },
     {
       "id": "n401277c3e364",
@@ -1959,7 +1855,7 @@
       "url": "https://www.techmeme.com/260810/p43",
       "published": "2026-08-10",
       "published_label": "Aug 10",
-      "rank": 90
+      "rank": 85
     },
     {
       "id": "n08fed1f37f0b",
@@ -1980,7 +1876,7 @@
       "url": "https://www.techmeme.com/260810/p40",
       "published": "2026-08-10",
       "published_label": "Aug 10",
-      "rank": 91
+      "rank": 86
     },
     {
       "id": "nbe74b2447caf",
@@ -2001,7 +1897,7 @@
       "url": "https://techcrunch.com/2026/08/10/tech-industry-is-buzzing-after-a-claude-agent-hacked-into-a-gym",
       "published": "2026-08-10",
       "published_label": "Aug 10",
-      "rank": 92
+      "rank": 87
     },
     {
       "id": "n2dacabd3471a",
@@ -2022,7 +1918,7 @@
       "url": "https://www.wired.com/story/the-ai-slop-backlash-is-actually-having-an-impact",
       "published": "2026-08-10",
       "published_label": "Aug 10",
-      "rank": 93
+      "rank": 88
     },
     {
       "id": "n248f12a5aa5f",
@@ -2043,7 +1939,7 @@
       "url": "https://www.technologyreview.com/2026/08/10/1141526/the-download-ai-agents-science-censorship-industrial-complex",
       "published": "2026-08-10",
       "published_label": "Aug 10",
-      "rank": 94
+      "rank": 89
     },
     {
       "id": "necc211afd309",
@@ -2064,7 +1960,7 @@
       "url": "https://www.wired.com/story/the-rise-of-the-1-am-job-interview",
       "published": "2026-08-10",
       "published_label": "Aug 10",
-      "rank": 95
+      "rank": 90
     },
     {
       "id": "ncc0e2fbd6ce1",
@@ -2085,7 +1981,7 @@
       "url": "https://www.tomshardware.com/pc-components/gpus/the-only-current-generation-graphics-card-on-sale-below-msrp-amds-radeon-rx-9070-gre-gpu-with-12gb-of-vram-returns-to-its-lowest-ever-price-of-usd499",
       "published": "2026-08-10",
       "published_label": "Aug 10",
-      "rank": 96
+      "rank": 91
     },
     {
       "id": "n50ad4d5e485e",
@@ -2107,7 +2003,7 @@
       "url": "https://www.technologyreview.com/2026/08/10/1141511/these-startups-are-chasing-the-next-big-thing-in-llms",
       "published": "2026-08-10",
       "published_label": "Aug 10",
-      "rank": 97
+      "rank": 92
     },
     {
       "id": "nd8efe1ae4aab",
@@ -2128,7 +2024,7 @@
       "url": "https://the-decoder.com/told-to-book-a-gym-class-an-ai-agent-hacked-the-site-instead-to-move-its-user-up-the-waitlist",
       "published": "2026-08-10",
       "published_label": "Aug 10",
-      "rank": 98
+      "rank": 93
     },
     {
       "id": "n7c9d0d87cb2b",
@@ -2149,7 +2045,7 @@
       "url": "https://www.theguardian.com/technology/2026/aug/10/uk-companies-cyber-attack-third-jlr",
       "published": "2026-08-10",
       "published_label": "Aug 10",
-      "rank": 99
+      "rank": 94
     },
     {
       "id": "nb2b823fc8db3",
@@ -2170,7 +2066,7 @@
       "url": "https://siliconangle.com/2026/08/09/ai-resilience-strategy-blackhat",
       "published": "2026-08-10",
       "published_label": "Aug 10",
-      "rank": 100
+      "rank": 95
     },
     {
       "id": "n4427e8e8b939",
@@ -2191,7 +2087,7 @@
       "url": "https://www.theverge.com/podcast/975732/bose-ceo-lila-snyder-ai-wearables-licensing-headphones-audio",
       "published": "2026-08-10",
       "published_label": "Aug 10",
-      "rank": 101
+      "rank": 96
     },
     {
       "id": "n25c29618f1b1",
@@ -2212,7 +2108,7 @@
       "url": "https://www.theguardian.com/commentisfree/2026/aug/10/ai-medical-students-judgment",
       "published": "2026-08-10",
       "published_label": "Aug 10",
-      "rank": 102
+      "rank": 97
     },
     {
       "id": "ne7be1c085716",
@@ -2234,7 +2130,7 @@
       "url": "https://www.tomshardware.com/software/windows/windows-11s-built-in-weather-app-hogs-more-than-1-2-gigabytes-of-ram-just-to-tell-the-forecast-memory-sucking-web-wrapper-filled-with-ads-masquerades-as-an-actual-application",
       "published": "2026-08-10",
       "published_label": "Aug 10",
-      "rank": 103
+      "rank": 98
     },
     {
       "id": "n86ceb0b00df9",
@@ -2255,7 +2151,7 @@
       "url": "https://www.techmeme.com/260810/p41",
       "published": "2026-08-10",
       "published_label": "Aug 10",
-      "rank": 104
+      "rank": 99
     },
     {
       "id": "nbf8f46f283f9",
@@ -2276,7 +2172,7 @@
       "url": "https://arstechnica.com/ai/2026/08/with-new-open-models-meta-pitches-another-reboot-of-its-struggling-ai-strategy",
       "published": "2026-08-10",
       "published_label": "Aug 10",
-      "rank": 105
+      "rank": 100
     },
     {
       "id": "nedab551df792",
@@ -2298,7 +2194,7 @@
       "url": "https://www.theguardian.com/technology/2026/aug/10/mark-zuckerberg-superintelligent-ai-essay-meta",
       "published": "2026-08-10",
       "published_label": "Aug 10",
-      "rank": 106
+      "rank": 101
     },
     {
       "id": "n309e1b37cb71",
@@ -2319,7 +2215,7 @@
       "url": "https://www.bloomberg.com/news/articles/2026-08-11/ai-boom-set-to-drive-singapore-growth-as-high-as-5-5-this-year",
       "published": "2026-08-11",
       "published_label": "Aug 11",
-      "rank": 107
+      "rank": 102
     },
     {
       "id": "n3d563352c2f5",
@@ -2340,7 +2236,70 @@
       "url": "https://www.bloomberg.com/news/articles/2026-08-11/amkor-is-said-to-explore-stake-sale-in-1-5-billion-china-unit",
       "published": "2026-08-11",
       "published_label": "Aug 11",
-      "rank": 108
+      "rank": 103
+    },
+    {
+      "id": "n3d3b6944f8ad",
+      "kind": "news",
+      "title": "Anthropic says Claude models in the EU will now add invisible watermarks to generated text and C2PA metadata to generated files, to comply with the EU AI Act (Thomas Claburn/The Register)",
+      "summary": "Thomas Claburn / The Register : Anthropic says Claude models in the EU will now add invisible watermarks to generated text and C2PA metadata to generated files, to comply with the EU AI Act — EU rules cited as reason for effort to trace AI output ancestry — Anthropic will embed watermarks in the text and files generated …",
+      "teaser": "Thomas Claburn / The Register : Anthropic says Claude models in the EU will now add invisible watermarks to generated text and C2PA metadata to generated files, to comply with the EU AI Act — EU rules cited as reason for effort to trace AI output ancestry — Anthropic will embed watermarks in the text and files generated …",
+      "teaser_rest": "",
+      "sentence_count": 1,
+      "tags": [
+        "Policy"
+      ],
+      "outlet": "Techmeme",
+      "outlets": [
+        "Techmeme"
+      ],
+      "outlet_count": 1,
+      "url": "https://www.techmeme.com/260811/p2",
+      "published": "2026-08-11",
+      "published_label": "Aug 11",
+      "rank": 104
+    },
+    {
+      "id": "n1fc88a801c0b",
+      "kind": "news",
+      "title": "India’s Banking Regulator Urges Lenders to Accelerate AI Spend",
+      "summary": "Indian lenders need to accelerate adoption of artificial intelligence by investing in technology and infrastructure besides training workers to upskill, central bank Governor Sanjay Malhotra said Tuesday.",
+      "teaser": "Indian lenders need to accelerate adoption of artificial intelligence by investing in technology and infrastructure besides training workers to upskill, central bank Governor Sanjay Malhotra said Tuesday.",
+      "teaser_rest": "",
+      "sentence_count": 1,
+      "tags": [
+        "Policy"
+      ],
+      "outlet": "Bloomberg",
+      "outlets": [
+        "Bloomberg"
+      ],
+      "outlet_count": 1,
+      "url": "https://www.bloomberg.com/news/articles/2026-08-11/india-s-banking-regulator-urges-lenders-to-accelerate-ai-spend",
+      "published": "2026-08-11",
+      "published_label": "Aug 11",
+      "rank": 105
+    },
+    {
+      "id": "ncc0ffdb7b2a0",
+      "kind": "news",
+      "title": "Making Sense of the Multibillion-Dollar Numbers of Nvidia Deal, Intel Share Sale",
+      "summary": "Nvidia is becoming the \"banker of choice to the AI ecosystem\" as it seals $500 billion commitments from Wall Street giants. Meanwhile, Intel is looking at its first share sale since the 1970s. Bloomberg's reporters and market watchers make sense of the multibillion-dollar figures, with one noting the capital raise could be a \"double-edged\" sword for Nvidia. (Source: Bloomberg)",
+      "teaser": "Nvidia is becoming the \"banker of choice to the AI ecosystem\" as it seals $500 billion commitments from Wall Street giants. Meanwhile, Intel is looking at its first share sale since the 1970s.",
+      "teaser_rest": "Bloomberg's reporters and market watchers make sense of the multibillion-dollar figures, with one noting the capital raise could be a \"double-edged\" sword for Nvidia. (Source: Bloomberg)",
+      "sentence_count": 4,
+      "tags": [
+        "Business"
+      ],
+      "outlet": "Bloomberg",
+      "outlets": [
+        "Bloomberg"
+      ],
+      "outlet_count": 1,
+      "url": "https://www.bloomberg.com/news/videos/2026-08-11/breaking-down-the-billions-in-nvidia-deal-intel-sale-video",
+      "published": "2026-08-11",
+      "published_label": "Aug 11",
+      "rank": 106
     },
     {
       "id": "nf704df4b87ea",
@@ -2361,7 +2320,7 @@
       "url": "https://siliconangle.com/2026/08/10/openai-expands-daybreak-cybersecurity-research-program",
       "published": "2026-08-11",
       "published_label": "Aug 11",
-      "rank": 109
+      "rank": 107
     },
     {
       "id": "n5f44fe3808ae",
@@ -2380,6 +2339,49 @@
       ],
       "outlet_count": 1,
       "url": "https://techcrunch.com/2026/08/10/openai-reportedly-completed-a-7-billion-employee-tender-offer",
+      "published": "2026-08-11",
+      "published_label": "Aug 11",
+      "rank": 108
+    },
+    {
+      "id": "n8f5abb0ad6a1",
+      "kind": "news",
+      "title": "Owner of 1.5M-page site PatronView on a year of fighting scrapers: 214:1 bot-to-human page loads, 35K Claude crawls per referred user, Amazon bot referred none (Nick Gray/PatronView)",
+      "summary": "Nick Gray / PatronView : Owner of 1.5M-page site PatronView on a year of fighting scrapers: 214:1 bot-to-human page loads, 35K Claude crawls per referred user, Amazon bot referred none — A year of fighting scrapers on my 1.5 million-page website. What I tried, how I failed, and what's working now. August 7, 2026",
+      "teaser": "Nick Gray / PatronView : Owner of 1.5M-page site PatronView on a year of fighting scrapers: 214:1 bot-to-human page loads, 35K Claude crawls per referred user, Amazon bot referred none — A year of fighting scrapers on my 1.5 million-page website. What I tried, how I failed, and what's working now.",
+      "teaser_rest": "August 7, 2026",
+      "sentence_count": 3,
+      "tags": [
+        "Industry"
+      ],
+      "outlet": "Techmeme",
+      "outlets": [
+        "Techmeme"
+      ],
+      "outlet_count": 1,
+      "url": "https://www.techmeme.com/260811/p4",
+      "published": "2026-08-11",
+      "published_label": "Aug 11",
+      "rank": 109
+    },
+    {
+      "id": "n2f559561f9a9",
+      "kind": "news",
+      "title": "Singapore raises its 2026 GDP growth forecast to 4.5%-5.5% from 2%-4%, citing stronger-than-expected global AI investment and improved external demand (Bloomberg)",
+      "summary": "Bloomberg : Singapore raises its 2026 GDP growth forecast to 4.5%-5.5% from 2%-4%, citing stronger-than-expected global AI investment and improved external demand — Singapore upgraded its 2026 economic growth forecast anew as the artificial intelligence boom lifts trade and manufacturing …",
+      "teaser": "Bloomberg : Singapore raises its 2026 GDP growth forecast to 4.5%-5.5% from 2%-4%, citing stronger-than-expected global AI investment and improved external demand — Singapore upgraded its 2026 economic growth forecast anew as the artificial intelligence boom lifts trade and manufacturing …",
+      "teaser_rest": "",
+      "sentence_count": 1,
+      "tags": [
+        "Business",
+        "Research results"
+      ],
+      "outlet": "Techmeme",
+      "outlets": [
+        "Techmeme"
+      ],
+      "outlet_count": 1,
+      "url": "https://www.techmeme.com/260811/p3",
       "published": "2026-08-11",
       "published_label": "Aug 11",
       "rank": 110
@@ -2405,6 +2407,27 @@
       "published": "2026-08-11",
       "published_label": "Aug 11",
       "rank": 111
+    },
+    {
+      "id": "n301a7c0f8e06",
+      "kind": "news",
+      "title": "Uniper Targets Data Center Sales in UK, Germany on AI Demand",
+      "summary": "Uniper SE has identified about 10 sites across Europe that could be sold or leased for data-center development, as the German utility looks to capitalize on surging demand for AI infrastructure.",
+      "teaser": "Uniper SE has identified about 10 sites across Europe that could be sold or leased for data-center development, as the German utility looks to capitalize on surging demand for AI infrastructure.",
+      "teaser_rest": "",
+      "sentence_count": 1,
+      "tags": [
+        "Chips & compute"
+      ],
+      "outlet": "Bloomberg",
+      "outlets": [
+        "Bloomberg"
+      ],
+      "outlet_count": 1,
+      "url": "https://www.bloomberg.com/news/articles/2026-08-11/uniper-targets-data-center-sales-in-uk-germany-on-ai-demand",
+      "published": "2026-08-11",
+      "published_label": "Aug 11",
+      "rank": 112
     }
   ]
 }
