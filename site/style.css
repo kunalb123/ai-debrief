@@ -277,7 +277,7 @@ a {
   color: var(--accent-hi);
 }
 
-/* "AI" carries the weight, "Debrief" recedes — a value step inside one word
+/* "ai" carries the weight, "debrief" recedes — a value step inside one word
    rather than two colours. Held well above the ground so it stays readable. */
 .wordmark__accent {
   color: var(--wordmark-2);
