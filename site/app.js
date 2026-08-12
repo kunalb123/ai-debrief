@@ -323,6 +323,12 @@
   var order = [];
   var cursor = 0;
   var history = [];
+  // applyMode() runs on every resize, and expanding a card's summary can
+  // resize the page (iOS collapses the address bar) — so buildOrder() only
+  // reruns when the tag filter or seen set actually changed (see the two
+  // sites that flip this), not on every incidental resize. Otherwise a tap on
+  // "Full summary" would reset the deck to card one and wipe the undo stack.
+  var deckDirty = true;
 
   function measureChrome() {
     if (!isDeck) return;
@@ -338,6 +344,7 @@
     });
     cursor = 0;
     history = [];
+    deckDirty = false;
   }
 
   function transformFor(depth) {
@@ -564,7 +571,7 @@
 
     savedFeed.hidden = true;
     if (isDeck) {
-      buildOrder();
+      if (deckDirty) buildOrder();
       paintDeck();
     } else {
       deckbar.hidden = true;
@@ -631,6 +638,7 @@
     var chip = event.target.closest(".chip");
     if (chip) {
       activeTag = chip.dataset.tag;
+      deckDirty = true;
       Array.prototype.forEach.call(document.querySelectorAll(".chip"), function (other) {
         var on = other === chip;
         other.classList.toggle("is-active", on);
@@ -667,6 +675,7 @@
     if (event.target.closest("[data-restart]")) {
       seenSet = {};
       persistSeen();
+      deckDirty = true;
       applyMode();
       toast("Deck reset");
     }
