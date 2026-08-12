@@ -702,6 +702,12 @@ a {
 }
 
 .card.is-expanded .card__teaser {
+  /* -webkit-line-clamp only truncates cleanly inside display: -webkit-box.
+     Unsetting the clamp but leaving that display mode is what garbles the
+     text on iOS Safari — lines keep laying out as vertical flex items and
+     overlap instead of flowing. Dropping back to block exits that mode
+     entirely. */
+  display: block;
   -webkit-line-clamp: unset;
   line-clamp: unset;
   overflow: visible;
