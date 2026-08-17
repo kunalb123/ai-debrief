@@ -62,11 +62,14 @@
     if (paper && paper.id) savedIds[paper.id] = true;
   });
 
-  // "Seen" only persists for the current day's feed, so a reload picks up where
-  // you left off but tomorrow's papers always start fresh.
+  // "Seen" persists across builds (the feed is a rolling 7-day window, so a
+  // card skipped yesterday can still be in today's payload). Pruned to ids
+  // still present in the current window so storage doesn't grow forever.
   var seenStore = readJSON(SEEN_KEY, null);
-  var seen = seenStore && seenStore.date === payload.date && Array.isArray(seenStore.ids)
-    ? seenStore.ids.slice()
+  var seen = seenStore && Array.isArray(seenStore.ids)
+    ? seenStore.ids.filter(function (id) {
+        return byId[id];
+      })
     : [];
   var seenSet = {};
   seen.forEach(function (id) {
@@ -74,7 +77,7 @@
   });
 
   function persistSeen() {
-    writeJSON(SEEN_KEY, { date: payload.date, ids: Object.keys(seenSet) });
+    writeJSON(SEEN_KEY, { ids: Object.keys(seenSet) });
   }
 
   function persistSaved() {
@@ -275,6 +278,8 @@
       record.saved_from = payload.date || "";
       saved.unshift(record);
       savedIds[id] = true;
+      seenSet[id] = true;
+      persistSeen();
     } else {
       if (!savedIds[id]) return false;
       saved = saved.filter(function (item) {
@@ -532,7 +537,7 @@
   // ------------------------------------------------------------ view modes
   function applyGridVisibility() {
     todayCards.forEach(function (card) {
-      var show = matchesTag(card);
+      var show = matchesTag(card) && !seenSet[card.dataset.id];
       card.hidden = !show;
       card.classList.remove("is-hidden", "is-top", "is-flying", "is-dragging");
       card.style.transform = "";
