@@ -194,15 +194,11 @@
 </main>
 
 <div class="deckbar" data-deckbar hidden>
-  <button class="deckbar__btn deckbar__btn--skip" type="button" data-action="skip" aria-label="Skip this paper">
-    <span aria-hidden="true">✕</span>
-  </button>
+  <button class="deckbar__btn deckbar__btn--skip" type="button" data-action="skip">Skip</button>
   <button class="deckbar__btn deckbar__btn--undo" type="button" data-action="undo" aria-label="Undo last swipe" disabled>
     <span aria-hidden="true">↺</span>
   </button>
-  <button class="deckbar__btn deckbar__btn--save" type="button" data-action="save" aria-label="Save this paper">
-    <span aria-hidden="true">★</span>
-  </button>
+  <button class="deckbar__btn deckbar__btn--save" type="button" data-action="save">Save</button>
   <p class="deckbar__progress"><span data-progress-current>1</span> / <span data-progress-total>{{ data.count }}</span></p>
 </div>
 

@@ -928,7 +928,7 @@ a {
   flex: 0 0 auto;
 }
 
-/* Deck mode already has the deckbar's ★ button and the swipe gesture, so the
+/* Deck mode already has the deckbar's Save button and the swipe gesture, so the
    on-card Save button would be a third way to do the same thing. Grid mode
    has neither, so it keeps the button as the only way to save there. */
 .feed.is-deck .card__actions .btn--save {
@@ -1000,13 +1000,7 @@ a {
 
 .deckbar__btn {
   appearance: none;
-  width: 58px;
-  height: 58px;
-  border-radius: 50%;
-  font-size: 22px;
-  line-height: 1;
-  display: grid;
-  place-items: center;
+  font: inherit;
   cursor: pointer;
   border: 1px solid var(--edge-bright);
   background: var(--glass-strong);
@@ -1030,7 +1024,22 @@ a {
 .deckbar__btn--undo {
   width: 46px;
   height: 46px;
+  border-radius: 50%;
   font-size: 17px;
+  line-height: 1;
+  display: grid;
+  place-items: center;
+}
+
+.deckbar__btn--skip,
+.deckbar__btn--save {
+  min-width: 96px;
+  height: 50px;
+  padding: 0 22px;
+  border-radius: var(--radius-pill);
+  font-size: 15px;
+  font-weight: 590;
+  letter-spacing: -0.01em;
 }
 
 .deckbar__btn--skip {
