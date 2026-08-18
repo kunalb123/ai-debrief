@@ -172,10 +172,9 @@
       <div class="card__actions">
         {% if paper.kind == 'news' %}
         <a class="btn btn--primary" href="{{ paper.url }}" target="_blank" rel="noopener">Read story</a>
-        {% elif data.link_target == 'abstract' %}
-        <a class="btn btn--primary" href="{{ paper.arxiv_url }}" target="_blank" rel="noopener">Read paper</a>
         {% else %}
         <a class="btn btn--primary" href="{{ paper.pdf_url }}" target="_blank" rel="noopener">Read PDF</a>
+        <a class="btn btn--primary" href="{{ paper.arxiv_url }}" target="_blank" rel="noopener">arXiv page</a>
         {% endif %}
         <button class="btn btn--save" type="button" data-save aria-pressed="false">
           <span class="btn__label">Save</span>

@@ -165,16 +165,12 @@ def merge_feeds(data: dict[str, Any], news_data: dict[str, Any], content: str) -
 def build(
     data_path: Path,
     out_dir: Path,
-    link_target: str = "pdf",
     news_path: Path | None = None,
     content: str = "mixed",
 ) -> Path:
     data = load_data(data_path)
     news_data = load_news(news_path) if news_path else {"news": [], "tags": []}
     merge_feeds(data, news_data, content)
-    # Lives on `data` rather than beside it, so the embedded JSON carries it too
-    # and app.js renders deck cards with the same destination as the template.
-    data["link_target"] = link_target
 
     env = Environment(
         loader=FileSystemLoader(str(TEMPLATE_DIR)),
@@ -248,18 +244,11 @@ def main() -> int:
     parser.add_argument("--out", default=str(DEFAULT_OUT), help="Output directory")
     parser.add_argument("--serve", action="store_true", help="Serve the output after building")
     parser.add_argument("--port", type=int, default=8000, help="Port for --serve")
-    parser.add_argument(
-        "--link-target",
-        choices=("pdf", "abstract"),
-        default="pdf",
-        help="Where the card's Read button points (default: the arXiv PDF)",
-    )
     args = parser.parse_args()
 
     out_dir = build(
         Path(args.data),
         Path(args.out),
-        args.link_target,
         news_path=Path(args.news),
         content=args.content,
     )

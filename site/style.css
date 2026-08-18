@@ -928,6 +928,13 @@ a {
   flex: 0 0 auto;
 }
 
+/* Deck mode already has the deckbar's ★ button and the swipe gesture, so the
+   on-card Save button would be a third way to do the same thing. Grid mode
+   has neither, so it keeps the button as the only way to save there. */
+.feed.is-deck .card__actions .btn--save {
+  display: none;
+}
+
 /* SAVE / SKIP stamps that fade in as you drag */
 .card__stamp {
   position: absolute;

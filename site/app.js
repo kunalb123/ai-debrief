@@ -42,10 +42,6 @@
   // `papers` is the pre-news payload shape, kept as a fallback so a stale
   // cached page cannot end up with an empty deck.
   var papers = payload.cards || payload.papers || [];
-  // Where "Read" goes: the arXiv PDF or its abstract page. Set at build time by
-  // generate_site.py --link-target, and mirrored here so the JS-rendered deck
-  // cards match the server-rendered ones exactly.
-  var linkToPdf = payload.link_target !== "abstract";
   // Copy has to stay true whichever feeds are in the build, so the noun follows
   // --content rather than being hardcoded to "paper".
   var NOUN = payload.content === "news" ? "story" : payload.content === "papers" ? "paper" : "card";
@@ -224,13 +220,25 @@
     card.appendChild(bodyEl);
 
     var actions = el("div", "card__actions");
-    var read = el("a", "btn btn--primary", isNews ? "Read story" : linkToPdf ? "Read PDF" : "Read paper");
-    read.href = isNews
-      ? paper.url || "#"
-      : (linkToPdf ? paper.pdf_url : paper.arxiv_url) || paper.arxiv_url || paper.hf_url || "#";
-    read.target = "_blank";
-    read.rel = "noopener";
-    actions.appendChild(read);
+    if (isNews) {
+      var read = el("a", "btn btn--primary", "Read story");
+      read.href = paper.url || "#";
+      read.target = "_blank";
+      read.rel = "noopener";
+      actions.appendChild(read);
+    } else {
+      var readPdf = el("a", "btn btn--primary", "Read PDF");
+      readPdf.href = paper.pdf_url || paper.arxiv_url || paper.hf_url || "#";
+      readPdf.target = "_blank";
+      readPdf.rel = "noopener";
+      actions.appendChild(readPdf);
+
+      var readArxiv = el("a", "btn btn--primary", "arXiv page");
+      readArxiv.href = paper.arxiv_url || paper.hf_url || "#";
+      readArxiv.target = "_blank";
+      readArxiv.rel = "noopener";
+      actions.appendChild(readArxiv);
+    }
 
     var save = el("button", "btn btn--save");
     save.type = "button";

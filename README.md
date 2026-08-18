@@ -97,7 +97,6 @@ Useful flags:
 | `generate_site.py` | `--content news` | `mixed` (default), `papers` or `news` |
 | | `--news data/news.json` | Path to the news payload |
 | | `--out public` | Output directory (default `dist/`) |
-| | `--link-target abstract` | Point Read at the arXiv abstract page instead of the PDF |
 | | `--serve --port 8080` | Serve the build after generating |
 
 The HF API is per-day, so the fetcher requests each day in the window and pools the
@@ -121,8 +120,8 @@ for `--content papers` alone. Drop `--days` if you want it leaner.
   the card border on hover.
 - **Light and dark** — one token set per theme in `site/style.css`, switched by
   `prefers-color-scheme`. Nothing outside those two `:root` blocks names a colour.
-- **Read straight to the PDF** — the card's primary button opens
-  `arxiv.org/pdf/<id>`. Build with `--link-target abstract` for the landing page.
+- **Read straight to the PDF, or the arXiv page** — every paper card has both:
+  `arxiv.org/pdf/<id>` and the abstract landing page.
 - **Topic filtering** — 16 topics (Interpretability, Alignment & Safety, RL,
   Reasoning, Agents, Efficiency, …) inferred from title/abstract keywords. Each
   carries its own hue, set by a single `--pill-hue` in `site/style.css` — add a
