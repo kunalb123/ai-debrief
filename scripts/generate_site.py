@@ -4,7 +4,8 @@
     python scripts/generate_site.py                    # -> dist/
     python scripts/generate_site.py --out public --serve
 
-Output is fully self-contained: index.html, style.css, app.js, papers.json.
+Output is fully self-contained: index.html, style.css, app.js, papers.json,
+plus the web app manifest and home-screen icons.
 """
 
 from __future__ import annotations
@@ -32,6 +33,12 @@ DEFAULT_NEWS = REPO_ROOT / "data" / "news.json"
 DEFAULT_OUT = REPO_ROOT / "dist"
 
 ASSETS = ("style.css", "app.js")
+
+# Home-screen install: web app manifest plus the icon set it and the
+# apple-touch-icon link point at. icons/icon.svg is the source the PNGs were
+# rendered from; re-render them if it changes.
+STATIC_FILES = ("site.webmanifest",)
+STATIC_DIRS = ("icons",)
 
 # Inline SVG favicon: the Siri-gradient swipe mark.
 FAVICON_SVG = (
@@ -202,8 +209,10 @@ def build(
     out_dir.mkdir(parents=True, exist_ok=True)
     (out_dir / "index.html").write_text(html, encoding="utf-8")
 
-    for name in ASSETS:
+    for name in ASSETS + STATIC_FILES:
         shutil.copyfile(ASSET_DIR / name, out_dir / name)
+    for name in STATIC_DIRS:
+        shutil.copytree(ASSET_DIR / name, out_dir / name, dirs_exist_ok=True)
 
     # Ship the data too: handy for debugging and for anyone wanting the raw feed.
     shutil.copyfile(data_path, out_dir / "papers.json")
